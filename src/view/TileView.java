@@ -1,17 +1,17 @@
-package graphics;
+package view;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import model.Tile;
-import main.GameFrame;
 
-public class TileGraphicsFactory extends GraphicsFactory {
-    private ArrayList<BufferedImage> tileSprites = new ArrayList<>();
-    
-    public TileGraphicsFactory(){
-        super();
-        int u = GameFrame.UNIT_SIZE;
+public class TileView{
+    protected ArrayList<BufferedImage> tileSprites = new ArrayList<>();
+    protected GameView gameView;
+
+    public TileView(GameView gameView){
+        BufferedImage spriteSheet = gameView.model.getSpriteSheet();
+        this.gameView = gameView;
+        int u = gameView.model.getUNIT_SIZE();
         tileSprites.add(spriteSheet.getSubimage(0, 0, u, u));
         tileSprites.add(spriteSheet.getSubimage(0, 6*u, u, u));
         tileSprites.add(spriteSheet.getSubimage(5*u, 3*u, u, u));

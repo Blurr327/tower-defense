@@ -1,6 +1,6 @@
 package model;
 
-public enum Tile {
+public enum TileModel {
     GRASS(false, 0),
     FLOWER(false, 1),
     PATH(true, 2);
@@ -12,7 +12,7 @@ public enum Tile {
         return id;
     }
 
-    Tile(boolean walkable, int id) {
+    TileModel(boolean walkable, int id) {
         this.walkable = walkable;
         this.id = id;
     }

@@ -1,12 +1,13 @@
-package main;
+package view;
 
 import java.awt.*;
 import javax.swing.*;
 
-public class SettingsPanel extends JPanel {
-
-    public SettingsPanel(){
+public class SettingsView extends JPanel {
+    GameView gameView;
+    public SettingsView(GameView gameView){
         super(new FlowLayout());
+        this.gameView = gameView;
     }
 
     public void paintComponent(Graphics g){
