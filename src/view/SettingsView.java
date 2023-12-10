@@ -9,7 +9,7 @@ public class SettingsView extends JPanel {
 
     public SettingsView(GameView gameView){
         super(new FlowLayout());
-        mapView = new MapView(gameView);
+        mapView = new MapView();
         switchToMenuButton.addActionListener(e -> 
             gameView.controller.switchTo("menu"));
         add(switchToMenuButton);

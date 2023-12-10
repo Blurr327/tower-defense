@@ -13,7 +13,7 @@ public class PlayView extends JPanel {
 
     public PlayView(GameView gameView) {
         super(new BorderLayout());
-        mapView = new MapView(gameView);
+        mapView = new MapView();
         switchToMenuButton.addActionListener(e ->
                 gameView.controller.switchTo("menu"));
         add(switchToMenuButton, BorderLayout.NORTH);

@@ -8,10 +8,10 @@ import javax.imageio.ImageIO;
 
 
 public class GameModel {
-    private int UNIT_SIZE = 32;
+    public static final int UNIT_SIZE = 32;
     private int HEIGHT = MapModel.WIDTH*UNIT_SIZE;
     private int WIDTH = MapModel.HEIGHT*UNIT_SIZE;
-    private BufferedImage spriteSheet = importImg();
+    public static final BufferedImage spriteSheet = importImg();
     private double FPS = 120; // frames per second
     private double UPS = 60; // updates per second
     private String activeCard = "menu"; // Default card is menu
@@ -37,18 +37,6 @@ public class GameModel {
         return ss;
     }
 
-    public BufferedImage getSpriteSheet() {
-        return spriteSheet;
-    }
-
-    public int getUNIT_SIZE() {
-        return UNIT_SIZE;
-    }
-
-    public void setUNIT_SIZE(int uNIT_SIZE) {
-        UNIT_SIZE = uNIT_SIZE;
-    }
-
     public int getHEIGHT() {
         return HEIGHT;
     }
@@ -63,10 +51,6 @@ public class GameModel {
 
     public void setWIDTH(int wIDTH) {
         WIDTH = wIDTH;
-    }
-
-    public void setSpriteSheet(BufferedImage spriteSheet) {
-        this.spriteSheet = spriteSheet;
     }
 
     public double getFPS() {

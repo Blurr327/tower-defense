@@ -1,22 +1,23 @@
 package view;
 
 import java.awt.Graphics;
+
+import model.GameModel;
 import model.MapModel;
+import model.TileModel;
 
 public class MapView {
     private MapModel map;
-    private TileView tileView;
 
-    public MapView(GameView gameView){
-        tileView = new TileView(gameView);
+    public MapView(){
         map = new MapModel();
     }
 
     public void renderMap(Graphics g){
-        int u= tileView.gameView.model.getUNIT_SIZE();
+        int u= GameModel.UNIT_SIZE;
         for(int y=0;y<map.getMapHeight();y++){
             for(int x=0;x<map.getMapWidth();x++){
-                g.drawImage(tileView.getTileSprite(map.getPosId(x, y)),x*u, y*u, null);
+                g.drawImage(TileModel.getTileById(map.getPosId(x, y)).getSprite(),x*u, y*u, null);
             }
         }
     }
