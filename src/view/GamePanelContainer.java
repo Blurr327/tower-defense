@@ -2,6 +2,7 @@ package view;
 import javax.swing.*;
 
 import main.Game;
+import model.GameModel;
 
 import java.awt.*;
 
@@ -20,7 +21,7 @@ public class GamePanelContainer extends JPanel {
         if (gameView.model.getActiveCard().equals("custom")){
             size = new Dimension (gameView.model.getHEIGHT(), gameView.model.getWIDTH() + 100);
         } else {
-            size = new Dimension (gameView.model.getHEIGHT(), gameView.model.getWIDTH() + 100);
+            size = new Dimension (gameView.model.getHEIGHT(), gameView.model.getWIDTH() + GameModel.UNIT_SIZE);
         }
         setPreferredSize(size);
         setMaximumSize(size);

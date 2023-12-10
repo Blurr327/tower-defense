@@ -3,38 +3,71 @@ package view;
 import model.TileModel;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.*;
+import javax.swing.border.Border;
+
 import java.util.ArrayList;
 
 public class PlayView extends JPanel {
     MapView mapView;
     JButton switchToMenuButton = new JButton("Menu");
-    private ArrayList<JButton> tileButtons = new ArrayList<>();
+    private ArrayList<JLabel> tileLabels = new ArrayList<>();
 
     public PlayView(GameView gameView) {
         super(new BorderLayout());
         mapView = new MapView();
+
+        // Create labels dynamically
+        JPanel labelsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+
+        // Add the "Menu" button to the bottom bar
         switchToMenuButton.addActionListener(e ->
                 gameView.controller.switchTo("menu"));
-        add(switchToMenuButton, BorderLayout.NORTH);
+        labelsPanel.add(switchToMenuButton);
 
-        // Create buttons dynamically
-        JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         for (TileModel tileModel : TileModel.values()) {
-            JButton tileButton = createTileButton(tileModel);
-            tileButtons.add(tileButton);
-            buttonsPanel.add(tileButton);
+            JLabel tileLabel = createTileLabel(tileModel);
+            tileLabels.add(tileLabel);
+            labelsPanel.add(tileLabel);
         }
-        add(buttonsPanel, BorderLayout.SOUTH);
+        add(labelsPanel, BorderLayout.SOUTH);
     }
 
-    private JButton createTileButton(TileModel tileModel) {
-        JButton tileButton = new JButton(tileModel.getName());
-        tileButton.addActionListener(e -> {
-            System.out.println("Button Clicked: " + tileModel.getName());
+    private JLabel createTileLabel(TileModel tileModel) {
+        BufferedImage image = tileModel.getSprite();
+        ImageIcon icon = new ImageIcon(image.getScaledInstance(50, 50, Image.SCALE_SMOOTH));
+    
+        JLabel tileLabel = new JLabel(icon);
+        tileLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); // Add some padding
+    
+        tileLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.out.println("Label Clicked: " + tileModel.getName());
+                // Handle the click event, you can use tileModel.getId() or tileModel.getName() here (no need for it at the moment)
+            }
+    
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                // Change the background color when the mouse enters
+                // It's thicc as hell but I don't know how to do it better
+                tileLabel.setOpaque(true);
+                tileLabel.setBackground(Color.DARK_GRAY);
+            }
+    
+            @Override
+            public void mouseExited(MouseEvent e) {
+                // Reset the background color when the mouse exits
+                tileLabel.setOpaque(false);
+            }
         });
-        return tileButton;
+    
+        return tileLabel;
     }
+    
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
