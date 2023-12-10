@@ -16,6 +16,7 @@ public class GameView extends JFrame {
         this.model = model;
         this.controller = controller;
         initUI();
+        
     }
 
     public void setModel(GameModel model) {
@@ -43,11 +44,13 @@ public class GameView extends JFrame {
         container.add(new PlayView(this), "play");
         container.add(new MenuView(this), "menu");
         container.add(new SettingsView(this), "settings");
+        //container.add(new CustomView(this), "custom");
         cardLayout.show(container, model.getActiveCard());
     }
 
     public void updateCard(){
         cardLayout.show(container, model.getActiveCard());
+        container.setPanelSize();
     }
 
     public void runRenderLoop(){

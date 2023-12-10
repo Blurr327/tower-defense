@@ -20,8 +20,8 @@ public class GameController {
     public void runUpdateLoop(){
         int delay = ((int) (1000/model.getUPS())); // delay for 60 updates per second
         // Set up Timer for game logic update (60 updates per second)
-        Timer updateTimer = new Timer(delay, e -> System.out.println("update game lol"));
-        updateTimer.start();
+        //Timer updateTimer = new Timer(delay, e -> System.out.println("update game lol"));
+        //updateTimer.start();
     }
 
     public void runLoops(){

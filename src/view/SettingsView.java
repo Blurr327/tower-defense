@@ -4,10 +4,15 @@ import java.awt.*;
 import javax.swing.*;
 
 public class SettingsView extends JPanel {
-    GameView gameView;
+    MapView mapView;
+    JButton switchToMenuButton = new JButton("Menu");
+
     public SettingsView(GameView gameView){
         super(new FlowLayout());
-        this.gameView = gameView;
+        mapView = new MapView(gameView);
+        switchToMenuButton.addActionListener(e -> 
+            gameView.controller.switchTo("menu"));
+        add(switchToMenuButton);
     }
 
     public void paintComponent(Graphics g){
@@ -16,8 +21,8 @@ public class SettingsView extends JPanel {
     }
 
     public void draw(Graphics g) {
-        g.setColor(Color.blue);
-        g.fillRect(0,0,640,640);
+        g.setColor(Color.yellow); // yellow like my skin's color
+        g.fillRect(0,0,640,740);
     }
     
 }

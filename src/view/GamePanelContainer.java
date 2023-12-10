@@ -15,10 +15,20 @@ public class GamePanelContainer extends JPanel {
     }
 
     public void setPanelSize(){
-        Dimension size = new Dimension(gameView.model.getHEIGHT(), gameView.model.getWIDTH());
+        System.out.println(gameView.model.getActiveCard());
+        Dimension size;
+        if (gameView.model.getActiveCard().equals("custom")){
+            size = new Dimension (gameView.model.getHEIGHT(), gameView.model.getWIDTH() + 100);
+        } else {
+            size = new Dimension (gameView.model.getHEIGHT(), gameView.model.getWIDTH() + 100);
+        }
         setPreferredSize(size);
         setMaximumSize(size);
         setMinimumSize(size);
+        System.out.println("Panel size :"  + size);
+        System.out.println("Real size :"  + getSize());
+        revalidate();
+        repaint();
     }
 
 }
