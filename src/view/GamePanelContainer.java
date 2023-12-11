@@ -6,16 +6,16 @@ import main.Game;
 import java.awt.*;
 
 public class GamePanelContainer extends JPanel {
-    private GameView gameView;
+    private AppView appView;
 
-    public GamePanelContainer(GameView gameView){
+    public GamePanelContainer(AppView appView){
         super(new CardLayout());
-        this.gameView = gameView;
+        this.appView = appView;
         setPanelSize();
     }
 
     public void setPanelSize(){
-        Dimension size = new Dimension(gameView.model.getHEIGHT(), gameView.model.getWIDTH());
+        Dimension size = new Dimension(appView.model.getWIDTH(), appView.model.getHEIGHT());
         setPreferredSize(size);
         setMaximumSize(size);
         setMinimumSize(size);

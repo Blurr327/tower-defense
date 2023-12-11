@@ -4,15 +4,15 @@ import java.awt.*;
 import javax.swing.*;
 
 public class MenuView extends JPanel {
-    GameView gameView;
+    AppView appView;
     JButton switchToPlayButton = new JButton("Play");
     JButton switchToSettingsButton = new JButton("Settings");
 
-    public MenuView(GameView gameView){
+    public MenuView(AppView appView){
         super(new FlowLayout());
-        this.gameView = gameView;
+        this.appView = appView;
         switchToPlayButton.addActionListener(e -> 
-            gameView.controller.switchTo("play"));
+            appView.controller.switchTo("game"));
         add(switchToPlayButton);
     }
     

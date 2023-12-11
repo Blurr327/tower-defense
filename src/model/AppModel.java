@@ -7,11 +7,10 @@ import java.nio.file.Paths;
 import javax.imageio.ImageIO;
 
 
-public class GameModel {
-    private int UNIT_SIZE = 32;
-    private int HEIGHT = MapModel.WIDTH*UNIT_SIZE;
-    private int WIDTH = MapModel.HEIGHT*UNIT_SIZE;
-    private BufferedImage spriteSheet = importImg();
+public class AppModel {
+    public static final int HEIGHT = (MapModel.HEIGHT + BottomSectionModel.SECTION_HEIGHT)*MapModel.UNIT_SIZE;
+    public static final int WIDTH = MapModel.WIDTH*MapModel.UNIT_SIZE;
+    public static final BufferedImage spriteSheet = importImg();
     private double FPS = 120; // frames per second
     private double UPS = 60; // updates per second
     private String activeCard = "menu"; // Default card is menu
@@ -25,7 +24,7 @@ public class GameModel {
     }
     
     private static BufferedImage importImg(){
-        InputStream is = GameModel.class.getClassLoader().getResourceAsStream(Paths.get("res/tileset.png").toString());
+        InputStream is = AppModel.class.getClassLoader().getResourceAsStream(Paths.get("res/tileset.png").toString());
         BufferedImage ss = null;
 
         try {
@@ -41,32 +40,13 @@ public class GameModel {
         return spriteSheet;
     }
 
-    public int getUNIT_SIZE() {
-        return UNIT_SIZE;
-    }
-
-    public void setUNIT_SIZE(int uNIT_SIZE) {
-        UNIT_SIZE = uNIT_SIZE;
-    }
-
     public int getHEIGHT() {
         return HEIGHT;
     }
 
-    public void setHEIGHT(int hEIGHT) {
-        HEIGHT = hEIGHT;
-    }
-
     public int getWIDTH() {
+        System.out.println(WIDTH);
         return WIDTH;
-    }
-
-    public void setWIDTH(int wIDTH) {
-        WIDTH = wIDTH;
-    }
-
-    public void setSpriteSheet(BufferedImage spriteSheet) {
-        this.spriteSheet = spriteSheet;
     }
 
     public double getFPS() {

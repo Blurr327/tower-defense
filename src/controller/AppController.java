@@ -1,14 +1,14 @@
 package controller;
 
-import model.GameModel;
-import view.GameView;
+import model.AppModel;
+import view.AppView;
 import javax.swing.Timer;
 
-public class GameController {
-    private GameModel model;
-    private GameView view;
+public class AppController {
+    private AppModel model;
+    private AppView view;
 
-    public GameController(GameModel model){
+    public AppController(AppModel model){
         this.model = model;
     }
 
@@ -24,16 +24,24 @@ public class GameController {
         updateTimer.start();
     }
 
+    public void runRenderLoop(){
+        int delay = ((int) (1000/model.getFPS())); // delay for 120 frames per second
+        // Set up Timer for rendering (120 frames per second)
+        Timer renderTimer = new Timer(delay, e -> view.getGamePanelContainer().repaint());
+        renderTimer.start();
+    }
+
+
     public void runLoops(){
-        view.runRenderLoop();
+        runRenderLoop();
         runUpdateLoop();
     }
 
-    public void setModel(GameModel model) {
+    public void setModel(AppModel model) {
         this.model = model;
     }
 
-    public void setView(GameView view) {
+    public void setView(AppView view) {
         this.view = view;
     }
 

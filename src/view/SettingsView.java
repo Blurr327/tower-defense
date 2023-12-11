@@ -4,10 +4,10 @@ import java.awt.*;
 import javax.swing.*;
 
 public class SettingsView extends JPanel {
-    GameView gameView;
-    public SettingsView(GameView gameView){
+    AppView appView;
+    public SettingsView(AppView appView){
         super(new FlowLayout());
-        this.gameView = gameView;
+        this.appView = appView;
     }
 
     public void paintComponent(Graphics g){

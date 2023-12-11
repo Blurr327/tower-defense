@@ -1,21 +1,21 @@
 package main;
 
-import controller.GameController;
-import model.GameModel;
-import view.GameView;
+import controller.AppController;
+import model.AppModel;
+import view.AppView;
 
 import java.awt.EventQueue;
 
 public class Game implements Runnable{
-    private GameModel model;
-    private GameController controller;
-    private GameView view;
+    private AppModel model;
+    private AppController controller;
+    private AppView view;
     private Thread gameThread;
 
     public Game(){
-        model = new GameModel();
-        controller = new GameController(model);
-        view = new GameView(model, controller);
+        model = new AppModel();
+        controller = new AppController(model);
+        view = new AppView(model, controller);
         
         controller.setView(view);
 

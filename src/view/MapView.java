@@ -1,23 +1,40 @@
 package view;
 
 import java.awt.Graphics;
+import javax.swing.JPanel;
+import java.awt.Dimension;
+
+
 import model.MapModel;
+import model.TileModel;
 
-public class MapView {
+public class MapView extends JPanel{
     private MapModel map;
-    private TileView tileView;
 
-    public MapView(GameView gameView){
-        tileView = new TileView(gameView);
+    public MapView(){
         map = new MapModel();
     }
 
+    public void paintComponent(Graphics g){
+        super.paintComponent(g);
+        renderMap(g);
+        setPanelSize();
+    }
+
     public void renderMap(Graphics g){
-        int u= tileView.gameView.model.getUNIT_SIZE();
+        int u= MapModel.UNIT_SIZE;
         for(int y=0;y<map.getMapHeight();y++){
             for(int x=0;x<map.getMapWidth();x++){
-                g.drawImage(tileView.getTileSprite(map.getPosId(x, y)),x*u, y*u, null);
+                TileModel tile = TileModel.getTileById(map.getTileIdAt(x, y));
+                g.drawImage(tile.getSprite(),x*u, y*u, null);
             }
         }
+    }
+
+    public void setPanelSize(){
+        Dimension size = new Dimension(MapModel.WIDTH*MapModel.UNIT_SIZE, MapModel.HEIGHT*MapModel.UNIT_SIZE);
+        setPreferredSize(size);
+        setMaximumSize(size);
+        setMinimumSize(size);
     }
 }

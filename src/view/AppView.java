@@ -2,27 +2,27 @@ package view;
 
 import javax.swing.*;
 
-import model.GameModel;
+import model.AppModel;
 import java.awt.*;
-import controller.GameController;
+import controller.AppController;
 
-public class GameView extends JFrame {
-    protected GameModel model;
-    protected GameController controller;
+public class AppView extends JFrame {
+    protected AppModel model;
+    protected AppController controller;
     protected GamePanelContainer container;
     protected CardLayout cardLayout;
 
-    public GameView(GameModel model, GameController controller){
+    public AppView(AppModel model, AppController controller){
         this.model = model;
         this.controller = controller;
         initUI();
     }
 
-    public void setModel(GameModel model) {
+    public void setModel(AppModel model) {
         this.model = model;
     }
 
-    public void setController(GameController controller) {
+    public void setController(AppController controller) {
         this.controller = controller;
     }
     
@@ -40,7 +40,7 @@ public class GameView extends JFrame {
 
     private void initCardLayout() {
         cardLayout = (CardLayout) container.getLayout();
-        container.add(new PlayView(this), "play");
+        container.add(new GameViewContainer(this), "game");
         container.add(new MenuView(this), "menu");
         container.add(new SettingsView(this), "settings");
         cardLayout.show(container, model.getActiveCard());
@@ -50,11 +50,20 @@ public class GameView extends JFrame {
         cardLayout.show(container, model.getActiveCard());
     }
 
-    public void runRenderLoop(){
-        int delay = ((int) (1000/model.getFPS())); // delay for 120 frames per second
-        // Set up Timer for rendering (120 frames per second)
-        Timer renderTimer = new Timer(delay, e -> container.repaint());
-        renderTimer.start();
+    public AppModel getModel() {
+        return model;
+    }
+
+    public AppController getController() {
+        return controller;
+    }
+
+    public GamePanelContainer getGamePanelContainer() {
+        return container;
+    }
+
+    public CardLayout getCardLayout() {
+        return cardLayout;
     }
 
 }
