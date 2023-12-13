@@ -9,8 +9,13 @@ import controller.AppController;
 public class AppView extends JFrame {
     protected AppModel model;
     protected AppController controller;
-    protected GamePanelContainer container;
+    protected AppContainer container;
     protected CardLayout cardLayout;
+    private GameViewContainer gameContainer = new GameViewContainer();
+    private MenuView menuView = new MenuView();
+    private SettingsView settingsView = new SettingsView();
+
+    
 
     public AppView(AppModel model, AppController controller){
         this.model = model;
@@ -18,7 +23,7 @@ public class AppView extends JFrame {
         initUI();
     }
 
-    public void setModel(AppModel model) {
+    public void setModel(AppModel model) {  
         this.model = model;
     }
 
@@ -27,22 +32,22 @@ public class AppView extends JFrame {
     }
     
     public void initUI(){
-        container = new GamePanelContainer(this);
-        add(container);
-        
+        container = new AppContainer(model.getWIDTH(), model.getHEIGHT(), gameContainer);
+        getContentPane().add(container);
+        addActionListeners();
         initCardLayout();
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setResizable(false);
+        setResizable(true);
         pack();
         setLocationRelativeTo(null);
     }
 
     private void initCardLayout() {
         cardLayout = (CardLayout) container.getLayout();
-        container.add(new GameViewContainer(this), "game");
-        container.add(new MenuView(this), "menu");
-        container.add(new SettingsView(this), "settings");
+        container.add(gameContainer, "game");
+        container.add(menuView, "menu");
+        container.add(settingsView, "settings");
         cardLayout.show(container, model.getActiveCard());
     }
 
@@ -58,12 +63,19 @@ public class AppView extends JFrame {
         return controller;
     }
 
-    public GamePanelContainer getGamePanelContainer() {
+    public AppContainer getGamePanelContainer() {
         return container;
     }
 
     public CardLayout getCardLayout() {
         return cardLayout;
+    }
+
+    public void addActionListeners(){
+        gameContainer.getSwitchToMenuButton().addActionListener(e -> controller.switchTo("menu"));
+        menuView.getSwitchToGameButton().addActionListener(e-> controller.switchTo("game"));
+        menuView.getSwitchToSettingsButton().addActionListener(e -> controller.switchTo("settings"));
+        settingsView.getSwitchToMenuButton().addActionListener(e -> controller.switchTo("menu"));
     }
 
 }

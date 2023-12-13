@@ -36,7 +36,7 @@ public enum TileModel {
             case 0:
                 return spriteSheet.getSubimage(u, u, u, u);
             case 1:
-                return spriteSheet.getSubimage(4*u, 2*u, u, u);
+                return spriteSheet.getSubimage(4*u, 3*u, u, u);
             case 2:
                 return spriteSheet.getSubimage(0*u, 6*u, u, u);
             default:

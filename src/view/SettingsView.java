@@ -4,10 +4,11 @@ import java.awt.*;
 import javax.swing.*;
 
 public class SettingsView extends JPanel {
-    AppView appView;
-    public SettingsView(AppView appView){
+    CustomButtonView switchToMenuButton = new CustomButtonView("Menu");
+
+    public SettingsView(){
         super(new FlowLayout());
-        this.appView = appView;
+        add(switchToMenuButton);
     }
 
     public void paintComponent(Graphics g){
@@ -20,4 +21,8 @@ public class SettingsView extends JPanel {
         g.fillRect(0,0,640,640);
     }
     
+    public CustomButtonView getSwitchToMenuButton() {
+        return switchToMenuButton;
+    }
+
 }

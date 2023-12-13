@@ -2,8 +2,8 @@ package model;
 
 public class BottomSectionModel {
     public static final int SECTION_HEIGHT = 4;
-    public static final int SECTION_WIDTH = AppModel.WIDTH;
-    private String activeCard = "play";
+    public static final int SECTION_WIDTH = MapModel.WIDTH;
+    private static String activeCard = "edit";
 
     public BottomSectionModel() {
     }
@@ -12,6 +12,6 @@ public class BottomSectionModel {
         return activeCard;
     }
     public void setActiveCard(String activeCard) {
-        this.activeCard = activeCard;
+        BottomSectionModel.activeCard = activeCard;
     }
 }

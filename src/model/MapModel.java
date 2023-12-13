@@ -1,16 +1,15 @@
 package model;
-import view.GamePanelContainer;
+import view.AppContainer;
 
 public class MapModel {
     public static final int UNIT_SIZE = 32;
     public static final int HEIGHT = 20;
     public static final int WIDTH = 20;
     private MapEditorModel mapEditorModel = new MapEditorModel();
-    private final int[][] map;
+    private static final int[][] map = new int[WIDTH][HEIGHT];
     
 
     public MapModel(){
-        this.map = new int[HEIGHT][WIDTH];
     }
 
     public int getTileIdAt(int x, int y){

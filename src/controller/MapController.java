@@ -10,7 +10,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 
-public class MapController implements MouseMotionListener, MouseListener {
+public class MapController implements MouseMotionListener {
     MapModel model;
     MapView view;
 
@@ -21,36 +21,22 @@ public class MapController implements MouseMotionListener, MouseListener {
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        // TODO: Implement mouseDragged method
+        if(MapEditorModel.isTileSelected() && model.getMapEditorModel().getActiveCard().equals("edit")){
+            updateSetTileToMod(e);
+            model.setTileIdAt(MapEditorModel.getTileToModX(), MapEditorModel.getTileToModY(), MapEditorModel.getSelectedTileId());
+        }
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        // TODO: Implement mouseMoved method
+        if(MapEditorModel.isTileSelected() && model.getMapEditorModel().getActiveCard().equals("edit")){
+            updateSetTileToMod(e);
+        }
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        // TODO: Implement mouseClicked method
+    public void updateSetTileToMod(MouseEvent e){
+        MapEditorModel.setTileToModX(e.getX()/MapModel.UNIT_SIZE);
+        MapEditorModel.setTileToModY(e.getY()/MapModel.UNIT_SIZE);
     }
 
-    @Override
-    public void mousePressed(MouseEvent e) {
-        // TODO: Implement mousePressed method
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        // TODO: Implement mouseReleased method
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        // TODO: Implement mouseEntered method
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-        // TODO: Implement mouseExited method
-    }
 }

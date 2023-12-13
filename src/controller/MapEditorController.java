@@ -7,7 +7,7 @@ import java.awt.event.MouseListener;
 import model.MapEditorModel;
 import view.MapEditorView;
 
-public class MapEditorController implements MouseListener {
+public class MapEditorController {
     MapEditorModel model;
     MapEditorView view;
 
@@ -16,35 +16,8 @@ public class MapEditorController implements MouseListener {
         this.view = view;
     }
 
-    // handles the button clicks and updates the selected tile variable
+    public void tileSelected(int id){
+        MapEditorModel.setSelectedTileId(id);
+    }
     
-    @Override
-    public void mouseClicked(MouseEvent arg0) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mouseClicked'");
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent arg0) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mouseEntered'");
-    }
-
-    @Override
-    public void mouseExited(MouseEvent arg0) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mouseExited'");
-    }
-
-    @Override
-    public void mousePressed(MouseEvent arg0) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mousePressed'");
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent arg0) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mouseReleased'");
-    }
 }
