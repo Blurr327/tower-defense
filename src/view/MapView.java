@@ -39,7 +39,7 @@ public class MapView extends JPanel{
             }
         }
 ;
-        if(map.getMapEditorModel().getActiveCard().equals("edit") && MapEditorModel.isTileSelected()) g.drawImage(TileModel.getTileById(MapEditorModel.getSelectedTileId()).getSprite(), MapEditorModel.getTileToModX()*MapModel.UNIT_SIZE, MapEditorModel.getTileToModY()*MapModel.UNIT_SIZE, null);
+        if(MapModel.getMapMode().equals("edit") && MapEditorModel.isTileSelected()) g.drawImage(TileModel.getTileById(MapEditorModel.getSelectedTileId()).getSprite(), MapEditorModel.getTileToModX()*MapModel.UNIT_SIZE, MapEditorModel.getTileToModY()*MapModel.UNIT_SIZE, null);
     }
 
     public void setPanelSize(){

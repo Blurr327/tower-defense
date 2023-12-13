@@ -3,9 +3,11 @@ package model;
 import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 public class MapEditorModel extends BottomSectionModel {
+    //FIXME : use TileModel.values to create a List of all the icons whic you then you in MapEditView
     private ImageIcon grassIcon = new ImageIcon(TileModel.GRASS.getSprite());
     private ImageIcon pathIcon = new ImageIcon(TileModel.PATH.getSprite());
     private ImageIcon flowerIcon = new ImageIcon(TileModel.FLOWER.getSprite());
+    
     private static int selectedTileId = -1;
     private static int tileToModX;
     private static int tileToModY;

@@ -32,9 +32,13 @@ public class AppView extends JFrame {
     }
     
     public void initUI(){
+        setTitle("Tower Defense");
+
         container = new AppContainer(model.getWIDTH(), model.getHEIGHT(), gameContainer);
         getContentPane().add(container);
+
         addActionListeners();
+
         initCardLayout();
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);

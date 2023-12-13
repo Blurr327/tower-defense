@@ -5,8 +5,9 @@ public class MapModel {
     public static final int UNIT_SIZE = 32;
     public static final int HEIGHT = 20;
     public static final int WIDTH = 20;
+    private static String mapMode = BottomSectionModel.getActiveCard();
     private MapEditorModel mapEditorModel = new MapEditorModel();
-    private static final int[][] map = new int[WIDTH][HEIGHT];
+    private static final int[][] map = new int[HEIGHT][WIDTH];
     
 
     public MapModel(){
@@ -30,6 +31,10 @@ public class MapModel {
 
         public MapEditorModel getMapEditorModel() {
         return mapEditorModel;
+    }
+
+    public static String getMapMode() {
+        return mapMode;
     }
 }
 

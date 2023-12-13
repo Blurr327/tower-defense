@@ -10,6 +10,10 @@ import model.MapModel;
 
 
 public class GameViewContainer extends JPanel{
+    //FIXME: create gameview model that stores the current gamemode. Create a game controller that changes the gamemode upon clicking.
+    // change the bottomsection class so that it always displays the current gamemode, which it has no control over
+    // the bottom section class will only update the card on the bottomsectionview when the button is clicked, no more
+    // make the changes necessary in Map as well : delete the mapMode variable and use the gamemode variable to display the map depending on the gameMode
     protected MapView mapView = new MapView();
     protected CustomButtonView switchToMenuButton = new CustomButtonView("Menu");
 

@@ -26,6 +26,9 @@ public class MapEditorView extends JPanel{
 
     public MapEditorView(){
         this.controller = new MapEditorController(model, this);
+        
+        //FIXME : see the fixme in the mapeditormodel and use the mentioned list to dynamically display all the tile icons
+
         selectGrassButton = new JButton(model.getGrassIcon());
         selectFlowerButton = new JButton(model.getFlowerIcon());
         selectPathButton = new JButton(model.getPathIcon());
@@ -33,7 +36,7 @@ public class MapEditorView extends JPanel{
         add(switchToPlayManagerButton);
 
         addActionListeners();
-        
+
         add(selectGrassButton);
         add(selectPathButton);
         add(selectFlowerButton);

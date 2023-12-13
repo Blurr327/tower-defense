@@ -8,7 +8,7 @@ public class BottomSectionModel {
     public BottomSectionModel() {
     }
 
-    public String getActiveCard() {
+    public static String getActiveCard() {
         return activeCard;
     }
     public void setActiveCard(String activeCard) {
