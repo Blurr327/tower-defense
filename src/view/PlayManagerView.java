@@ -18,8 +18,6 @@ public class PlayManagerView extends JPanel{
         this.model = model;
         this.setLayout(null);
         add(switchToEditButton);
-        switchToEditButton.setOpaque(false);
-        switchToEditButton.setContentAreaFilled(false);
         switchToEditButton.setBounds(15,15,80,30);
     }
 

@@ -11,7 +11,7 @@ public class AppView extends JFrame {
     protected AppController controller;
     protected AppContainer container;
     protected CardLayout cardLayout;
-    private GameViewContainer gameContainer = new GameViewContainer();
+    private GameView gameView = new GameView();
     private MenuView menuView = new MenuView();
     private SettingsView settingsView = new SettingsView();
 
@@ -34,7 +34,7 @@ public class AppView extends JFrame {
     public void initUI(){
         setTitle("Tower Defense");
 
-        container = new AppContainer(model.getWIDTH(), model.getHEIGHT(), gameContainer);
+        container = new AppContainer(model.getWIDTH(), model.getHEIGHT(), gameView);
         getContentPane().add(container);
 
         addActionListeners();
@@ -49,7 +49,7 @@ public class AppView extends JFrame {
 
     private void initCardLayout() {
         cardLayout = (CardLayout) container.getLayout();
-        container.add(gameContainer, "game");
+        container.add(gameView, "game");
         container.add(menuView, "menu");
         container.add(settingsView, "settings");
         cardLayout.show(container, model.getActiveCard());
@@ -76,7 +76,7 @@ public class AppView extends JFrame {
     }
 
     public void addActionListeners(){
-        gameContainer.getSwitchToMenuButton().addActionListener(e -> controller.switchTo("menu"));
+        gameView.getSwitchToMenuButton().addActionListener(e -> controller.switchTo("menu"));
         menuView.getSwitchToGameButton().addActionListener(e-> controller.switchTo("game"));
         menuView.getSwitchToSettingsButton().addActionListener(e -> controller.switchTo("settings"));
         settingsView.getSwitchToMenuButton().addActionListener(e -> controller.switchTo("menu"));

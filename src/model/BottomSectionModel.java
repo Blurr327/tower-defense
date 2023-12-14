@@ -3,15 +3,19 @@ package model;
 public class BottomSectionModel {
     public static final int SECTION_HEIGHT = 4;
     public static final int SECTION_WIDTH = MapModel.WIDTH;
-    private static String activeCard = "edit";
 
     public BottomSectionModel() {
     }
 
     public static String getActiveCard() {
-        return activeCard;
+        switch(GameModel.getGameMode()){
+            case EDIT:
+                return "edit";
+            case PLAY:
+                return "play";
+            default:
+                return "edit";
+        }
     }
-    public void setActiveCard(String activeCard) {
-        BottomSectionModel.activeCard = activeCard;
-    }
+
 }

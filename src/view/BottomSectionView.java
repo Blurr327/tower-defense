@@ -2,15 +2,12 @@ package view;
 
 import java.awt.CardLayout;
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Color;
+
 
 import javax.swing.JPanel;
 
 import controller.BottomSectionController;
-import controller.MapEditorController;
 import model.BottomSectionModel;
-import model.MapEditorModel;
 import model.MapModel;
 import model.PlayManagerModel;
 
@@ -26,7 +23,6 @@ public class BottomSectionView extends JPanel {
         this.model = model;
 
         this.controller = new BottomSectionController(this, model);
-        addActionListeners();
         initCardLayout();
         setPanelSize();
     }
@@ -35,7 +31,7 @@ public class BottomSectionView extends JPanel {
         this.cardLayout = (CardLayout) this.getLayout();
         this.add(mapEditorView, "edit");
         this.add(playManagerView, "play");
-        cardLayout.show(this, model.getActiveCard());
+        cardLayout.show(this, BottomSectionModel.getActiveCard());
     }
 
     public void setPanelSize(){
@@ -46,15 +42,17 @@ public class BottomSectionView extends JPanel {
     }
 
     public void updateCard(){
-        cardLayout.show(this, model.getActiveCard());
+        cardLayout.show(this, BottomSectionModel.getActiveCard());
     }
 
-    public void addActionListeners(){
-        mapEditorView.getSwitchToPlayManagerButton().addActionListener(e -> controller.switchTo("play"));
-        playManagerView.getSwitchToEditButton().addActionListener(e -> controller.switchTo("edit"));
+    public MapEditorView getMapEditorView() {
+        return mapEditorView;
     }
 
-    
+    public PlayManagerView getPlayManagerView() {
+        return playManagerView;
+    }
+
 
 
 }

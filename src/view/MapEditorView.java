@@ -12,6 +12,7 @@ import model.TileModel;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 
 public class MapEditorView extends JPanel{
@@ -23,28 +24,25 @@ public class MapEditorView extends JPanel{
     JButton selectGrassButton;
     JButton selectPathButton;
     JButton selectFlowerButton;
+    ArrayList<JButton> tileButtons = new ArrayList<JButton>();
 
     public MapEditorView(){
         this.controller = new MapEditorController(model, this);
         
-        //FIXME : see the fixme in the mapeditormodel and use the mentioned list to dynamically display all the tile icons
 
-        selectGrassButton = new JButton(model.getGrassIcon());
-        selectFlowerButton = new JButton(model.getFlowerIcon());
-        selectPathButton = new JButton(model.getPathIcon());
+        for(int i = 0; i < MapEditorModel.getIconArrayLength();i++){
+            tileButtons.add(new JButton(MapEditorModel.getIconById(i)));
+        }
         this.setLayout(null);
         add(switchToPlayManagerButton);
 
         addActionListeners();
-
-        add(selectGrassButton);
-        add(selectPathButton);
-        add(selectFlowerButton);
-
+        
         switchToPlayManagerButton.setBounds(15,15,80,30);
-        selectGrassButton.setBounds(150, 15, MapModel.UNIT_SIZE, MapModel.UNIT_SIZE);
-        selectPathButton.setBounds(200, 15, MapModel.UNIT_SIZE, MapModel.UNIT_SIZE);
-        selectFlowerButton.setBounds(250, 15, MapModel.UNIT_SIZE, MapModel.UNIT_SIZE);
+        for(int i = 0; i < tileButtons.size();i++){
+            tileButtons.get(i).setBounds(100 + (i+1)*50, 15, MapModel.UNIT_SIZE, MapModel.UNIT_SIZE);
+            add(tileButtons.get(i));
+        }
     }
 
     public void paintComponent(Graphics g){
@@ -62,13 +60,14 @@ public class MapEditorView extends JPanel{
         return switchToPlayManagerButton;
     }
 
-    public void addActionListeners(){
-        selectGrassButton.addActionListener(e -> controller.tileSelected(TileModel.GRASS.getId()));
-        selectFlowerButton.addActionListener(e -> controller.tileSelected(TileModel.FLOWER.getId()));
-        selectPathButton.addActionListener(e -> controller.tileSelected(TileModel.PATH.getId()));
+    public void addActionListeners() {
+        for (int i = 0; i < tileButtons.size(); i++) {
+            final int index = i; // Create a final copy of the variable i
+            tileButtons.get(i).addActionListener(e -> controller.tileSelected(index));
+        }
     }
 
-        public void setModel(MapEditorModel model) {
+    public void setModel(MapEditorModel model) {
         this.model = model;
     }
 

@@ -9,10 +9,10 @@ import java.awt.*;
 
 public class AppContainer extends JPanel {
 
-    public AppContainer(int width, int height, GameViewContainer gameContainer){
+    public AppContainer(int width, int height, GameView gameView){
         super(new CardLayout());
         
-        add(gameContainer);
+        add(gameView);
         setPanelSize(width , height);
     }
 

@@ -12,9 +12,6 @@ public class BottomSectionController {
         this.model = model;
     }
 
-    public void switchTo(String s){
-        model.setActiveCard(s);
-        view.updateCard();
-    }
+
     
 }

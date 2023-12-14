@@ -7,7 +7,7 @@ import controller.MapController;
 
 import java.awt.Dimension;
 
-
+import model.GameModel;
 import model.MapEditorModel;
 import model.MapModel;
 import model.TileModel;
@@ -31,15 +31,14 @@ public class MapView extends JPanel{
 
     public void renderMap(Graphics g){
         int u= MapModel.UNIT_SIZE;
-        for(int y=0;y<map.getMapHeight();y++){
-            for(int x=0;x<map.getMapWidth();x++){
-                System.out.println(map.getTileIdAt(x, y));
+        for(int y=0;y<MapModel.HEIGHT;y++){
+            for(int x=0;x<MapModel.WIDTH;x++){
                 TileModel tile = TileModel.getTileById(map.getTileIdAt(x, y));
                 g.drawImage(tile.getSprite(),x*u, y*u, null);
             }
         }
 ;
-        if(MapModel.getMapMode().equals("edit") && MapEditorModel.isTileSelected()) g.drawImage(TileModel.getTileById(MapEditorModel.getSelectedTileId()).getSprite(), MapEditorModel.getTileToModX()*MapModel.UNIT_SIZE, MapEditorModel.getTileToModY()*MapModel.UNIT_SIZE, null);
+        if(GameModel.getGameMode() == GameModel.EDIT && MapEditorModel.isTileSelected()) g.drawImage(TileModel.getTileById(MapEditorModel.getSelectedTileId()).getSprite(), MapEditorModel.getTileToModX()*MapModel.UNIT_SIZE, MapEditorModel.getTileToModY()*MapModel.UNIT_SIZE, null);
     }
 
     public void setPanelSize(){

@@ -1,17 +1,22 @@
 package model;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
 public class MapEditorModel extends BottomSectionModel {
-    //FIXME : use TileModel.values to create a List of all the icons whic you then you in MapEditView
-    private ImageIcon grassIcon = new ImageIcon(TileModel.GRASS.getSprite());
-    private ImageIcon pathIcon = new ImageIcon(TileModel.PATH.getSprite());
-    private ImageIcon flowerIcon = new ImageIcon(TileModel.FLOWER.getSprite());
     
+    private static final ImageIcon[] iconArray;
     private static int selectedTileId = -1;
     private static int tileToModX;
     private static int tileToModY;
 
+    static {
+        iconArray = new ImageIcon[TileModel.values().length];
+        for(TileModel tile : TileModel.values()) {
+            iconArray[tile.getId()] = new ImageIcon(tile.getSprite());
+        }
+    }
 
     public static int getTileToModX() {
         return tileToModX;
@@ -41,17 +46,12 @@ public class MapEditorModel extends BottomSectionModel {
         return selectedTileId != -1;
     }
 
-    public ImageIcon getGrassIcon() {
-        return grassIcon;
+    public static ImageIcon getIconById(int id) {
+        return iconArray[id];
     }
 
-    public ImageIcon getPathIcon() {
-        return pathIcon;
+    public static int getIconArrayLength() {
+        return iconArray.length;
     }
-
-    public ImageIcon getFlowerIcon() {
-        return flowerIcon;
-    }
-
 
 }
