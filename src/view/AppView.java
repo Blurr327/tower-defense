@@ -3,6 +3,8 @@ package view;
 import javax.swing.*;
 
 import model.AppModel;
+import model.AppModel.AppMode;
+
 import java.awt.*;
 import controller.AppController;
 
@@ -76,10 +78,10 @@ public class AppView extends JFrame {
     }
 
     public void addActionListeners(){
-        gameView.getSwitchToMenuButton().addActionListener(e -> controller.switchTo("menu"));
-        menuView.getSwitchToGameButton().addActionListener(e-> controller.switchTo("game"));
-        menuView.getSwitchToSettingsButton().addActionListener(e -> controller.switchTo("settings"));
-        settingsView.getSwitchToMenuButton().addActionListener(e -> controller.switchTo("menu"));
+        gameView.getSwitchToMenuButton().addActionListener(e -> controller.switchTo(AppModel.AppMode.MENU));
+        menuView.getSwitchToGameButton().addActionListener(e-> controller.switchTo(AppModel.AppMode.GAME));
+        menuView.getSwitchToSettingsButton().addActionListener(e -> controller.switchTo(AppModel.AppMode.SETTINGS));
+        settingsView.getSwitchToMenuButton().addActionListener(e -> controller.switchTo(AppModel.AppMode.MENU));
     }
 
 }

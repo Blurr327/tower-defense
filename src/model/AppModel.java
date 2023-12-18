@@ -8,19 +8,30 @@ import javax.imageio.ImageIO;
 
 
 public class AppModel {
+    public enum AppMode{
+        MENU, SETTINGS, GAME;
+    }
+    private static AppMode appMode = AppMode.MENU;
     public static final int HEIGHT = (MapModel.HEIGHT + BottomSectionModel.SECTION_HEIGHT)*MapModel.UNIT_SIZE;
     public static final int WIDTH = MapModel.WIDTH*MapModel.UNIT_SIZE;
     public static final BufferedImage spriteSheet = importImg();
     private double FPS = 120; // frames per second
     private double UPS = 60; // updates per second
-    private String activeCard = "menu"; // Default card is menu
 
-    public String getActiveCard() {
-        return activeCard;
+    public static AppMode getAppMode() {
+        return appMode;
     }
 
-    public void setActiveCard(String activeCard) {
-        this.activeCard = activeCard;
+    public static void setAppMode(AppMode appMode) {
+        AppModel.appMode = appMode;
+    }
+
+    public String getActiveCard() {
+        return switch (appMode) {
+            case MENU -> "menu";
+            case SETTINGS -> "settings";
+            case GAME -> "game";
+        };
     }
     
     private static BufferedImage importImg(){

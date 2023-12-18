@@ -12,8 +12,8 @@ public class AppController {
         this.model = model;
     }
 
-    public void switchTo(String s){
-        model.setActiveCard(s);
+    public void switchTo(AppModel.AppMode g){
+        AppModel.setAppMode(g);;
         view.updateCard();
     }
 
