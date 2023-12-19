@@ -69,7 +69,7 @@ public class AppView extends JFrame {
         return controller;
     }
 
-    public AppContainer getGamePanelContainer() {
+    public AppContainer getAppContainer() {
         return container;
     }
 

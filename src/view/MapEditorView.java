@@ -27,18 +27,24 @@ public class MapEditorView extends JPanel{
     ArrayList<JButton> tileButtons = new ArrayList<JButton>();
 
     public MapEditorView(){
+
+        this.setLayout(null);
+
+        // initializing controller
+
         this.controller = new MapEditorController(model, this);
         
-
+        // initializing the tile buttons
         for(int i = 0; i < MapEditorModel.getIconArrayLength();i++){
             tileButtons.add(new JButton(MapEditorModel.getIconById(i)));
         }
-        this.setLayout(null);
-        add(switchToPlayManagerButton);
 
+        // initializing switch to play manager button
+        add(switchToPlayManagerButton);
+        switchToPlayManagerButton.setBounds(15,15,80,30);
         addActionListeners();
         
-        switchToPlayManagerButton.setBounds(15,15,80,30);
+        // positioning the tile buttons and adding them to the panel
         for(int i = 0; i < tileButtons.size();i++){
             tileButtons.get(i).setBounds(100 + (i+1)*50, 15, MapModel.UNIT_SIZE, MapModel.UNIT_SIZE);
             add(tileButtons.get(i));

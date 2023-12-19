@@ -27,7 +27,7 @@ public class AppController {
     public void runRenderLoop(){
         int delay = ((int) (1000/model.getFPS())); // delay for 120 frames per second
         // Set up Timer for rendering (120 frames per second)
-        Timer renderTimer = new Timer(delay, e -> view.getGamePanelContainer().repaint());
+        Timer renderTimer = new Timer(delay, e -> view.getAppContainer().repaint());
         renderTimer.start();
     }
 

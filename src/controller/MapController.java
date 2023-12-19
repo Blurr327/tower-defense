@@ -1,5 +1,6 @@
 package controller;
 
+import model.GameModel;
 import model.MapEditorModel;
 import model.MapModel;
 import view.MapView;
@@ -21,7 +22,7 @@ public class MapController implements MouseMotionListener {
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        if(MapEditorModel.isTileSelected() && model.getMapEditorModel().getActiveCard().equals("edit")){
+        if(MapEditorModel.isTileSelected() && GameModel.getGameMode().equals(GameModel.EDIT)){
             updateSetTileToMod(e);
             model.setTileIdAt(MapEditorModel.getTileToModX(), MapEditorModel.getTileToModY(), MapEditorModel.getSelectedTileId());
         }
@@ -29,7 +30,7 @@ public class MapController implements MouseMotionListener {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        if(MapEditorModel.isTileSelected() && model.getMapEditorModel().getActiveCard().equals("edit")){
+        if(MapEditorModel.isTileSelected() && GameModel.getGameMode().equals(GameModel.EDIT)){
             updateSetTileToMod(e);
         }
     }

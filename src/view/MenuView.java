@@ -16,9 +16,23 @@ public class MenuView extends JPanel {
         add(switchToSettingsButton);
         add(quitButton);
         quitButton.addActionListener( e -> System.exit(0));
-        switchToGameButton.setBounds((AppModel.WIDTH/2)-50, (AppModel.HEIGHT/2)-15*5, 100, 30);
-        switchToSettingsButton.setBounds((AppModel.WIDTH/2)-50, (AppModel.HEIGHT/2)-15, 100, 30);
-        quitButton.setBounds((AppModel.WIDTH/2)-50, (AppModel.HEIGHT/2)+15*3, 100, 30);
+        // variables for correctly positioning the buttons
+        int spacing = 30;
+        int button_height = 30;
+        int button_width = 100;
+        // positioning the buttons
+        switchToGameButton.setBounds((AppModel.WIDTH/2)-(button_width/2)
+        , (AppModel.HEIGHT/2)-(button_height/2) - spacing - button_height
+        , button_width, button_height
+        );
+        switchToSettingsButton.setBounds((AppModel.WIDTH/2)-(button_width/2)
+        , (AppModel.HEIGHT/2)-(button_height/2)
+        ,button_width, button_height
+        );
+        quitButton.setBounds((AppModel.WIDTH/2)-(button_width/2)
+        , (AppModel.HEIGHT/2)-(button_height/2) + spacing + button_height
+        , button_width, button_height
+        );
     }
     
     public void paintComponent(Graphics g){

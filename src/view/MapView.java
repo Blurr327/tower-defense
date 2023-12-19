@@ -24,12 +24,14 @@ public class MapView extends JPanel{
         
     }
 
+    // This function is called 60 times per second because it is contained in the container panel that is repainted 60 times per second by the App Controller
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         renderMap(g);
     }
 
     public void renderMap(Graphics g){
+        // drawing the map
         int u= MapModel.UNIT_SIZE;
         for(int y=0;y<MapModel.HEIGHT;y++){
             for(int x=0;x<MapModel.WIDTH;x++){
@@ -37,7 +39,7 @@ public class MapView extends JPanel{
                 g.drawImage(tile.getSprite(),x*u, y*u, null);
             }
         }
-;
+;       // drawing the selected tile if in edit mode
         if(GameModel.getGameMode() == GameModel.EDIT && MapEditorModel.isTileSelected()) g.drawImage(TileModel.getTileById(MapEditorModel.getSelectedTileId()).getSprite(), MapEditorModel.getTileToModX()*MapModel.UNIT_SIZE, MapEditorModel.getTileToModY()*MapModel.UNIT_SIZE, null);
     }
 
