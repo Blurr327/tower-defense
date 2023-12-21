@@ -21,14 +21,6 @@ public class AppModel {
     public static void setAppMode(AppMode appMode) {
         AppModel.appMode = appMode;
     }
-
-    public String getActiveCard() {
-        return switch (appMode) {
-            case MENU -> "menu";
-            case SETTINGS -> "settings";
-            case GAME -> "game";
-        };
-    }
     
     public double getUPS() {
         return UPS;

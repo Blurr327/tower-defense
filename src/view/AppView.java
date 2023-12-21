@@ -67,16 +67,24 @@ public class AppView extends JFrame {
         setLocationRelativeTo(null);
     }
 
+    public String getActiveCard() {
+        return switch (AppModel.getAppMode()){
+            case MENU -> "menu";
+            case SETTINGS -> "settings";
+            case GAME -> "game";
+        };
+    }
+
     private void initCardLayout() {
         cardLayout = (CardLayout) container.getLayout();
         container.add(gameView, "game");
         container.add(menuView, "menu");
         container.add(settingsView, "settings");
-        cardLayout.show(container, model.getActiveCard());
+        cardLayout.show(container, getActiveCard());
     }
 
     public void updateCard(){
-        cardLayout.show(container, model.getActiveCard());
+        cardLayout.show(container, getActiveCard());
     }
 
     public AppModel getModel() {

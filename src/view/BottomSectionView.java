@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 import controller.BottomSectionController;
 import model.BottomSectionModel;
+import model.GameModel;
 import model.MapModel;
 import model.PlayManagerModel;
 
@@ -31,7 +32,7 @@ public class BottomSectionView extends JPanel {
         this.cardLayout = (CardLayout) this.getLayout();
         this.add(mapEditorView, "edit");
         this.add(playManagerView, "play");
-        cardLayout.show(this, BottomSectionModel.getActiveCard());
+        cardLayout.show(this, getActiveCard());
     }
 
     public void setPanelSize(){
@@ -42,7 +43,7 @@ public class BottomSectionView extends JPanel {
     }
 
     public void updateCard(){
-        cardLayout.show(this, BottomSectionModel.getActiveCard());
+        cardLayout.show(this, getActiveCard());
     }
 
     public MapEditorView getMapEditorView() {
@@ -53,6 +54,15 @@ public class BottomSectionView extends JPanel {
         return playManagerView;
     }
 
-
+    public String getActiveCard() {
+        switch(GameModel.getGameMode()){
+            case EDIT:
+                return "edit";
+            case PLAY:
+                return "play";
+            default:
+                return "edit";
+        }
+    }
 
 }

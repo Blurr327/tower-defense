@@ -7,15 +7,4 @@ public class BottomSectionModel {
     public BottomSectionModel() {
     }
 
-    public static String getActiveCard() {
-        switch(GameModel.getGameMode()){
-            case EDIT:
-                return "edit";
-            case PLAY:
-                return "play";
-            default:
-                return "edit";
-        }
-    }
-
 }

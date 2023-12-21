@@ -22,9 +22,7 @@ public class MapEditorView extends JPanel{
     MapEditorController controller;
 
     CustomButtonView switchToPlayManagerButton = new CustomButtonView("Play");
-    JButton selectGrassButton;
-    JButton selectPathButton;
-    JButton selectFlowerButton;
+    
     ArrayList<JButton> tileButtons = new ArrayList<JButton>();
     private static final ImageIcon[] iconArray;
 
