@@ -24,6 +24,8 @@ public class MapEditorView extends JPanel{
     JButton selectGrassButton;
     JButton selectPathButton;
     JButton selectFlowerButton;
+    JButton selectSpawnButton;
+    JButton selectTargetButton;
     ArrayList<JButton> tileButtons = new ArrayList<JButton>();
 
     public MapEditorView(){

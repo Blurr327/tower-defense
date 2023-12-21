@@ -16,7 +16,7 @@ public class AppModel {
     public static final int WIDTH = MapModel.WIDTH*MapModel.UNIT_SIZE;
     public static final BufferedImage spriteSheet = importImg();
     private double FPS = 120; // frames per second
-    private double UPS = 60; // updates per second
+    private double UPS = 1; // updates per second
 
     public static AppMode getAppMode() {
         return appMode;

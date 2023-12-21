@@ -12,6 +12,7 @@ public class MapModel {
     
     // generating default map
     static {
+            // 
             for(int x=0;x<WIDTH/2;x++){
                 map[HEIGHT/2][x] = 2;
             }
