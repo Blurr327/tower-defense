@@ -29,7 +29,7 @@ public class PlayManagerView extends JPanel{
     public void draw(Graphics g) {
         super.paintComponent(g);
         g.setColor(Color.lightGray);
-        g.fillRect(0, 0, BottomSectionModel.SECTION_WIDTH*MapModel.UNIT_SIZE, BottomSectionModel.SECTION_HEIGHT*MapModel.UNIT_SIZE);
+        g.fillRect(0, 0, BottomSectionModel.SECTION_WIDTH*AppView.UNIT_SIZE, BottomSectionModel.SECTION_HEIGHT*AppView.UNIT_SIZE);
     }
 
     public CustomButtonView getSwitchToEditButton() {

@@ -35,7 +35,7 @@ public class BottomSectionView extends JPanel {
     }
 
     public void setPanelSize(){
-        Dimension size = new Dimension(BottomSectionModel.SECTION_WIDTH*MapModel.UNIT_SIZE, BottomSectionModel.SECTION_HEIGHT*MapModel.UNIT_SIZE);
+        Dimension size = new Dimension(BottomSectionModel.SECTION_WIDTH*AppView.UNIT_SIZE, BottomSectionModel.SECTION_HEIGHT*AppView.UNIT_SIZE);
         setPreferredSize(size);
         setMaximumSize(size);
         setMinimumSize(size);

@@ -1,22 +1,10 @@
 package model;
 
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-
-import javax.swing.ImageIcon;
 public class MapEditorModel extends BottomSectionModel {
     
-    private static final ImageIcon[] iconArray;
     private static int selectedTileId = -1;
     private static int tileToModX;
     private static int tileToModY;
-
-    static {
-        iconArray = new ImageIcon[TileModel.values().length];
-        for(TileModel tile : TileModel.values()) {
-            iconArray[tile.getId()] = new ImageIcon(tile.getSprite());
-        }
-    }
 
     public static int getTileToModX() {
         return tileToModX;
@@ -44,14 +32,6 @@ public class MapEditorModel extends BottomSectionModel {
 
     public static boolean isTileSelected() {
         return selectedTileId != -1;
-    }
-
-    public static ImageIcon getIconById(int id) {
-        return iconArray[id];
-    }
-
-    public static int getIconArrayLength() {
-        return iconArray.length;
     }
 
 }

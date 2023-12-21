@@ -4,7 +4,6 @@ import java.util.Random;
 import view.AppContainer;
 
 public class MapModel {
-    public static final int UNIT_SIZE = 32;
     public static final int HEIGHT = 20;
     public static final int WIDTH = 20;
     private static final int[][] map = new int[HEIGHT][WIDTH];
@@ -26,7 +25,7 @@ public class MapModel {
             }
     }
 
-    public int getTileIdAt(int x, int y){
+    public int getTileIdAt(int x, int y){ 
         return map[y][x];
     }
 

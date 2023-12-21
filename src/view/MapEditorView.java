@@ -1,5 +1,6 @@
 package view;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -25,6 +26,15 @@ public class MapEditorView extends JPanel{
     JButton selectPathButton;
     JButton selectFlowerButton;
     ArrayList<JButton> tileButtons = new ArrayList<JButton>();
+    private static final ImageIcon[] iconArray;
+
+    static {
+        iconArray = new ImageIcon[TileModel.values().length];
+        for(TileModel tile : TileModel.values()) {
+            iconArray[tile.getId()] = new ImageIcon(TileView.getSpriteById(tile.getId()));
+        }
+    }
+
 
     public MapEditorView(){
 
@@ -35,8 +45,8 @@ public class MapEditorView extends JPanel{
         this.controller = new MapEditorController(model, this);
         
         // initializing the tile buttons
-        for(int i = 0; i < MapEditorModel.getIconArrayLength();i++){
-            tileButtons.add(new JButton(MapEditorModel.getIconById(i)));
+        for(int i = 0; i < iconArray.length;i++){
+            tileButtons.add(new JButton(iconArray[i]));
         }
 
         // initializing switch to play manager button
@@ -46,7 +56,7 @@ public class MapEditorView extends JPanel{
         
         // positioning the tile buttons and adding them to the panel
         for(int i = 0; i < tileButtons.size();i++){
-            tileButtons.get(i).setBounds(100 + (i+1)*50, 15, MapModel.UNIT_SIZE, MapModel.UNIT_SIZE);
+            tileButtons.get(i).setBounds(100 + (i+1)*50, 15, AppView.UNIT_SIZE, AppView.UNIT_SIZE);
             add(tileButtons.get(i));
         }
     }
@@ -58,7 +68,7 @@ public class MapEditorView extends JPanel{
 
     public void draw(Graphics g) {
         g.setColor(Color.lightGray);
-        g.fillRect(0, 0, BottomSectionModel.SECTION_WIDTH*MapModel.UNIT_SIZE, BottomSectionModel.SECTION_HEIGHT*MapModel.UNIT_SIZE);
+        g.fillRect(0, 0, BottomSectionModel.SECTION_WIDTH*AppView.UNIT_SIZE, BottomSectionModel.SECTION_HEIGHT*AppView.UNIT_SIZE);
     }
 
         

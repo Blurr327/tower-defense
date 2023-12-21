@@ -32,19 +32,18 @@ public class MapView extends JPanel{
 
     public void renderMap(Graphics g){
         // drawing the map
-        int u= MapModel.UNIT_SIZE;
+        int u= AppView.UNIT_SIZE;
         for(int y=0;y<MapModel.HEIGHT;y++){
             for(int x=0;x<MapModel.WIDTH;x++){
-                TileModel tile = TileModel.getTileById(map.getTileIdAt(x, y));
-                g.drawImage(tile.getSprite(),x*u, y*u, null);
+                g.drawImage(TileView.getSpriteById(map.getTileIdAt(x, y)),x*u, y*u, null);
             }
         }
 ;       // drawing the selected tile if in edit mode
-        if(GameModel.getGameMode() == GameModel.EDIT && MapEditorModel.isTileSelected()) g.drawImage(TileModel.getTileById(MapEditorModel.getSelectedTileId()).getSprite(), MapEditorModel.getTileToModX()*MapModel.UNIT_SIZE, MapEditorModel.getTileToModY()*MapModel.UNIT_SIZE, null);
+        if(GameModel.getGameMode() == GameModel.EDIT && MapEditorModel.isTileSelected()) g.drawImage(TileView.getSpriteById(MapEditorModel.getSelectedTileId()), MapEditorModel.getTileToModX()*u, MapEditorModel.getTileToModY()*u, null);
     }
 
     public void setPanelSize(){
-        Dimension size = new Dimension(MapModel.WIDTH*MapModel.UNIT_SIZE, MapModel.HEIGHT*MapModel.UNIT_SIZE);
+        Dimension size = new Dimension(MapModel.WIDTH*AppView.UNIT_SIZE, MapModel.HEIGHT*AppView.UNIT_SIZE);
         setPreferredSize(size);
         setMaximumSize(size);
         setMinimumSize(size);

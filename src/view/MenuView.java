@@ -21,16 +21,16 @@ public class MenuView extends JPanel {
         int button_height = 30;
         int button_width = 100;
         // positioning the buttons
-        switchToGameButton.setBounds((AppModel.WIDTH/2)-(button_width/2)
-        , (AppModel.HEIGHT/2)-(button_height/2) - spacing - button_height
+        switchToGameButton.setBounds((AppView.WIDTH/2)-(button_width/2)
+        , (AppView.HEIGHT/2)-(button_height/2) - spacing - button_height
         , button_width, button_height
         );
-        switchToSettingsButton.setBounds((AppModel.WIDTH/2)-(button_width/2)
-        , (AppModel.HEIGHT/2)-(button_height/2)
+        switchToSettingsButton.setBounds((AppView.WIDTH/2)-(button_width/2)
+        , (AppView.HEIGHT/2)-(button_height/2)
         ,button_width, button_height
         );
-        quitButton.setBounds((AppModel.WIDTH/2)-(button_width/2)
-        , (AppModel.HEIGHT/2)-(button_height/2) + spacing + button_height
+        quitButton.setBounds((AppView.WIDTH/2)-(button_width/2)
+        , (AppView.HEIGHT/2)-(button_height/2) + spacing + button_height
         , button_width, button_height
         );
     }
@@ -42,7 +42,7 @@ public class MenuView extends JPanel {
 
     public void draw(Graphics g) {
         g.setColor(Color.lightGray);
-        g.fillRect(0,0,AppModel.WIDTH,AppModel.HEIGHT);
+        g.fillRect(0,0,AppView.WIDTH,AppView.HEIGHT);
     }
 
         public CustomButtonView getSwitchToGameButton() {

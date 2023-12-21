@@ -3,12 +3,11 @@ package controller;
 import model.GameModel;
 import model.MapEditorModel;
 import model.MapModel;
+import view.AppView;
 import view.MapView;
-import java.awt.*;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+
 
 
 public class MapController implements MouseMotionListener {
@@ -36,8 +35,8 @@ public class MapController implements MouseMotionListener {
     }
 
     public void updateSetTileToMod(MouseEvent e){
-        MapEditorModel.setTileToModX(e.getX()/MapModel.UNIT_SIZE);
-        MapEditorModel.setTileToModY(e.getY()/MapModel.UNIT_SIZE);
+        MapEditorModel.setTileToModX(e.getX()/AppView.UNIT_SIZE);
+        MapEditorModel.setTileToModY(e.getY()/AppView.UNIT_SIZE);
     }
 
 }
