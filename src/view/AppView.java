@@ -22,12 +22,12 @@ public class AppView extends JFrame {
     public static final int HEIGHT = (MapModel.HEIGHT + BottomSectionModel.SECTION_HEIGHT)*UNIT_SIZE;
     public static final int WIDTH = MapModel.WIDTH*UNIT_SIZE;
 
-    private double FPS = 120; // frames per second
+    private static double FPS = 120; // frames per second
 
-    protected AppModel model;
-    protected AppController controller;
-    protected AppContainer container;
-    protected CardLayout cardLayout;
+    private AppModel model;
+    private AppController controller;
+    private AppContainer container;
+    private CardLayout cardLayout;
 
     public static final BufferedImage spriteSheet = importImg();
     
@@ -111,7 +111,7 @@ public class AppView extends JFrame {
     }
 
     private static BufferedImage importImg(){
-        InputStream is = AppView.class.getClassLoader().getResourceAsStream(Paths.get("res/tileset.png").toString());
+        InputStream is = AppView.class.getClassLoader().getResourceAsStream(Paths.get("res/sprites.png").toString());
         BufferedImage ss = null;
 
         try {
@@ -132,11 +132,11 @@ public class AppView extends JFrame {
         return WIDTH;
     }
 
-    public double getFPS() {
+    public static double getFPS() {
         return FPS;
     }
 
-    public void setFPS(double fPS) {
+    public static void setFPS(double fPS) {
         FPS = fPS;
     }
 

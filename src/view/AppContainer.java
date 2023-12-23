@@ -8,10 +8,12 @@ import model.MapModel;
 import java.awt.*;
 
 public class AppContainer extends JPanel {
+    private GameView gameView;
 
     public AppContainer(int width, int height, GameView gameView){
         super(new CardLayout());
         
+        this.gameView = gameView;
         add(gameView);
         setPanelSize(width , height);
     }
@@ -21,6 +23,10 @@ public class AppContainer extends JPanel {
         setPreferredSize(size);
         setMaximumSize(size);
         setMinimumSize(size);
+    }
+    
+    public GameView getGameView() {
+        return gameView;
     }
 
 }

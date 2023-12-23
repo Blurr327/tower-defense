@@ -9,6 +9,7 @@ public enum TileModel {
 
     private final boolean walkable;
     private final int id;
+    private static int nextId = 0;
 
     public int getId() {
         return id;

@@ -18,7 +18,7 @@ public class PlayManagerView extends JPanel{
         this.model = model;
         this.setLayout(null);
         add(switchToEditButton);
-        switchToEditButton.setBounds(15,15,80,30);
+        switchToEditButton.setBounds(15,15,90,30);
     }
 
     public void paintComponent(Graphics g){

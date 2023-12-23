@@ -24,6 +24,10 @@ public class MapEditorView extends JPanel{
     CustomButtonView switchToPlayManagerButton = new CustomButtonView("Play");
     
     ArrayList<JButton> tileButtons = new ArrayList<JButton>();
+
+    CustomButtonView spawnPointEditorButton = new CustomButtonView("Spawn");
+    CustomButtonView targetPointEditorButton = new CustomButtonView("Target");
+
     private static final ImageIcon[] iconArray;
 
     static {
@@ -47,16 +51,27 @@ public class MapEditorView extends JPanel{
             tileButtons.add(new JButton(iconArray[i]));
         }
 
-        // initializing switch to play manager button
+        // initializing and positioning switch to play manager button
         add(switchToPlayManagerButton);
-        switchToPlayManagerButton.setBounds(15,15,80,30);
-        addActionListeners();
+        switchToPlayManagerButton.setBounds(15,15,90, 30);
+
+        //initializing and positioning spawn point editor button
+        add(spawnPointEditorButton);
+        spawnPointEditorButton.setBounds(15, 50, 90, 30);
+
+        //initializing and positioning target point editor button
+        add(targetPointEditorButton);
+        targetPointEditorButton.setBounds(15, 85, 90, 30);
+
         
         // positioning the tile buttons and adding them to the panel
         for(int i = 0; i < tileButtons.size();i++){
             tileButtons.get(i).setBounds(100 + (i+1)*50, 15, AppView.UNIT_SIZE, AppView.UNIT_SIZE);
             add(tileButtons.get(i));
         }
+        
+        // add actions listenrs to the buttons
+        addActionListeners();
     }
 
     public void paintComponent(Graphics g){
@@ -75,17 +90,26 @@ public class MapEditorView extends JPanel{
     }
 
     public void addActionListeners() {
+
+        // add action listeners to the tile buttons
         for (int i = 0; i < tileButtons.size(); i++) {
             final int index = i; // Create a final copy of the variable i
             tileButtons.get(i).addActionListener(e -> controller.tileSelected(index));
         }
+
+        // add action listener to the spawn point editor button
+        spawnPointEditorButton.addActionListener(e -> controller.spawnPointEditorButtonClicked());
+
+        // add action listener to the target point editor button
+        targetPointEditorButton.addActionListener(e -> controller.targetPointEditorButtonClicked());
+
     }
 
     public void setModel(MapEditorModel model) {
         this.model = model;
     }
 
-        public void setController(MapEditorController controller) {
+    public void setController(MapEditorController controller) {
         this.controller = controller;
     }
 

@@ -12,7 +12,7 @@ public class AppModel {
         MENU, SETTINGS, GAME;
     }
     private static AppMode appMode = AppMode.MENU;
-    private double UPS = 60; // updates per second
+    private static double UPS = 60; // updates per second
 
     public static AppMode getAppMode() {
         return appMode;
@@ -22,11 +22,11 @@ public class AppModel {
         AppModel.appMode = appMode;
     }
     
-    public double getUPS() {
+    public static double getUPS() {
         return UPS;
     }
 
-    public void setUPS(double uPS) {
+    public static void setUPS(double uPS) {
         UPS = uPS;
     }
 

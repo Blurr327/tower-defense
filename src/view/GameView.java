@@ -12,10 +12,10 @@ import model.MapModel;
 
 public class GameView extends JPanel{
     private GameController gameController;
-    protected MapView mapView = new MapView();
-    protected CustomButtonView switchToMenuButton = new CustomButtonView("Menu");
+    private MapView mapView = new MapView();
+    private CustomButtonView switchToMenuButton = new CustomButtonView("Menu");
 
-    protected BottomSectionView bottomSectionView= new BottomSectionView(new BottomSectionModel());
+    private BottomSectionView bottomSectionView= new BottomSectionView(new BottomSectionModel());
 
     public GameView(){
         super();
@@ -27,6 +27,8 @@ public class GameView extends JPanel{
         add(mapView);
         add(bottomSectionView);
         
+        setFocusable(true);
+        requestFocusInWindow();
         addActionListeners();
 
         switchToMenuButton.setBounds(5, 5, 80, 30);
@@ -42,6 +44,7 @@ public class GameView extends JPanel{
     public void addActionListeners(){
         bottomSectionView.getMapEditorView().getSwitchToPlayManagerButton().addActionListener(e -> gameController.switchToPlay());
         bottomSectionView.getPlayManagerView().getSwitchToEditButton().addActionListener(e -> gameController.switchToEdit());
+        addKeyListener(gameController);
     }
 
     public BottomSectionView getBottomSectionView() {

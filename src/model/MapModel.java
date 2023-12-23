@@ -25,11 +25,11 @@ public class MapModel {
             }
     }
 
-    public int getTileIdAt(int x, int y){ 
+    public static int getTileIdAt(int x, int y){ 
         return map[y][x];
     }
 
-    public void setTileIdAt(int x, int y, int id){
+    public static void setTileIdAt(int x, int y, int id){
         map[y][x] = id;
     }
 
