@@ -9,7 +9,10 @@ import model.BottomSectionModel;
 import model.MapModel;
 
 
-
+/*
+ * This class is the container containing the bottom section and the map
+ * it is responsible for poitioning them correctly and displaying components linked to the game as a whole
+ */
 public class GameView extends JPanel{
     private GameController gameController;
     private MapView mapView = new MapView();

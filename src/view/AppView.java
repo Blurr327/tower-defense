@@ -16,18 +16,22 @@ import java.nio.file.Paths;
 
 import controller.AppController;
 
+/*
+ * This class is the main JFRAME of the entire application
+ */
+
 public class AppView extends JFrame {
 
-    public static final int UNIT_SIZE = 32;
-    public static final int HEIGHT = (MapModel.HEIGHT + BottomSectionModel.SECTION_HEIGHT)*UNIT_SIZE;
+    public static final int UNIT_SIZE = 32; // size of a tile in pixels
+    public static final int HEIGHT = (MapModel.HEIGHT + BottomSectionModel.SECTION_HEIGHT)*UNIT_SIZE; // height of the window, considering the bottom section
     public static final int WIDTH = MapModel.WIDTH*UNIT_SIZE;
 
     private static double FPS = 120; // frames per second
 
     private AppModel model;
     private AppController controller;
-    private AppContainer container;
-    private CardLayout cardLayout;
+    private AppContainer container; // container for the 3 main views of the game
+    private CardLayout cardLayout; // used to switch between the 3 main views of the game
 
     public static final BufferedImage spriteSheet = importImg();
     

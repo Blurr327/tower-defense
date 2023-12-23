@@ -18,6 +18,10 @@ import model.MapModel;
 import model.TileModel;
 import model.enemies.MrBlobModel;
 
+/*
+ * this class is responsible for rendering the map and everything that happens in it (enemies, towers, projectiles, etc)
+ */
+
 public class MapView extends JPanel{
     private MapModel map;
     // temporary code to test enemy movement

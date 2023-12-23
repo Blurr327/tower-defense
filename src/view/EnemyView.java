@@ -3,6 +3,9 @@ package view;
 import model.EnemyModel;
 import java.awt.image.BufferedImage;
 
+/*
+ * this class is responsible for retriving the sprite of the enemy depending on its id
+ */
 public class EnemyView {
     private EnemyModel enemyModel;
     private BufferedImage sprite;

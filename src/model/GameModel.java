@@ -7,6 +7,7 @@ import view.MapView;
 public enum GameModel {
     EDIT, PLAY;
     private static GameModel gameMode = EDIT;
+    // TODO: Move this timer to a controller
     private static Timer updateTimer;
     // TODO: Move this timer to a controller
     static {

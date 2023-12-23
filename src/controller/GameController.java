@@ -13,6 +13,10 @@ import view.AppView;
 import view.GameView;
 import view.MapView;
 
+/*
+ * this class is responsible for switching between the edit and play modes, it also handles events when the application is in GAME mode
+ */
+
 public class GameController implements KeyListener {
     private GameView view;
 
@@ -20,18 +24,21 @@ public class GameController implements KeyListener {
         this.view = view;
     }
 
+    // this method switches to edit mode and stops the update loop
     public void switchToEdit() {
         GameModel.setGameMode(GameModel.EDIT);
         stopUpdateLoop();
         view.getBottomSectionView().updateCard();
     }
 
+    // this method switches to play mode
     public void switchToPlay() {
         initGame();
         GameModel.setGameMode(GameModel.PLAY);
         view.getBottomSectionView().updateCard();
     }
 
+    // this method initializes the spawn and target tiles for the enemies and starts the update loop
     public void initGame(){
         runUpdateLoop();
         EnemyController.initSpawnTile();
@@ -48,6 +55,8 @@ public class GameController implements KeyListener {
         GameModel.stopUpdateLoop();
     }
 
+    // pressing escapes pauses the update loop if it is running and unpauses if it is paused AND if the game mode is PLAY
+    // unpausing the game while in EDIT mode can be problematic so it's better to get rid of it for now
     @Override
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ESCAPE){

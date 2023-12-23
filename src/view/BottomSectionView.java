@@ -13,11 +13,13 @@ import model.MapModel;
 import model.PlayManagerModel;
 
 public class BottomSectionView extends JPanel {
-    BottomSectionModel model;
-    BottomSectionController controller;
-    CardLayout cardLayout;
-    MapEditorView mapEditorView = new MapEditorView();
-    PlayManagerView playManagerView = new PlayManagerView(new PlayManagerModel());
+    private BottomSectionModel model;
+    private BottomSectionController controller;
+    
+    private CardLayout cardLayout; // card layout for switching between map editor and play manager
+
+    private MapEditorView mapEditorView = new MapEditorView();
+    private PlayManagerView playManagerView = new PlayManagerView(new PlayManagerModel());
 
     public BottomSectionView(BottomSectionModel model){
         super(new CardLayout());

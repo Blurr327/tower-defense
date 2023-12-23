@@ -10,6 +10,9 @@ import model.BottomSectionModel;
 import model.MapModel;
 import model.PlayManagerModel;
 
+/*
+ * This class is responsible for displaying your current balance, the current wave, and the towers available to you
+ */
 public class PlayManagerView extends JPanel{
     PlayManagerModel model;
     CustomButtonView switchToEditButton = new CustomButtonView("Edit");

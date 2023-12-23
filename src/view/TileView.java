@@ -7,6 +7,9 @@ import model.AppModel;
 import model.MapModel;
 import model.TileModel;
 
+/*
+ * this class is responsible for retriving the sprite of the tile depending on its id
+ */
 public class TileView {
     private static final ArrayList<BufferedImage> Tilesprites = new ArrayList<>();
 

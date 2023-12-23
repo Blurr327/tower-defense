@@ -5,6 +5,10 @@ import javax.swing.*;
 
 import model.AppModel;
 
+/*
+ * this class is the view for the menu
+ *
+ */
 public class MenuView extends JPanel {
     CustomButtonView switchToGameButton = new CustomButtonView("Start");
     CustomButtonView switchToSettingsButton = new CustomButtonView("Settings");

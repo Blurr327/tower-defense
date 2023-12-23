@@ -17,19 +17,23 @@ import java.util.ArrayList;
 
 
 public class MapEditorView extends JPanel{
-    MapEditorModel model = new MapEditorModel();
 
-    MapEditorController controller;
+    private MapEditorModel model = new MapEditorModel();
+    private MapEditorController controller;
 
-    CustomButtonView switchToPlayManagerButton = new CustomButtonView("Play");
+    private CustomButtonView switchToPlayManagerButton = new CustomButtonView("Play");
     
-    ArrayList<JButton> tileButtons = new ArrayList<JButton>();
+    // array list containing all of the tile buttons which are going to be displayed on the bottom section
+    private ArrayList<JButton> tileButtons = new ArrayList<JButton>();
 
-    CustomButtonView spawnPointEditorButton = new CustomButtonView("Spawn");
-    CustomButtonView targetPointEditorButton = new CustomButtonView("Target");
-
+    // this is the array containing all of the icons for the tile buttons
     private static final ImageIcon[] iconArray;
 
+    // buttons used for switching to the spawn point editor and target point editor
+    private CustomButtonView spawnPointEditorButton = new CustomButtonView("Spawn");
+    private CustomButtonView targetPointEditorButton = new CustomButtonView("Target");
+
+    // initializing the icon array
     static {
         iconArray = new ImageIcon[TileModel.values().length];
         for(TileModel tile : TileModel.values()) {

@@ -3,6 +3,9 @@ package view;
 import java.awt.*;
 import javax.swing.*;
 
+/*
+ * this class is used to adjust the FPS, difficulty and sound settings
+ */
 public class SettingsView extends JPanel {
     CustomButtonView switchToMenuButton = new CustomButtonView("Menu");
 
