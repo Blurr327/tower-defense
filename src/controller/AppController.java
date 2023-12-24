@@ -7,7 +7,6 @@ import javax.swing.Timer;
 
 /*
  * this class is responsible for switching between the menu, settings and game modes
- *
  */
 public class AppController {
     private AppModel model;

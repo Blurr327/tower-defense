@@ -15,8 +15,8 @@ import java.awt.AlphaComposite;
 import model.GameModel;
 import model.MapEditorModel;
 import model.MapModel;
-import model.TileModel;
-import model.enemies.MrBlobModel;
+import model.TileType;
+
 
 /*
  * this class is responsible for rendering the map and everything that happens in it (enemies, towers, projectiles, etc)
@@ -24,8 +24,7 @@ import model.enemies.MrBlobModel;
 
 public class MapView extends JPanel{
     private MapModel map;
-    // temporary code to test enemy movement
-    public static MrBlobModel blob;
+
 
     public MapView(){
         map = new MapModel();
@@ -90,10 +89,7 @@ public class MapView extends JPanel{
     }
 
     public void renderPlayMap(Graphics g){
-        // temporary code to test enemy movement
-        int u= AppView.UNIT_SIZE;
-        EnemyView blobView = new EnemyView(blob);  
-        g.drawImage(blobView.getSprite(), (int) (blob.getX()*u), (int) (blob.getY()*u), null);
+
         
     }
 

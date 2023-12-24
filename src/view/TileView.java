@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import model.AppModel;
 import model.MapModel;
-import model.TileModel;
+import model.TileType;
 
 /*
  * this class is responsible for retriving the sprite of the tile depending on its id
@@ -14,7 +14,7 @@ public class TileView {
     private static final ArrayList<BufferedImage> Tilesprites = new ArrayList<>();
 
     static {
-        for(int i = 0; i<TileModel.values().length;i++){
+        for(int i = 0; i<TileType.values().length;i++){
             Tilesprites.add(initSprite(i));
         }
     }

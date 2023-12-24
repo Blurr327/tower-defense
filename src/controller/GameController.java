@@ -8,7 +8,6 @@ import java.awt.event.KeyListener;
 
 import model.AppModel;
 import model.GameModel;
-import model.enemies.MrBlobModel;
 import view.AppView;
 import view.GameView;
 import view.MapView;
@@ -19,6 +18,13 @@ import view.MapView;
 
 public class GameController implements KeyListener {
     private GameView view;
+    private static Timer updateTimer;
+
+    static {
+        int delay = ((int) (1000/AppModel.getUPS())); // delay for 60 updates per second
+        // Set up Timer for game logic update (60 updates per second)
+        updateTimer = new Timer(delay, e -> update());
+    }
 
     public GameController(GameView view) {
         this.view = view;
@@ -41,18 +47,19 @@ public class GameController implements KeyListener {
     // this method initializes the spawn and target tiles for the enemies and starts the update loop
     public void initGame(){
         runUpdateLoop();
-        EnemyController.initSpawnTile();
-        EnemyController.initTargetTile();
-        // temporary code to test enemy movement
-        MapView.blob = new MrBlobModel();
+    }
+
+    public static void update(){
+        int num = (int) (Math.random()*100);
+        System.out.println(num);
     }
 
     public static void runUpdateLoop(){
-        GameModel.startUpdateLoop();
+        updateTimer.start();
     }
 
     public static void stopUpdateLoop(){
-        GameModel.stopUpdateLoop();
+       updateTimer.stop();
     }
 
     // pressing escapes pauses the update loop if it is running and unpauses if it is paused AND if the game mode is PLAY
@@ -60,7 +67,7 @@ public class GameController implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
-            if(GameModel.timerIsRunning()){
+            if(updateTimer.isRunning()){
                 stopUpdateLoop();
             }
             else if (GameModel.getGameMode() == GameModel.PLAY){

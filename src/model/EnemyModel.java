@@ -1,6 +1,11 @@
 package model;
 
-public class EnemyModel {
+import java.util.ArrayList;
+
+public enum EnemyModel {
+    MRBLOB(30, 0.03f,1,10),
+    MRSLIME(60, 0.01f, 5, 30),
+    MRSNAKE(100, 0.1f, 3, 50);
 
     private int health;
     private float speed;
@@ -8,7 +13,6 @@ public class EnemyModel {
     private int reward;
     private float x;
     private float y;
-    private int id;
 
     private DirectionModel direction;
     private static int nextId = 0;
@@ -17,14 +21,12 @@ public class EnemyModel {
     private static int targetTileX;
     private static int targetTileY;
 
-    public EnemyModel(int health, float speed, int damage, int reward, int id) {
-        this.x = spawnTileX;
-        this.y = spawnTileY;
+    private EnemyModel(int health, float speed, int damage, int reward) {
+        
         this.health = health;
         this.speed = speed;
         this.damage = damage;
         this.reward = reward;
-        this.id = id;
     }
 
     public int getHealth() {
@@ -49,14 +51,6 @@ public class EnemyModel {
 
     public void setReward(int reward) {
         this.reward = reward;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public DirectionModel getDirection() {
@@ -105,6 +99,8 @@ public class EnemyModel {
             case WEST:
                 x -= speed;
                 break;
+            case NONE:
+                break;
         }
     }
 
@@ -147,5 +143,16 @@ public class EnemyModel {
     public static void setTargetTileY(int targetTileY) {
         EnemyModel.targetTileY = targetTileY;
     }
+    
 
+    public static ArrayList<EnemyModel> getEnemiesByDamage(int damage) {
+        ArrayList<EnemyModel> res = new ArrayList<>();
+        for (EnemyModel enemyModel : EnemyModel.values()) {
+            if (enemyModel.getDamage() <= damage) {
+                res.add(enemyModel);
+            }
+        }
+        return res;
+    }
+    
 }

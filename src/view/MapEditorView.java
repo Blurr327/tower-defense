@@ -8,7 +8,7 @@ import controller.MapEditorController;
 import model.BottomSectionModel;
 import model.MapEditorModel;
 import model.MapModel;
-import model.TileModel;
+import model.TileType;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -35,8 +35,8 @@ public class MapEditorView extends JPanel{
 
     // initializing the icon array
     static {
-        iconArray = new ImageIcon[TileModel.values().length];
-        for(TileModel tile : TileModel.values()) {
+        iconArray = new ImageIcon[TileType.values().length];
+        for(TileType tile : TileType.values()) {
             iconArray[tile.getId()] = new ImageIcon(TileView.getSpriteById(tile.getId()));
         }
     }

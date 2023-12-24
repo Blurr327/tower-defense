@@ -3,7 +3,7 @@ package controller;
 import model.GameModel;
 import model.MapEditorModel;
 import model.MapModel;
-import model.TileModel;
+import model.TileType;
 import view.AppView;
 import view.MapView;
 import java.awt.event.MouseMotionListener;
@@ -63,14 +63,14 @@ public class MapController implements MouseMotionListener, MouseListener {
     // true if the tile selected is not the target tile and is walkable, false otherwise
     public boolean spawnTileValid(int x, int y) {
         boolean differentLocations = x != MapEditorModel.getTargetTileX() || y != MapEditorModel.getTargetTileY();
-        boolean spawnTileValid = TileModel.getTileById(MapModel.getTileIdAt(x, y)).isWalkable();
+        boolean spawnTileValid = TileType.getTileById(MapModel.getTileIdAt(x, y)).isWalkable();
         return differentLocations && spawnTileValid;
     }
 
     // true if the tile selected is not the spawn tile and is walkable, false otherwise
     public boolean targetTileValid(int x, int y) {
         boolean differentLocations = x != MapEditorModel.getSpawnTileX() || y != MapEditorModel.getSpawnTileY();
-        boolean targetTileValid = TileModel.getTileById(MapModel.getTileIdAt(x, y)).isWalkable();
+        boolean targetTileValid = TileType.getTileById(MapModel.getTileIdAt(x, y)).isWalkable();
         return differentLocations && targetTileValid;
     }
 
