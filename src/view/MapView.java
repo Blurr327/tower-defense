@@ -89,6 +89,8 @@ public class MapView extends JPanel{
                     StringHelper.drawCenteredString(g, "X", MapEditorModel.getTileToModX(), MapEditorModel.getTileToModY(), u);
 
                     BaseView.renderBase(g, BaseModel.getX(), BaseModel.getY());
+                    break;
+            case TOWER:
 
                 break;
         }

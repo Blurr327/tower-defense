@@ -3,21 +3,26 @@ package model;
 import java.awt.image.BufferedImage;
 
 public enum TileType {
-    GRASS(false, 0),
-    FLOWER(false, 1),
-    PATH(true, 2);
+    GRASS(false),
+    FLOWER(false),
+    PATH(true);
 
     private final boolean walkable;
-    private final int id;
+    private int id;
 
     public int getId() {
         return id;
     }
 
-    TileType(boolean walkable, int id) {
-        this.walkable = walkable;
+    public void setId(int id) {
         this.id = id;
     }
+
+    TileType(boolean walkable) {
+        this.walkable = walkable;
+    }
+
+
 
     public boolean isWalkable() {
         return walkable;

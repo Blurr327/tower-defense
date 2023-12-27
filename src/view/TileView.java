@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+
 import model.AppModel;
 import model.MapModel;
 import model.TileType;
@@ -11,24 +13,30 @@ import model.TileType;
 /*
  * this class is responsible for retriving the sprite of the tile depending on its id
  */
-public class TileView {
+public class TileView implements Iconable {
     private static final ArrayList<BufferedImage> Tilesprites = new ArrayList<>();
-
+ 
     static {
-        for(int i = 0; i<TileType.values().length;i++){
-            Tilesprites.add(initSprite(i));
+        int i = 0;
+        for(TileType tileType : TileType.values()){
+            Tilesprites.add(initSprite(tileType));
+            tileType.setId(i++);
         }
     }
 
-    private static BufferedImage initSprite(int id){
+    public ImageIcon getIcon(int id) {
+        return new ImageIcon(getSpriteById(id));
+    }
+
+    private static BufferedImage initSprite(TileType tileType) {
         BufferedImage spriteSheet = AppView.spriteSheet;
         int u = AppView.UNIT_SIZE;
-        switch(id){
-            case 0:
+        switch(tileType){
+            case GRASS:
                 return spriteSheet.getSubimage(u, u, u, u);
-            case 1:
+            case FLOWER:
                 return spriteSheet.getSubimage(4*u, 3*u, u, u);
-            case 2:
+            case PATH:
                 return spriteSheet.getSubimage(0*u, 6*u, u, u);
             default:
                 return null;

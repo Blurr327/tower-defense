@@ -14,6 +14,7 @@ public enum EnemyType {
     private final int reward;
     private final float speed;
     private final Tier tier;
+    private int id;
 
     private EnemyType(int health, int damage, float speed){
         this.health = health;
@@ -79,6 +80,15 @@ public enum EnemyType {
         }
         return enemyTypes;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
 
 }
 

@@ -5,22 +5,31 @@ import model.EnemyType;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 /*
  * this class is responsible for retriving the sprite of the enemy depending on its id
  */
 public class EnemyView {
+    private static final ArrayList<BufferedImage> EnemySprites = new ArrayList<>();
     private EnemyModel enemyModel;
-    private BufferedImage sprite;
+
+    static {
+        // storing all the sprites in an arraylist to maximize performance and avoid loading the same sprite multiple times
+        int i =0;
+        for(EnemyType enemyType : EnemyType.values()){
+            EnemySprites.add(initSprite(enemyType));
+            enemyType.setId(i++);
+        }
+    }
 
     public EnemyView(EnemyModel enemyModel) {
         this.enemyModel = enemyModel;
-        this.sprite = EnemyView.getSprite(enemyModel.getType());
     }
 
     public static void renderEnemy(Graphics g, EnemyModel enemyModel){
         if(enemyModel.isAlive() && enemyModel.isSpawned())
-            g.drawImage(getSprite(enemyModel.getType()),(int) (enemyModel.getX()*AppView.UNIT_SIZE), (int) (enemyModel.getY()*AppView.UNIT_SIZE), null);
+            g.drawImage(getSprite(enemyModel.getType().getId()),(int) (enemyModel.getX()*AppView.UNIT_SIZE), (int) (enemyModel.getY()*AppView.UNIT_SIZE), null);
     }
 
     public static void renderEnemyHealth(Graphics g, EnemyModel enemyModel){
@@ -32,8 +41,8 @@ public class EnemyView {
         StringHelper.drawCenteredString(g, "S", EnemyModel.getSpawnTileX(), EnemyModel.getSpawnTileY(), AppView.UNIT_SIZE);
     }
 
-    // needs some changes since we're not working with ID 
-    private static BufferedImage getSprite(EnemyType enemyType) {
+
+    private static BufferedImage initSprite(EnemyType enemyType) {
         switch(enemyType) {
             case MRBLOB:     
                 return AppView.spriteSheet.getSubimage(5*AppView.UNIT_SIZE, 7*AppView.UNIT_SIZE, AppView.UNIT_SIZE, AppView.UNIT_SIZE);
@@ -46,8 +55,8 @@ public class EnemyView {
         }
     }
 
-    public BufferedImage getSprite() {
-        return sprite;
+    public static BufferedImage getSprite(int id) {
+        return EnemySprites.get(id);
     }
 
 }

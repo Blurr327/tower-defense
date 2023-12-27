@@ -179,6 +179,10 @@ public class EnemyModel implements Enemy{
     public void stopAttackTimer(){
         attackTimer.stop();
     }
+
+    public void takeDamage(int damage){
+        health -= damage;
+    }
 }
 
 
