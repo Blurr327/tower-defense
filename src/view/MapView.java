@@ -12,10 +12,13 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.AlphaComposite;
 
+import model.BaseModel;
+import model.EnemyModel;
 import model.GameModel;
 import model.MapEditorModel;
 import model.MapModel;
 import model.TileType;
+import model.WaveModel;
 
 
 /*
@@ -42,6 +45,8 @@ public class MapView extends JPanel{
         
         renderMap(g);
 
+        
+
         switch(GameModel.getGameMode()){
             case EDIT:
                 renderEditorMap(g);
@@ -57,7 +62,7 @@ public class MapView extends JPanel{
         int u= AppView.UNIT_SIZE;
         for(int y=0;y<MapModel.HEIGHT;y++){
             for(int x=0;x<MapModel.WIDTH;x++){
-                g.drawImage(TileView.getSpriteById(MapModel.getTileIdAt(x, y)),x*u, y*u, null);
+                TileView.renderTile(g, x, y, MapModel.getTileIdAt(x, y));
             }
         }
     }
@@ -67,29 +72,37 @@ public class MapView extends JPanel{
         int u= AppView.UNIT_SIZE;
         switch(MapEditorModel.getMapEditorMode()) {
             case TILE:
-                if(MapEditorModel.isTileSelected()) 
-                    g.drawImage(TileView.getSpriteById(MapEditorModel.getSelectedTileId()), MapEditorModel.getTileToModX()*u, MapEditorModel.getTileToModY()*u, null);
+                if(MapEditorModel.isTileSelected()) {
+                    TileView.renderTile(g, MapEditorModel.getTileToModX(), MapEditorModel.getTileToModY(), MapEditorModel.getSelectedTileId());
+                }
                 break;
             case SPAWN:
                     // Draw the "S" on hover
-                    drawCenteredString(g, "S", MapEditorModel.getTileToModX(), MapEditorModel.getTileToModY(), u);
+                    StringHelper.drawCenteredString(g, "S", MapEditorModel.getTileToModX(), MapEditorModel.getTileToModY(), u);
 
                     // Draw the "S" on the spawn tile
-                    drawCenteredString(g, "S", MapEditorModel.getSpawnTileX(), MapEditorModel.getSpawnTileY(), u);
+                    StringHelper.drawCenteredString(g, "S", EnemyModel.getSpawnTileX(), EnemyModel.getSpawnTileY(), u);
                 break;
             case TARGET:
 
                     // Draw the "T" on hover
-                    drawCenteredString(g, "X", MapEditorModel.getTileToModX(), MapEditorModel.getTileToModY(), u);
+                    StringHelper.drawCenteredString(g, "X", MapEditorModel.getTileToModX(), MapEditorModel.getTileToModY(), u);
 
-                    // Draw the "T" on target tile
-                    drawCenteredString(g, "X", MapEditorModel.getTargetTileX(), MapEditorModel.getTargetTileY(), u);
+                    BaseView.renderBase(g, BaseModel.getX(), BaseModel.getY());
+
                 break;
         }
     }
 
     public void renderPlayMap(Graphics g){
 
+        for(int i=0;i<WaveModel.enemies.size();i++){
+            EnemyView.renderEnemy(g, WaveModel.enemies.get(i));
+            EnemyView.renderEnemyHealth(g, WaveModel.enemies.get(i));
+        }
+
+        BaseView.renderBase(g, BaseModel.getX(), BaseModel.getY());
+        BaseView.renderBaseHealth(g, ((MapModel.WIDTH-1)*AppView.UNIT_SIZE)-75, 10);
         
     }
 
@@ -100,36 +113,4 @@ public class MapView extends JPanel{
         setMinimumSize(size);
     }
 
-
-    private void drawCenteredString(Graphics g, String text, int tileX, int tileY, int unitSize) {
-        // Set font and color   
-        g.setFont(new Font("Dialong", Font.PLAIN, 20));
-        g.setColor(Color.BLACK);
-
-        // Calculate the center of the tile
-        int centerX = tileX * unitSize + unitSize / 2;
-        int centerY = tileY * unitSize + unitSize / 2;
-
-        // Calculate the position to draw the string centered on the tile
-        int x = centerX - g.getFontMetrics().stringWidth(text) / 2;
-        int y = centerY + g.getFontMetrics().getHeight() / 4;  // Adjust vertical position for better centering
-
-        // Set the alpha value for opacity (1.0f is fully opaque, 0.0f is fully transparent)
-        float alpha = 0.4f;
-
-        // Create an AlphaComposite instance with the specified alpha value
-        AlphaComposite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
-
-        // Save the current graphics state
-        Graphics2D g2d = (Graphics2D) g.create();
-
-        // Set the composite for transparency
-        g2d.setComposite(alphaComposite);
-
-        // Draw the string
-        g2d.drawString(text, x, y);
-
-        // Dispose of the graphics context to release resources
-        g2d.dispose();
-    }
 }

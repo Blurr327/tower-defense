@@ -10,13 +10,8 @@ public class EnemyController {
         this.enemyModel = enemyModel;
     }
 
-    public static void initSpawnTile(){
-        EnemyModel.setSpawnTileX(MapEditorModel.getSpawnTileX());
-        EnemyModel.setSpawnTileY(MapEditorModel.getSpawnTileY());
-    }
-
-    public static void initTargetTile(){
-        EnemyModel.setTargetTileX(MapEditorModel.getTargetTileX());
-        EnemyModel.setTargetTileY(MapEditorModel.getTargetTileY());
+    public static void updateEnemySpawnTile(int newX, int newY) {
+        EnemyModel.setSpawnTileX(newX);
+        EnemyModel.setSpawnTileY(newY);
     }
 }

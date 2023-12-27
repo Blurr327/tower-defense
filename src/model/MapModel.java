@@ -44,15 +44,23 @@ public class MapModel {
         tiles[y][x].setTileType(TileType.getTileById(id));
     }
 
+    public static TileModel getTileAt(int x, int y){
+        return tiles[y][x];
+    }
+
+    public static void setTileAt(int x, int y, TileModel tile){
+        tiles[y][x] = tile;
+    }
+    
     public static void generateFlower() {
         Random r = new Random();
         int x = r.nextInt(HEIGHT);
         int y = r.nextInt(WIDTH);
-        while(tiles[x][y].getTileType() == TileType.PATH){
+        while(tiles[y][x].getTileType() == TileType.PATH){
             x = r.nextInt(HEIGHT);
             y = r.nextInt(WIDTH);
         }
-        tiles[x][y].setTileType(TileType.FLOWER);
+        tiles[y][x].setTileType(TileType.FLOWER);
     }
 
 }

@@ -1,5 +1,7 @@
 package controller;
 
+import model.BaseModel;
+import model.EnemyModel;
 import model.GameModel;
 import model.MapEditorModel;
 import model.MapModel;
@@ -51,25 +53,29 @@ public class MapController implements MouseMotionListener, MouseListener {
     }
 
     public void updateSpawnTile(MouseEvent e) {
-        MapEditorModel.setSpawnTileX(e.getX()/AppView.UNIT_SIZE);
-        MapEditorModel.setSpawnTileY(e.getY()/AppView.UNIT_SIZE);
+        int newX = e.getX()/AppView.UNIT_SIZE;
+        int newY = e.getY()/AppView.UNIT_SIZE;
+
+        EnemyController.updateEnemySpawnTile(newX, newY);
     }
 
     public void updateTargetTile(MouseEvent e) {
-        MapEditorModel.setTargetTileX(e.getX()/AppView.UNIT_SIZE);
-        MapEditorModel.setTargetTileY(e.getY()/AppView.UNIT_SIZE);
+        int newX = e.getX()/AppView.UNIT_SIZE;
+        int newY = e.getY()/AppView.UNIT_SIZE;
+
+        BaseController.updateBaseCoords(newX, newY);
     }
 
     // true if the tile selected is not the target tile and is walkable, false otherwise
     public boolean spawnTileValid(int x, int y) {
-        boolean differentLocations = x != MapEditorModel.getTargetTileX() || y != MapEditorModel.getTargetTileY();
+        boolean differentLocations = x != BaseModel.getX() || y != BaseModel.getY();
         boolean spawnTileValid = TileType.getTileById(MapModel.getTileIdAt(x, y)).isWalkable();
         return differentLocations && spawnTileValid;
     }
 
     // true if the tile selected is not the spawn tile and is walkable, false otherwise
     public boolean targetTileValid(int x, int y) {
-        boolean differentLocations = x != MapEditorModel.getSpawnTileX() || y != MapEditorModel.getSpawnTileY();
+        boolean differentLocations = x != EnemyModel.getSpawnTileX() || y != EnemyModel.getSpawnTileY();
         boolean targetTileValid = TileType.getTileById(MapModel.getTileIdAt(x, y)).isWalkable();
         return differentLocations && targetTileValid;
     }
@@ -126,3 +132,4 @@ public class MapController implements MouseMotionListener, MouseListener {
     }
 
 }
+

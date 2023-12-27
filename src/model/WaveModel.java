@@ -3,49 +3,153 @@ package model;
 import java.util.ArrayList;
 import java.util.Random;
 
+import controller.WaveController;
+
 public class WaveModel {
 
-    private int waveNumber;
-    private int numberOfEnemies;
-    private static EnemyModel[] enemies;
+    private static int difficulty = 1;
 
-    // constructor
-    public WaveModel(int waveNumber, int numberOfEnemies) {
+    private static int waveNumber;
+    private static int numberOfEnemies;
 
-        this.waveNumber = waveNumber;
-        this.numberOfEnemies = numberOfEnemies;
-        WaveModel.enemies = new EnemyModel[numberOfEnemies];
-        initEnemiesArray();
+    private static int numberOfCTierEnemies;
+    private static int numberOfBTierEnemies;
+    private static int numberOfATierEnemies;
+
+    public static final ArrayList<EnemyModel> enemies = new ArrayList<>();
+
+
+    public static void initEnemyArrayList(){
+        
+        calculatePercentageOfCTierEnemies();
+        calculatePercentageOfBTierEnemies();
+        calculatePercentageOfATierEnemies();
+
+        Random rand = new Random();
+        System.out.println(numberOfBTierEnemies);
+        for(int i = 0; i < numberOfCTierEnemies; i++){
+
+            // generating random enemies from C tier
+
+            enemies.add(new EnemyModel(EnemyType.getEnemyTypeByTier(EnemyType.Tier.C).get(rand.nextInt(EnemyType.getEnemyTypeByTier(EnemyType.Tier.C).size()))));
+        }
+
+        for(int i = numberOfCTierEnemies; i < numberOfCTierEnemies + numberOfBTierEnemies; i++){
+
+            // generating random enemies from B tier
+
+            enemies.add(new EnemyModel(EnemyType.getEnemyTypeByTier(EnemyType.Tier.B).get(rand.nextInt(EnemyType.getEnemyTypeByTier(EnemyType.Tier.B).size()))));
+        }
+
+        for(int i = numberOfCTierEnemies + numberOfBTierEnemies; i < numberOfEnemies; i++){
+
+            // generating random enemies from A tier
+
+            enemies.add(new EnemyModel(EnemyType.getEnemyTypeByTier(EnemyType.Tier.A).get(rand.nextInt(EnemyType.getEnemyTypeByTier(EnemyType.Tier.A).size()))));
+        }
+
     }
 
-    public void initEnemiesArray() {
-        ArrayList<EnemyModel> possibleEnemies = EnemyModel.getEnemiesByDamage(waveNumber*2);
-        Random r = new Random();
-        for (int i = 0; i < numberOfEnemies; i++) {
-            enemies[i] = possibleEnemies.get(r.nextInt(possibleEnemies.size()));
-        }
+    public static void calculatePercentageOfCTierEnemies() {
+
+        // at least 20% of enemies are C tier, at most 60% of enemies are C tier. Their percentage decreases by 40% each wave
+
+        numberOfCTierEnemies = Math.max((20 * numberOfEnemies) / 100, numberOfEnemies - (40*numberOfEnemies)/100);
+    }
+
+    public static void calculatePercentageOfBTierEnemies() {
+
+        // 3/4 of the remaining enemies are B tier
+
+        if(waveNumber>5/difficulty) numberOfBTierEnemies = (3*(numberOfEnemies - numberOfCTierEnemies))/4;
+        else numberOfBTierEnemies = numberOfEnemies - numberOfCTierEnemies;
+    
+    }
+
+    public static void calculatePercentageOfATierEnemies() {
+
+        // the rest are A tier if and only if the wave number is greater than 5
+
+        if(waveNumber>5/difficulty) numberOfATierEnemies = (numberOfEnemies - numberOfCTierEnemies)/4;
+        System.out.println("A tier : " + numberOfATierEnemies);
     }
 
     // getter for waveNumber
-    public int getWaveNumber() {
+
+    public static int getWaveNumber() {
+
         return waveNumber;
+
     }
 
     // setter for waveNumber
-    public void setWaveNumber(int waveNumber) {
-        this.waveNumber = waveNumber;
+
+    public static void setWaveNumber(int waveNumber) {
+
+        WaveModel.waveNumber = waveNumber;
+
     }
 
     // getter for numberOfEnemies
 
-    public int getNumberOfEnemies() {
+    public static int getNumberOfEnemies() {
+
         return numberOfEnemies;
+
     }
 
     // setter for numberOfEnemies
 
-    public void setNumberOfEnemies(int numberOfEnemies) {
-        this.numberOfEnemies = numberOfEnemies;
+    public static void setNumberOfEnemies(int numberOfEnemies) {
+        WaveModel.numberOfEnemies = numberOfEnemies;
     }
 
+    public static void nextWave() {
+
+        waveNumber++;
+        numberOfEnemies += 3;
+        enemies.clear();
+        initEnemyArrayList();
+
+    }
+
+    public static void initWave() {
+
+        waveNumber = 1;
+        numberOfEnemies = 5;
+        enemies.clear();
+        initEnemyArrayList();
+
+    }
+
+    public static boolean areAllEnemiesDead() {
+
+        for (EnemyModel enemy : enemies) {
+
+            if (enemy.isAlive()) {
+
+                return false;
+
+            }
+
+        }
+
+        return true;
+
+    }
+
+    public static void stopAttackTimers() {
+        for(EnemyModel enemy : WaveModel.enemies){
+            enemy.stopAttackTimer();
+        }
+    }
+
+    public static int getDifficulty() {
+        return difficulty;
+    }
+
+    public static void setDifficulty(int difficulty) {
+        WaveModel.difficulty = difficulty;
+    }
 }
+

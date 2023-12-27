@@ -2,87 +2,39 @@ package model;
 
 import java.util.ArrayList;
 
-public enum EnemyModel {
-    MRBLOB(30, 0.03f,1,10),
-    MRSLIME(60, 0.01f, 5, 30),
-    MRSNAKE(100, 0.1f, 3, 50);
+import javax.swing.Timer;
 
+public class EnemyModel implements Enemy{
+
+    private EnemyType type;
     private int health;
     private float speed;
     private int damage;
     private int reward;
     private float x;
     private float y;
+    private boolean spawned;
+    private boolean[][] path = new boolean[MapModel.HEIGHT][MapModel.WIDTH];
+    private Timer attackTimer;
 
     private DirectionModel direction;
-    private static int nextId = 0;
-    private static int spawnTileX;
-    private static int spawnTileY;
+
+    private static int spawnTileX = 0;
+    private static int spawnTileY = MapModel.HEIGHT/2;
     private static int targetTileX;
     private static int targetTileY;
 
-    private EnemyModel(int health, float speed, int damage, int reward) {
-        
-        this.health = health;
-        this.speed = speed;
-        this.damage = damage;
-        this.reward = reward;
-    }
+    public EnemyModel(EnemyType type) {
+        this.x = spawnTileX;
+        this.y = spawnTileY;
+        this.type = type;
+        this.health = type.getHealth();
+        this.speed = type.getSpeed();
+        this.damage = type.getDamage();
+        this.reward = type.getReward();
+        this.direction = DirectionModel.EAST;
+        attackTimer = new Timer(1000, e -> attackBase());
 
-    public int getHealth() {
-        return health;
-    }
-
-    public void setHealth(int health) {
-        this.health = health;
-    }
-
-    public int getDamage() {
-        return damage;
-    }
-
-    public void setDamage(int damage) {
-        this.damage = damage;
-    }
-
-    public int getReward() {
-        return reward;
-    }
-
-    public void setReward(int reward) {
-        this.reward = reward;
-    }
-
-    public DirectionModel getDirection() {
-        return direction;
-    }
-
-    public void setDirection(DirectionModel direction) {
-        this.direction = direction;
-    }
-
-    public float getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(float speed) {
-        this.speed = speed;
-    }
-
-    public float getX() {
-        return x;
-    }
-
-    public void setX(float x) {
-        this.x = x;
-    }
-
-    public float getY() {
-        return y;
-    }
-
-    public void setY(float y) {
-        this.y = y;
     }
 
     public void move() {
@@ -104,12 +56,8 @@ public enum EnemyModel {
         }
     }
 
-    public static int getNextId() {
-        return nextId;
-    }
-
-    public static void setNextId(int nextId) {
-        EnemyModel.nextId = nextId;
+    public EnemyType getType() {
+        return type;
     }
 
     public static int getSpawnTileX() {
@@ -144,15 +92,93 @@ public enum EnemyModel {
         EnemyModel.targetTileY = targetTileY;
     }
     
-
-    public static ArrayList<EnemyModel> getEnemiesByDamage(int damage) {
-        ArrayList<EnemyModel> res = new ArrayList<>();
-        for (EnemyModel enemyModel : EnemyModel.values()) {
-            if (enemyModel.getDamage() <= damage) {
-                res.add(enemyModel);
-            }
-        }
-        return res;
+    public int getHealth() {
+        return health;
     }
-    
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public float getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(float speed) {
+        this.speed = speed;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
+
+    public int getReward() {
+        return reward;
+    }
+
+    public void setReward(int reward) {
+        this.reward = reward;
+    }
+
+    public float getX() {
+        return x;
+    }
+
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
+    public void setY(float y) {
+        this.y = y;
+    }
+
+    public DirectionModel getDirection() {
+        return direction;
+    }
+
+    public void setDirection(DirectionModel direction) {
+        this.direction = direction;
+    }
+
+    public boolean isAlive() {
+        return health > 0;
+    }
+
+    public boolean isSpawned() {
+        return spawned;
+    }
+
+    public void setSpawned(boolean spawned) {
+        this.spawned = spawned;
+    }
+
+    public void traversedTile(int x, int y) {
+        path[y][x] = true;
+    }
+
+    public boolean hasTraversedTile(int x, int y) {
+        return path[y][x];
+    }
+
+    public void attackBase(){
+        BaseModel.takeDamage(damage);
+    }
+
+    public void startAttackTimer(){
+        attackTimer.start();
+    }
+
+    public void stopAttackTimer(){
+        attackTimer.stop();
+    }
 }
+
+

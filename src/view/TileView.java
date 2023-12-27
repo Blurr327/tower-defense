@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -36,6 +37,10 @@ public class TileView {
 
     public static BufferedImage getSpriteById(int id){
         return Tilesprites.get(id);
+    }
+
+    public static void renderTile(Graphics g, int x, int y, int id){
+        g.drawImage(getSpriteById(id),x*AppView.UNIT_SIZE, y*AppView.UNIT_SIZE, null);
     }
 
 }
