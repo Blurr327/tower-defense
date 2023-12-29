@@ -1,6 +1,6 @@
 package controller;
 
-import model.BaseModel;
+import model.gamelogic.BaseModel;
 
 public class BaseController {
     

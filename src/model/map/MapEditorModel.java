@@ -1,9 +1,11 @@
-package model;
+package model.map;
+
+import model.gamelogic.BottomSectionModel;
 
 public class MapEditorModel extends BottomSectionModel {
 
     public enum MapEditorMode {
-        SPAWN, TARGET, TILE, TOWER;
+        SPAWN, TARGET, TILE;
     }
 
     private static MapEditorMode mapEditorMode = MapEditorMode.TILE;

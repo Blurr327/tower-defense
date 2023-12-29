@@ -1,4 +1,4 @@
-package model;
+package model.gamelogic;
 
 public class CoordinatesHelper {
     public static boolean areApproximatelyEqual(float point1, float point2) {

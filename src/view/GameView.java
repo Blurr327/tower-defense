@@ -5,8 +5,8 @@ import javax.swing.*;
 
 import controller.GameController;
 import controller.MapController;
-import model.BottomSectionModel;
-import model.MapModel;
+import model.gamelogic.BottomSectionModel;
+import model.map.MapModel;
 
 
 /*

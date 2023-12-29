@@ -3,7 +3,7 @@ import javax.swing.*;
 
 import controller.MapController;
 import main.Game;
-import model.MapModel;
+import model.map.MapModel;
 
 import java.awt.*;
 

@@ -7,10 +7,10 @@ import java.awt.Dimension;
 import javax.swing.JPanel;
 
 import controller.BottomSectionController;
-import model.BottomSectionModel;
-import model.GameModel;
-import model.MapModel;
-import model.PlayManagerModel;
+import model.gamelogic.BottomSectionModel;
+import model.gamelogic.GameModel;
+import model.gamelogic.PlayManagerModel;
+import model.map.MapModel;
 
 public class BottomSectionView extends JPanel {
     private BottomSectionModel model;

@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
 import model.AppModel;
-import model.MapModel;
-import model.TileType;
+import model.map.MapModel;
+import model.map.TileType;
 
 /*
  * this class is responsible for retriving the sprite of the tile depending on its id

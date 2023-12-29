@@ -1,6 +1,9 @@
-package model;
+package model.towers;
 
 import javax.swing.Timer;
+
+import model.enemies.Enemy;
+import model.enemies.EnemyModel;
 
 public class ElGatoModel extends TowerModel{
     private static int pacificationTime = 3;
@@ -16,19 +19,24 @@ public class ElGatoModel extends TowerModel{
         super(DAMAGE, RANGE, COST, UPGRADE_COST);
     }
 
-    @Override
-    public void attackWithSpecialEffect(EnemyModel enemy) {
-        enemy.setDamage(0);
-        Timer timer = new Timer(pacificationTime * 1000, e -> {
-            enemy.setDamage(enemy.getType().getDamage());
-        });
-        timer.setRepeats(false);
-        timer.start();
-    }
+
 
     @Override
     public void upgradeSpecialEffect() {
         pacificationTime += 1;
+    }
+
+
+
+    @Override
+    public void attackWithSpecialEffect(Enemy enemy) {
+        int originalDamage = enemy.getDamage();
+        enemy.setDamage(0);
+        Timer timer = new Timer(pacificationTime * 1000, e -> {
+            enemy.setDamage(originalDamage);
+        });
+        timer.setRepeats(false);
+        timer.start();
     }
     
 }

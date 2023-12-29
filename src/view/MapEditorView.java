@@ -5,10 +5,10 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import controller.MapEditorController;
-import model.BottomSectionModel;
-import model.MapEditorModel;
-import model.MapModel;
-import model.TileType;
+import model.gamelogic.BottomSectionModel;
+import model.map.MapEditorModel;
+import model.map.MapModel;
+import model.map.TileType;
 
 import java.awt.Color;
 import java.awt.FlowLayout;

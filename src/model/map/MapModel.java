@@ -1,6 +1,5 @@
-package model;
+package model.map;
 import java.util.Random;
-
 import java.util.ArrayList;
 import view.AppContainer;
 

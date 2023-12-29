@@ -1,4 +1,6 @@
-package model;
+package model.gamelogic;
+
+import model.map.MapModel;
 
 public class BottomSectionModel {
     public static final int SECTION_HEIGHT = 4;

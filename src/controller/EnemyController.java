@@ -1,7 +1,8 @@
 package controller;
 
-import model.EnemyModel;
-import model.MapEditorModel;
+import model.enemies.EnemyModel;
+import model.map.MapEditorModel;
+import model.map.MapModel;
 
 public class EnemyController {
     private EnemyModel enemyModel;
@@ -11,7 +12,6 @@ public class EnemyController {
     }
 
     public static void updateEnemySpawnTile(int newX, int newY) {
-        EnemyModel.setSpawnTileX(newX);
-        EnemyModel.setSpawnTileY(newY);
+        EnemyModel.setSpawnTile(MapModel.getTileAt(newX, newY));
     }
 }

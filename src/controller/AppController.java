@@ -1,7 +1,7 @@
 package controller;
 
 import model.AppModel;
-import model.GameModel;
+import model.gamelogic.GameModel;
 import view.AppView;
 import javax.swing.Timer;
 

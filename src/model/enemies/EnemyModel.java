@@ -1,12 +1,18 @@
-package model;
+package model.enemies;
 
 import java.util.ArrayList;
 
 import javax.swing.Timer;
 
-public class EnemyModel implements Enemy{
+import model.gamelogic.DirectionModel;
+import model.map.MapModel;
+import model.map.TileModel;
 
-    private EnemyType type;
+public abstract class EnemyModel implements Enemy {
+
+    public static enum Tier {
+        C, B, A
+    }
     private int health;
     private float speed;
     private int damage;
@@ -16,25 +22,73 @@ public class EnemyModel implements Enemy{
     private boolean spawned;
     private boolean[][] path = new boolean[MapModel.HEIGHT][MapModel.WIDTH];
     private Timer attackTimer;
-
+    private int attackSpeed; // in milliseconds
+    private Tier tier;
     private DirectionModel direction;
 
-    private static int spawnTileX = 0;
-    private static int spawnTileY = MapModel.HEIGHT/2;
-    private static int targetTileX;
-    private static int targetTileY;
+    private static TileModel spawnTile = MapModel.getTileAt(0, MapModel.HEIGHT/2);
 
-    public EnemyModel(EnemyType type) {
-        this.x = spawnTileX;
-        this.y = spawnTileY;
-        this.type = type;
-        this.health = type.getHealth();
-        this.speed = type.getSpeed();
-        this.damage = type.getDamage();
-        this.reward = type.getReward();
+    public EnemyModel(int health, float speed, int damage, int attackSpeed) {
+        this.x = spawnTile.getX();
+        this.y = spawnTile.getY();
+        this.health = health;
+        this.speed = speed;
+        this.damage = damage;
+        this.tier = calculateTier();
+        this.reward = calculateReward();
         this.direction = DirectionModel.EAST;
-        attackTimer = new Timer(1000, e -> attackBase());
+        attackTimer = new Timer(attackSpeed, e -> attack());
+    }
 
+    public abstract Enemy clone();
+
+    public abstract void attack();
+
+    public static void setSpawnTile(TileModel spawnTile) {
+        EnemyModel.spawnTile = spawnTile;
+    }
+
+    public static int getSpawnTileX() {
+        return spawnTile.getX();
+    }
+
+    public static int getSpawnTileY() {
+        return spawnTile.getY();
+    }
+
+    public Tier getTier() {
+        return tier;
+    }
+
+    public void setTier(Tier tier) {
+        this.tier = tier;
+    }
+
+    private Tier calculateTier(){
+            
+        // very basic tier calculation
+        if(this.health >= 100 || this.damage >= 20 || this.speed >= 0.1f){
+            return Tier.A;
+        }
+        else if(this.health >= 50 || this.damage >= 10 || this.speed >= 0.05f){
+            return Tier.B;
+        }
+        else{
+            return Tier.C;
+        }
+    }
+
+    private int calculateReward(){
+        switch (this.tier){
+            case A:
+                return 100;
+            case B:
+                return 50;
+            case C:
+                return 25;
+            default:
+                return 0;
+        }
     }
 
     public void move() {
@@ -54,42 +108,6 @@ public class EnemyModel implements Enemy{
             case NONE:
                 break;
         }
-    }
-
-    public EnemyType getType() {
-        return type;
-    }
-
-    public static int getSpawnTileX() {
-        return spawnTileX;
-    }
-
-    public static void setSpawnTileX(int spawnTileX) {
-        EnemyModel.spawnTileX = spawnTileX;
-    }
-
-    public static int getSpawnTileY() {
-        return spawnTileY;
-    }
-
-    public static void setSpawnTileY(int spawnTileY) {
-        EnemyModel.spawnTileY = spawnTileY;
-    }
-
-    public static int getTargetTileX() {
-        return targetTileX;
-    }
-
-    public static void setTargetTileX(int targetTileX) {
-        EnemyModel.targetTileX = targetTileX;
-    }
-
-    public static int getTargetTileY() {
-        return targetTileY;
-    }
-
-    public static void setTargetTileY(int targetTileY) {
-        EnemyModel.targetTileY = targetTileY;
     }
     
     public int getHealth() {
@@ -168,10 +186,6 @@ public class EnemyModel implements Enemy{
         return path[y][x];
     }
 
-    public void attackBase(){
-        BaseModel.takeDamage(damage);
-    }
-
     public void startAttackTimer(){
         attackTimer.start();
     }
@@ -182,6 +196,14 @@ public class EnemyModel implements Enemy{
 
     public void takeDamage(int damage){
         health -= damage;
+    }
+
+        public int getAttackSpeed() {
+        return attackSpeed;
+    }
+
+    public void setAttackSpeed(int attackSpeed) {
+        this.attackSpeed = attackSpeed;
     }
 }
 

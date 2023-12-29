@@ -1,18 +1,14 @@
-package model;
+package model.map;
 
 public class TileModel {
     private int x;
     private int y;
     private TileType type;
-    private boolean hasEnemy;
-    private boolean hasTower;
 
     public TileModel(int x, int y, TileType type) {
         this.x = x;
         this.y = y;
         this.type = type;
-        this.hasEnemy = false;
-        this.hasTower = false;
     }
 
     // all the getters
@@ -28,13 +24,6 @@ public class TileModel {
         return type;
     }
 
-    public boolean getHasEnemy() {
-        return hasEnemy;
-    }
-
-    public boolean getHasTower() {
-        return hasTower;
-    }
     // all the setters
     public void setX(int x) {
         this.x = x;
@@ -46,14 +35,6 @@ public class TileModel {
 
     public void setTileType(TileType type) {
         this.type = type;
-    }
-
-    public void setHasEnemy(boolean hasEnemy) {
-        this.hasEnemy = hasEnemy;
-    }
-
-    public void setHasTower(boolean hasTower) {
-        this.hasTower = hasTower;
     }
 
 }

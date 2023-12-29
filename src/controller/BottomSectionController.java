@@ -1,6 +1,6 @@
 package controller;
 
-import model.BottomSectionModel;
+import model.gamelogic.BottomSectionModel;
 import view.BottomSectionView;
 
 public class BottomSectionController {

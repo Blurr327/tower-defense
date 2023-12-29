@@ -6,9 +6,9 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 
-import model.BottomSectionModel;
-import model.MapModel;
-import model.PlayManagerModel;
+import model.gamelogic.BottomSectionModel;
+import model.gamelogic.PlayManagerModel;
+import model.map.MapModel;
 
 /*
  * This class is responsible for displaying your current balance, the current wave, and the towers available to you

@@ -3,9 +3,8 @@ package controller;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-
-import model.MapEditorModel;
-import model.MapEditorModel.MapEditorMode;
+import model.map.MapEditorModel;
+import model.map.MapEditorModel.MapEditorMode;
 import view.MapEditorView;
 import view.MapView;
 

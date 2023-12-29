@@ -1,4 +1,7 @@
-package model;
+package model.towers;
+
+import model.enemies.Enemy;
+import model.enemies.EnemyModel;
 
 public abstract class TowerModel {
     protected int x;
@@ -17,11 +20,11 @@ public abstract class TowerModel {
         this.upgradeCost = upgradeCost;
     }
 
-    public abstract void attackWithSpecialEffect(EnemyModel enemy);
+    public abstract void attackWithSpecialEffect(Enemy enemy);
 
     public abstract void upgradeSpecialEffect();
 
-    public void attack(EnemyModel enemy){
+    public void attack(Enemy enemy){
         enemy.takeDamage(damage);
         attackWithSpecialEffect(enemy);
     }
@@ -37,7 +40,7 @@ public abstract class TowerModel {
         this.upgradeCost = upgradeCost;
     }
 
-    public boolean isInRange(EnemyModel enemy){
+    public boolean isInRange(Enemy enemy){
         return (Math.abs(enemy.getX() - x) <= range && Math.abs(enemy.getY() - y) <= range);
     }
 

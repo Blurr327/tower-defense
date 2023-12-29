@@ -1,4 +1,6 @@
-package model;
+package model.gamelogic;
+
+import model.map.MapModel;
 
 public class BaseModel {
     private static int x = MapModel.WIDTH-1;

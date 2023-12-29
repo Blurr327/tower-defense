@@ -1,14 +1,17 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.Timer;
 
-import model.EnemyModel;
-import model.GameModel;
-import model.WaveModel;
+import model.enemies.Enemy;
+import model.enemies.EnemyModel;
+import model.gamelogic.GameModel;
+import model.gamelogic.WaveModel;
 
 public class WaveController {
     private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
@@ -16,7 +19,7 @@ public class WaveController {
 
     static {
         spawningTimer = new Timer(2 * 1000, e -> {
-            for (EnemyModel enemy : WaveModel.enemies) {
+            for (Enemy enemy : WaveModel.enemies) {
                 if(!enemy.isSpawned()){
                     enemy.setSpawned(true);
                     break;
@@ -63,7 +66,7 @@ public class WaveController {
     
 
     public static void handleEnemyMovement(){
-        for (EnemyModel enemy : WaveModel.enemies) {
+        for (Enemy enemy : WaveModel.enemies) {
             if(enemy.isAlive() && enemy.isSpawned()){
                 GameModel.handleEnemyMovement(enemy);
             }
@@ -75,17 +78,26 @@ public class WaveController {
     }
 
     public static void pauseWave(){
-        for(EnemyModel enemy : WaveModel.enemies){
+        for(Enemy enemy : WaveModel.enemies){
             enemy.stopAttackTimer();
         }
     }
 
     public static void resumeWave(){
-        for(EnemyModel enemy : WaveModel.enemies){
+        for(Enemy enemy : WaveModel.enemies){
             if(GameModel.checkEnemyReachedBase(enemy))
                 enemy.startAttackTimer();
         }
     }
-     
+
+     public static void updateEnemyArrayList() {
+        Iterator<Enemy> iterator = WaveModel.enemies.iterator();
+        while(iterator.hasNext()){
+            Enemy enemy = iterator.next();
+            if(!enemy.isAlive()){
+                iterator.remove();
+            }
+        }
+     }
 }
 

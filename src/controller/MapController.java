@@ -1,11 +1,11 @@
 package controller;
 
-import model.BaseModel;
-import model.EnemyModel;
-import model.GameModel;
-import model.MapEditorModel;
-import model.MapModel;
-import model.TileType;
+import model.enemies.EnemyModel;
+import model.gamelogic.BaseModel;
+import model.gamelogic.GameModel;
+import model.map.MapEditorModel;
+import model.map.MapModel;
+import model.map.TileType;
 import view.AppView;
 import view.MapView;
 import java.awt.event.MouseMotionListener;
@@ -32,7 +32,7 @@ public class MapController implements MouseMotionListener, MouseListener {
     // dragging the mouse when a tile is selected changes all of the tiles along the path of the mouse to the selected tile
     @Override
     public void mouseDragged(MouseEvent e) {
-        if(MapEditorModel.isTileSelected() && GameModel.getGameMode().equals(GameModel.EDIT) && MapEditorModel.getMapEditorMode().equals(MapEditorModel.MapEditorMode.TILE)){
+        if(MapEditorModel.isTileSelected() && GameModel.getGameMode().equals(GameModel.GameMode.EDIT) && MapEditorModel.getMapEditorMode().equals(MapEditorModel.MapEditorMode.TILE)){
             updateSetTileToMod(e);
             MapModel.setTileIdAt(MapEditorModel.getTileToModX(), MapEditorModel.getTileToModY(), MapEditorModel.getSelectedTileId());
         }
@@ -42,7 +42,7 @@ public class MapController implements MouseMotionListener, MouseListener {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        if(GameModel.getGameMode().equals(GameModel.EDIT)){
+        if(GameModel.getGameMode().equals(GameModel.GameMode.EDIT)){
             updateSetTileToMod(e);
         }
     }

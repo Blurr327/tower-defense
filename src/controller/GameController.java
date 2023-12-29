@@ -7,9 +7,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import model.AppModel;
-import model.BaseModel;
-import model.GameModel;
-import model.WaveModel;
+import model.gamelogic.BaseModel;
+import model.gamelogic.GameModel;
+import model.gamelogic.WaveModel;
 import view.AppView;
 import view.GameView;
 import view.MapView;
@@ -32,14 +32,14 @@ public class GameController implements KeyListener {
     // this method switches to edit mode and stops the update loop
     public void switchToEdit() {
         endGame();
-        GameModel.setGameMode(GameModel.EDIT);
+        GameModel.setGameMode(GameModel.GameMode.EDIT);
         view.getBottomSectionView().updateCard();
     }
 
     // this method switches to play mode
     public void switchToPlay() {
         initGame();
-        GameModel.setGameMode(GameModel.PLAY);
+        GameModel.setGameMode(GameModel.GameMode.PLAY);
         view.getBottomSectionView().updateCard();
     }
 
@@ -70,15 +70,18 @@ public class GameController implements KeyListener {
 
     public void updateGame(){
         if(GameModel.checkGameOverCondition()){
+            // TODO: Show game over message 
             switchToEdit();
         }
         else if(GameModel.checkNextWaveCondition()){
+            // TODO: Show next wave message and congratulate player
             endWave();
             WaveController.nextWave();
             WaveController.resumeEnemySpawning();
         }
         else{
             WaveController.handleEnemyMovement();
+            WaveController.updateEnemyArrayList();
             GameModel.updateBaseHealth();
         }
     }
@@ -103,7 +106,7 @@ public class GameController implements KeyListener {
             if(updateTimer.isRunning()){
                 stopUpdateLoop();
             }
-            else if (GameModel.getGameMode() == GameModel.PLAY){
+            else if (GameModel.getGameMode() == GameModel.GameMode.PLAY){
                 runUpdateLoop();
             }
         }

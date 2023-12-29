@@ -1,14 +1,17 @@
-package model;
+package model.gamelogic;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 import controller.WaveController;
+import model.enemies.Enemy;
+import model.enemies.EnemyFactory;
 
 public class WaveModel {
 
     private static int difficulty = 1;
 
+    // TODO: show wavenumber on the playmanager
     private static int waveNumber;
     private static int numberOfEnemies;
 
@@ -16,7 +19,7 @@ public class WaveModel {
     private static int numberOfBTierEnemies;
     private static int numberOfATierEnemies;
 
-    public static final ArrayList<EnemyModel> enemies = new ArrayList<>();
+    public static final ArrayList<Enemy> enemies = new ArrayList<>();
 
 
     public static void initEnemyArrayList(){
@@ -31,21 +34,21 @@ public class WaveModel {
 
             // generating random enemies from C tier
 
-            enemies.add(new EnemyModel(EnemyType.getEnemyTypeByTier(EnemyType.Tier.C).get(rand.nextInt(EnemyType.getEnemyTypeByTier(EnemyType.Tier.C).size()))));
+            enemies.add(EnemyFactory.createRandomCTierEnemy());
         }
 
         for(int i = numberOfCTierEnemies; i < numberOfCTierEnemies + numberOfBTierEnemies; i++){
 
             // generating random enemies from B tier
 
-            enemies.add(new EnemyModel(EnemyType.getEnemyTypeByTier(EnemyType.Tier.B).get(rand.nextInt(EnemyType.getEnemyTypeByTier(EnemyType.Tier.B).size()))));
+            enemies.add(EnemyFactory.createRandomBTierEnemy());
         }
 
         for(int i = numberOfCTierEnemies + numberOfBTierEnemies; i < numberOfEnemies; i++){
 
             // generating random enemies from A tier
 
-            enemies.add(new EnemyModel(EnemyType.getEnemyTypeByTier(EnemyType.Tier.A).get(rand.nextInt(EnemyType.getEnemyTypeByTier(EnemyType.Tier.A).size()))));
+            enemies.add(EnemyFactory.createRandomATierEnemy());
         }
 
     }
@@ -108,7 +111,6 @@ public class WaveModel {
 
         waveNumber++;
         numberOfEnemies += 3;
-        enemies.clear();
         initEnemyArrayList();
 
     }
@@ -117,14 +119,13 @@ public class WaveModel {
 
         waveNumber = 1;
         numberOfEnemies = 5;
-        enemies.clear();
         initEnemyArrayList();
 
     }
 
     public static boolean areAllEnemiesDead() {
 
-        for (EnemyModel enemy : enemies) {
+        for (Enemy enemy : enemies) {
 
             if (enemy.isAlive()) {
 
@@ -139,7 +140,7 @@ public class WaveModel {
     }
 
     public static void stopAttackTimers() {
-        for(EnemyModel enemy : WaveModel.enemies){
+        for(Enemy enemy : WaveModel.enemies){
             enemy.stopAttackTimer();
         }
     }

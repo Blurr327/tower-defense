@@ -12,13 +12,13 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.AlphaComposite;
 
-import model.BaseModel;
-import model.EnemyModel;
-import model.GameModel;
-import model.MapEditorModel;
-import model.MapModel;
-import model.TileType;
-import model.WaveModel;
+import model.enemies.EnemyModel;
+import model.gamelogic.BaseModel;
+import model.gamelogic.GameModel;
+import model.gamelogic.WaveModel;
+import model.map.MapEditorModel;
+import model.map.MapModel;
+import model.map.TileType;
 
 
 /*
@@ -90,9 +90,7 @@ public class MapView extends JPanel{
 
                     BaseView.renderBase(g, BaseModel.getX(), BaseModel.getY());
                     break;
-            case TOWER:
 
-                break;
         }
     }
 

@@ -3,7 +3,7 @@ package view;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import model.BaseModel;
+import model.gamelogic.BaseModel;
 
 public class BaseView {
 

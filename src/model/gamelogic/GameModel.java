@@ -1,24 +1,28 @@
-package model;
+package model.gamelogic;
 
 import javax.swing.Timer;
 
+import model.enemies.Enemy;
+import model.map.MapModel;
 import view.MapView;
 
-public enum GameModel {
+public class GameModel {
+    public enum GameMode{
     EDIT, PLAY;
-    private static GameModel gameMode = EDIT;
+    }
+    private static GameMode gameMode = GameMode.EDIT;
     
     
    
-    public static GameModel getGameMode() {
+    public static GameMode getGameMode() {
         return gameMode;
     }
 
-    public static void setGameMode(GameModel gameMode) {
+    public static void setGameMode(GameMode gameMode) {
         GameModel.gameMode = gameMode;
     }
 
-    public static boolean checkEnemyReachedBase(EnemyModel enemy) {
+    public static boolean checkEnemyReachedBase(Enemy enemy) {
         if((int) enemy.getX() == BaseModel.getX() && (int) enemy.getY() == BaseModel.getY()){
             return true;
         }
@@ -39,13 +43,13 @@ public enum GameModel {
         return false;
     }
 
-    public static void handleEnemyMovement(EnemyModel enemyModel){
+    public static void handleEnemyMovement(Enemy enemyModel){
         handeEnemyDirection(enemyModel);
         enemyModel.move();
     }
 
     // this function implements a basic AI, designed to work on linear paths only. 
-    public static void handeEnemyDirection(EnemyModel enemyModel){
+    public static void handeEnemyDirection(Enemy enemyModel){
 
         float ex = enemyModel.getX();
         float ey = enemyModel.getY();
@@ -94,9 +98,12 @@ public enum GameModel {
     }
     
     public static void updateBaseHealth(){
-        for(EnemyModel enemy : WaveModel.enemies){
-            if(checkEnemyReachedBase(enemy)){
+        for(Enemy enemy : WaveModel.enemies){
+            if(checkEnemyReachedBase(enemy)  && enemy.isAlive()){
                 enemy.startAttackTimer();
+            }
+            else{
+                enemy.stopAttackTimer();
             }
         }
     }

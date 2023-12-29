@@ -5,8 +5,8 @@ import javax.swing.*;
 
 import model.AppModel;
 import model.AppModel.AppMode;
-import model.BottomSectionModel;
-import model.MapModel;
+import model.gamelogic.BottomSectionModel;
+import model.map.MapModel;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
