@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import controller.WaveController;
-import model.enemies.Enemy;
 import model.enemies.EnemyFactory;
+import model.enemies.EnemyModel;
 
 public class WaveModel {
 
@@ -19,7 +19,7 @@ public class WaveModel {
     private static int numberOfBTierEnemies;
     private static int numberOfATierEnemies;
 
-    public static final ArrayList<Enemy> enemies = new ArrayList<>();
+    public static final ArrayList<EnemyModel> enemies = new ArrayList<>();
 
 
     public static void initEnemyArrayList(){
@@ -119,13 +119,14 @@ public class WaveModel {
 
         waveNumber = 1;
         numberOfEnemies = 5;
+        enemies.clear();
         initEnemyArrayList();
 
     }
 
     public static boolean areAllEnemiesDead() {
 
-        for (Enemy enemy : enemies) {
+        for (EnemyModel enemy : enemies) {
 
             if (enemy.isAlive()) {
 
@@ -140,7 +141,7 @@ public class WaveModel {
     }
 
     public static void stopAttackTimers() {
-        for(Enemy enemy : WaveModel.enemies){
+        for(EnemyModel enemy : WaveModel.enemies){
             enemy.stopAttackTimer();
         }
     }

@@ -8,22 +8,20 @@ import java.util.concurrent.TimeUnit;
 
 import javax.swing.Timer;
 
-import model.enemies.Enemy;
 import model.enemies.EnemyModel;
 import model.gamelogic.GameModel;
 import model.gamelogic.WaveModel;
 
 public class WaveController {
-    private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private static Timer spawningTimer;
 
     static {
         spawningTimer = new Timer(2 * 1000, e -> {
-            for (Enemy enemy : WaveModel.enemies) {
+            for (EnemyModel enemy : WaveModel.enemies) {
                 if(!enemy.isSpawned()){
                     enemy.setSpawned(true);
                     break;
-                }
+                } 
             }
         });
     }
@@ -44,14 +42,6 @@ public class WaveController {
     public static void initEnemySpawning() {
 
 
-        /* for (EnemyModel enemy : WaveModel.enemies) {
-            scheduler.schedule(() -> {
-                if(!enemy.isSpawned())
-                    enemy.setSpawned(true);
-            }, initialDelay, TimeUnit.SECONDS);
-
-            initialDelay += delayBetweenMovements;
-        } */
         spawningTimer.start();
 
     }
@@ -66,7 +56,7 @@ public class WaveController {
     
 
     public static void handleEnemyMovement(){
-        for (Enemy enemy : WaveModel.enemies) {
+        for (EnemyModel enemy : WaveModel.enemies) {
             if(enemy.isAlive() && enemy.isSpawned()){
                 GameModel.handleEnemyMovement(enemy);
             }
@@ -78,22 +68,22 @@ public class WaveController {
     }
 
     public static void pauseWave(){
-        for(Enemy enemy : WaveModel.enemies){
+        for(EnemyModel enemy : WaveModel.enemies){
             enemy.stopAttackTimer();
         }
     }
 
     public static void resumeWave(){
-        for(Enemy enemy : WaveModel.enemies){
+        for(EnemyModel enemy : WaveModel.enemies){
             if(GameModel.checkEnemyReachedBase(enemy))
                 enemy.startAttackTimer();
         }
     }
 
      public static void updateEnemyArrayList() {
-        Iterator<Enemy> iterator = WaveModel.enemies.iterator();
+        Iterator<EnemyModel> iterator = WaveModel.enemies.iterator();
         while(iterator.hasNext()){
-            Enemy enemy = iterator.next();
+            EnemyModel enemy = iterator.next();
             if(!enemy.isAlive()){
                 iterator.remove();
             }

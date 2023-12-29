@@ -7,9 +7,9 @@ import java.util.Random;
  *  EnemyFactory handles the creation, categorization and storage of enemies
  */
 public class EnemyFactory {
-    public static final ArrayList<Enemy> enemiesATier = new ArrayList<>();
-    public static final ArrayList<Enemy> enemiesBTier = new ArrayList<>();
-    public static final ArrayList<Enemy> enemiesCTier = new ArrayList<>();
+    public static final ArrayList<EnemyModel> enemiesATier = new ArrayList<>();
+    public static final ArrayList<EnemyModel> enemiesBTier = new ArrayList<>();
+    public static final ArrayList<EnemyModel> enemiesCTier = new ArrayList<>();
 
     static {
         add(new MrBlobModel());
@@ -17,7 +17,7 @@ public class EnemyFactory {
         add(new MrSnakeModel());
     }
 
-    public static void add(Enemy enemy){
+    public static void add(EnemyModel enemy){
         switch (enemy.getTier()){
             case A:
                 enemiesATier.add(enemy);
@@ -31,17 +31,17 @@ public class EnemyFactory {
         }
     }
 
-    public static Enemy createRandomCTierEnemy(){
+    public static EnemyModel createRandomCTierEnemy(){
         Random rand = new Random();
         return enemiesCTier.get(rand.nextInt(enemiesCTier.size())).clone();
     }  
 
-    public static Enemy createRandomBTierEnemy(){
+    public static EnemyModel createRandomBTierEnemy(){
         Random rand = new Random();
         return enemiesBTier.get(rand.nextInt(enemiesBTier.size())).clone();
     }
 
-    public static Enemy createRandomATierEnemy(){
+    public static EnemyModel createRandomATierEnemy(){
         Random rand = new Random();
         return enemiesATier.get(rand.nextInt(enemiesATier.size())).clone();
     }

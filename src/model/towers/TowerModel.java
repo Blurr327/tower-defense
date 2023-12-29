@@ -1,9 +1,9 @@
 package model.towers;
 
-import model.enemies.Enemy;
+import model.enemies.AggressiveModel;
 import model.enemies.EnemyModel;
 
-public abstract class TowerModel {
+public abstract class TowerModel extends AggressiveModel implements Upgradable{
     protected int x;
     protected int y;
     protected int damage;
@@ -11,8 +11,10 @@ public abstract class TowerModel {
     protected int cost;
     protected int level;
     protected int upgradeCost;
+    protected EnemyModel currentTargetEnemy;
     
-    public TowerModel(int damage, int range, int cost, int upgradeCost) {
+    public TowerModel(int damage, int range, int cost, int upgradeCost, int attackSpeed) {
+        super(attackSpeed);
         this.damage = damage;
         this.range = range;
         this.cost = cost;
@@ -20,19 +22,21 @@ public abstract class TowerModel {
         this.upgradeCost = upgradeCost;
     }
 
-    public abstract void attackWithSpecialEffect(Enemy enemy);
+    public abstract void attackWithSpecialEffect(EnemyModel enemy);
 
     public abstract void upgradeSpecialEffect();
 
-    public void attack(Enemy enemy){
-        enemy.takeDamage(damage);
-        attackWithSpecialEffect(enemy);
+    @Override
+    public void attack(){
+            currentTargetEnemy.takeDamage(damage);
+            attackWithSpecialEffect(currentTargetEnemy);
     }
 
     public void upgrade(){
         damage += 5;
         range += 1;
         cost += upgradeCost;
+        upgradeSpecialEffect();
         level++;
     }
 
@@ -40,7 +44,7 @@ public abstract class TowerModel {
         this.upgradeCost = upgradeCost;
     }
 
-    public boolean isInRange(Enemy enemy){
+    public boolean isInRange(EnemyModel enemy){
         return (Math.abs(enemy.getX() - x) <= range && Math.abs(enemy.getY() - y) <= range);
     }
 
@@ -96,4 +100,8 @@ public abstract class TowerModel {
         this.level = level;
     }
 
+    public void setCurrentTargetEnemy(EnemyModel currentTargetEnemy) {
+        if(this.currentTargetEnemy != null)
+            this.currentTargetEnemy = currentTargetEnemy;
+    }
 }

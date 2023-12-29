@@ -13,7 +13,7 @@ import model.map.TileType;
 /*
  * this class is responsible for retriving the sprite of the tile depending on its id
  */
-public class TileView implements Iconable {
+public class TileView {
     private static final ArrayList<BufferedImage> Tilesprites = new ArrayList<>();
  
     static {

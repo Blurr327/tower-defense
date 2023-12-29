@@ -2,7 +2,7 @@ package model.gamelogic;
 
 import javax.swing.Timer;
 
-import model.enemies.Enemy;
+import model.enemies.EnemyModel;
 import model.map.MapModel;
 import view.MapView;
 
@@ -22,7 +22,7 @@ public class GameModel {
         GameModel.gameMode = gameMode;
     }
 
-    public static boolean checkEnemyReachedBase(Enemy enemy) {
+    public static boolean checkEnemyReachedBase(EnemyModel enemy) {
         if((int) enemy.getX() == BaseModel.getX() && (int) enemy.getY() == BaseModel.getY()){
             return true;
         }
@@ -43,13 +43,13 @@ public class GameModel {
         return false;
     }
 
-    public static void handleEnemyMovement(Enemy enemyModel){
+    public static void handleEnemyMovement(EnemyModel enemyModel){
         handeEnemyDirection(enemyModel);
         enemyModel.move();
     }
 
     // this function implements a basic AI, designed to work on linear paths only. 
-    public static void handeEnemyDirection(Enemy enemyModel){
+    public static void handeEnemyDirection(EnemyModel enemyModel){
 
         float ex = enemyModel.getX();
         float ey = enemyModel.getY();
@@ -98,7 +98,7 @@ public class GameModel {
     }
     
     public static void updateBaseHealth(){
-        for(Enemy enemy : WaveModel.enemies){
+        for(EnemyModel enemy : WaveModel.enemies){
             if(checkEnemyReachedBase(enemy)  && enemy.isAlive()){
                 enemy.startAttackTimer();
             }
@@ -107,6 +107,7 @@ public class GameModel {
             }
         }
     }
+
 
 }
 

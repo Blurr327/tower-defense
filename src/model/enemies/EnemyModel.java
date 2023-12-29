@@ -8,11 +8,12 @@ import model.gamelogic.DirectionModel;
 import model.map.MapModel;
 import model.map.TileModel;
 
-public abstract class EnemyModel implements Enemy {
+public abstract class EnemyModel extends AggressiveModel {
 
     public static enum Tier {
         C, B, A
     }
+
     private int health;
     private float speed;
     private int damage;
@@ -21,14 +22,13 @@ public abstract class EnemyModel implements Enemy {
     private float y;
     private boolean spawned;
     private boolean[][] path = new boolean[MapModel.HEIGHT][MapModel.WIDTH];
-    private Timer attackTimer;
-    private int attackSpeed; // in milliseconds
     private Tier tier;
     private DirectionModel direction;
 
     private static TileModel spawnTile = MapModel.getTileAt(0, MapModel.HEIGHT/2);
 
     public EnemyModel(int health, float speed, int damage, int attackSpeed) {
+        super(attackSpeed);
         this.x = spawnTile.getX();
         this.y = spawnTile.getY();
         this.health = health;
@@ -37,10 +37,9 @@ public abstract class EnemyModel implements Enemy {
         this.tier = calculateTier();
         this.reward = calculateReward();
         this.direction = DirectionModel.EAST;
-        attackTimer = new Timer(attackSpeed, e -> attack());
     }
 
-    public abstract Enemy clone();
+    public abstract EnemyModel clone();
 
     public abstract void attack();
 
@@ -186,25 +185,10 @@ public abstract class EnemyModel implements Enemy {
         return path[y][x];
     }
 
-    public void startAttackTimer(){
-        attackTimer.start();
-    }
-
-    public void stopAttackTimer(){
-        attackTimer.stop();
-    }
-
     public void takeDamage(int damage){
         health -= damage;
     }
 
-        public int getAttackSpeed() {
-        return attackSpeed;
-    }
-
-    public void setAttackSpeed(int attackSpeed) {
-        this.attackSpeed = attackSpeed;
-    }
 }
 
 
