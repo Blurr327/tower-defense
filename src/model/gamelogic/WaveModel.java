@@ -24,6 +24,7 @@ public class WaveModel {
 
     public static void initEnemyArrayList(){
         
+        printWave();
         calculatePercentageOfCTierEnemies();
         calculatePercentageOfBTierEnemies();
         calculatePercentageOfATierEnemies();
@@ -58,6 +59,7 @@ public class WaveModel {
         // at least 20% of enemies are C tier, at most 60% of enemies are C tier. Their percentage decreases by 40% each wave
 
         numberOfCTierEnemies = Math.max((20 * numberOfEnemies) / 100, numberOfEnemies - (40*numberOfEnemies)/100);
+        System.out.println("C-tier ennemies : " + numberOfCTierEnemies);
     }
 
     public static void calculatePercentageOfBTierEnemies() {
@@ -66,7 +68,7 @@ public class WaveModel {
 
         if(waveNumber>5/difficulty) numberOfBTierEnemies = (3*(numberOfEnemies - numberOfCTierEnemies))/4;
         else numberOfBTierEnemies = numberOfEnemies - numberOfCTierEnemies;
-    
+        System.out.println("B-tier ennemies : " + numberOfBTierEnemies);
     }
 
     public static void calculatePercentageOfATierEnemies() {
@@ -74,7 +76,7 @@ public class WaveModel {
         // the rest are A tier if and only if the wave number is greater than 5
 
         if(waveNumber>5/difficulty) numberOfATierEnemies = (numberOfEnemies - numberOfCTierEnemies)/4;
-        System.out.println("A tier : " + numberOfATierEnemies);
+        System.out.println("A-tier ennemies : " + numberOfATierEnemies);
     }
 
     // getter for waveNumber
@@ -152,6 +154,10 @@ public class WaveModel {
 
     public static void setDifficulty(int difficulty) {
         WaveModel.difficulty = difficulty;
+    }
+
+    public static void printWave() {
+        System.out.println("Wave : " + getWaveNumber());
     }
 }
 

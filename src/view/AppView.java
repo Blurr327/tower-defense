@@ -108,10 +108,21 @@ public class AppView extends JFrame {
     }
 
     public void addActionListeners(){
-        gameView.getSwitchToMenuButton().addActionListener(e -> controller.switchTo(AppModel.AppMode.MENU));
-        menuView.getSwitchToGameButton().addActionListener(e-> controller.switchTo(AppModel.AppMode.GAME));
-        menuView.getSwitchToSettingsButton().addActionListener(e -> controller.switchTo(AppModel.AppMode.SETTINGS));
-        settingsView.getSwitchToMenuButton().addActionListener(e -> controller.switchTo(AppModel.AppMode.MENU));
+        gameView.getSwitchToMenuButton().addActionListener(e -> {
+            controller.switchTo(AppModel.AppMode.MENU);
+            System.out.println("Switching to menu !");});
+        menuView.getSwitchToGameButton().addActionListener(e-> {
+            controller.switchTo(AppModel.AppMode.GAME);
+            System.out.println("Good luck have fun :) !");});
+        menuView.getSwitchToSettingsButton().addActionListener(e -> {
+            controller.switchTo(AppModel.AppMode.SETTINGS);
+            System.out.println("Switching to settings !");
+        });
+        settingsView.getSwitchToMenuButton().addActionListener(e -> {
+            controller.switchTo(AppModel.AppMode.MENU);
+            System.out.println("Switching to menu !");
+        }); 
+    
     }
 
     private static BufferedImage importImg(){

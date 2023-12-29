@@ -28,20 +28,22 @@ public class MapEditorController {
     public void tileSelected(int id){
         MapEditorModel.setMapEditorMode(MapEditorModel.MapEditorMode.TILE);
         MapEditorModel.setSelectedTileId(id);
+        // print the name of the tile selected
+        System.out.println("Tile selected : " + MapEditorModel.getTileName());
     }
     
     // this method is called when the user clicks on the switch to play manager button (present in the bottom section)
 
     public void spawnPointEditorButtonClicked(){
         MapEditorModel.setMapEditorMode(MapEditorModel.MapEditorMode.SPAWN);
-        //TODO : show a message telling the user to choose a spawn point
+        System.out.println("Choose a spawn area :");
     }
 
     // this method is called when the user clicks on the switch to play manager button (present in the bottom section)
     
     public void targetPointEditorButtonClicked(){
         MapEditorModel.setMapEditorMode(MapEditorModel.MapEditorMode.TARGET);
-        //TODO : show a message telling the user to choose a target point
+        System.out.println("Choose a target area :");
     }
 
 }

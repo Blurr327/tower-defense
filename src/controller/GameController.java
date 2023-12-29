@@ -31,6 +31,7 @@ public class GameController implements KeyListener {
 
     // this method switches to edit mode and stops the update loop
     public void switchToEdit() {
+        System.out.println("Edit mode");
         endGame();
         GameModel.setGameMode(GameModel.GameMode.EDIT);
         view.getBottomSectionView().updateCard();
@@ -38,6 +39,7 @@ public class GameController implements KeyListener {
 
     // this method switches to play mode
     public void switchToPlay() {
+        System.out.println("Game Starts");
         initGame();
         GameModel.setGameMode(GameModel.GameMode.PLAY);
         view.getBottomSectionView().updateCard();
@@ -54,6 +56,7 @@ public class GameController implements KeyListener {
     }
 
     public void endGame() {
+        System.out.println("Game Ends");
         endWave();
         // stopping the update loop
         stopUpdateLoop();
@@ -104,9 +107,11 @@ public class GameController implements KeyListener {
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
             if(updateTimer.isRunning()){
+                System.out.println("Game Paused");
                 stopUpdateLoop();
             }
             else if (GameModel.getGameMode() == GameModel.GameMode.PLAY){
+                System.out.println("Game Resumed");
                 runUpdateLoop();
             }
         }

@@ -88,24 +88,27 @@ public class MapController implements MouseMotionListener, MouseListener {
      */
     @Override
     public void mouseClicked(MouseEvent e) {
+        int x = e.getX()/AppView.UNIT_SIZE;
+        int y = e.getY()/AppView.UNIT_SIZE;
         switch(MapEditorModel.getMapEditorMode()) {
             case TILE:
                 if(MapEditorModel.isTileSelected()) 
                     MapModel.setTileIdAt(MapEditorModel.getTileToModX(), MapEditorModel.getTileToModY(), MapEditorModel.getSelectedTileId());
                 break; 
             case SPAWN:
-                if(spawnTileValid(e.getX()/AppView.UNIT_SIZE, e.getY()/AppView.UNIT_SIZE)) {
+                if(spawnTileValid(x, y)) {
                     System.out.println("Spawn tile valid");
                     updateSpawnTile(e);
                 } else {
-                    // TODO : Show message saying that the spawn tile is invalid
+                    System.out.println("The spawn must be on a path !");
                 }
                 break;
             case TARGET:
-                if(targetTileValid(e.getX()/AppView.UNIT_SIZE, e.getY()/AppView.UNIT_SIZE)) {
+                if(targetTileValid(x, y)) {
+                    System.out.println("Target set to (" + x + ", " + y + ")");
                     updateTargetTile(e);
                 } else {
-                    // TODO : Show message saying that the target tile is invalid
+                    System.out.println("The target must be on a path !");
                 }
                 break;
         }

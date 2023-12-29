@@ -50,6 +50,11 @@ public class MapEditorModel extends BottomSectionModel {
         MapEditorModel.mapEditorMode = mapEditorMode;
     }
 
+    // returns the name of the tile that is currently selected and will be shown in the Terminal
+    public static String getTileName() {
+        return TileType.getTileById(selectedTileId).toString();
+    }
+
 }
 
 
