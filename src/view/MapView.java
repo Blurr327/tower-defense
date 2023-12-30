@@ -27,7 +27,10 @@ import model.map.TileType;
 
 public class MapView extends JPanel{
     private MapModel map;
-
+    MessagesView pauseMessage = new MessagesView("Pressing escape will pause/unpause the game");
+    MessagesView spawnEditInfo = new MessagesView("Click on a tile to set it as the spawn point");
+    MessagesView targetEditInfo = new MessagesView("Click on a tile to set it as the target point");
+    MessagesView tileEditInfo = new MessagesView("Select a tile from the bottom section and click on a tile to change it");
 
     public MapView(){
         map = new MapModel();
@@ -52,6 +55,7 @@ public class MapView extends JPanel{
                 renderEditorMap(g);
                 break;
             case PLAY:
+                if(pauseMessage.allowedToBeDrawn()) pauseMessage.drawDisappearingMessage(g);
                 renderPlayMap(g);
                 break;
         }
@@ -72,11 +76,13 @@ public class MapView extends JPanel{
         int u= AppView.UNIT_SIZE;
         switch(MapEditorModel.getMapEditorMode()) {
             case TILE:
+                if(tileEditInfo.allowedToBeDrawn()) tileEditInfo.drawDisappearingMessage(g);
                 if(MapEditorModel.isTileSelected()) {
                     TileView.renderTile(g, MapEditorModel.getTileToModX(), MapEditorModel.getTileToModY(), MapEditorModel.getSelectedTileId());
                 }
                 break;
             case SPAWN:
+                    if(spawnEditInfo.allowedToBeDrawn()) spawnEditInfo.drawDisappearingMessage(g);
                     // Draw the "S" on hover
                     StringHelper.drawCenteredString(g, "S", MapEditorModel.getTileToModX(), MapEditorModel.getTileToModY(), u);
 
@@ -84,7 +90,7 @@ public class MapView extends JPanel{
                     StringHelper.drawCenteredString(g, "S", EnemyModel.getSpawnTileX(), EnemyModel.getSpawnTileY(), u);
                 break;
             case TARGET:
-
+                    if(targetEditInfo.allowedToBeDrawn()) targetEditInfo.drawDisappearingMessage(g);
                     // Draw the "T" on hover
                     StringHelper.drawCenteredString(g, "X", MapEditorModel.getTileToModX(), MapEditorModel.getTileToModY(), u);
 
@@ -113,4 +119,7 @@ public class MapView extends JPanel{
         setMinimumSize(size);
     }
 
+    public MessagesView getMessageView() {
+        return pauseMessage;
+    }
 }

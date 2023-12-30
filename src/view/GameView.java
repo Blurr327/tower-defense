@@ -16,6 +16,7 @@ import model.map.MapModel;
 public class GameView extends JPanel{
     private GameController gameController;
     private MapView mapView = new MapView();
+
     private CustomButtonView switchToMenuButton = new CustomButtonView("Menu");
 
     private BottomSectionView bottomSectionView= new BottomSectionView(new BottomSectionModel());
@@ -54,4 +55,7 @@ public class GameView extends JPanel{
         return bottomSectionView;
     }
 
+        public MapView getMapView() {
+        return mapView;
+    }
 }

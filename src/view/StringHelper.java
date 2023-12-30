@@ -41,6 +41,19 @@ public class StringHelper {
         g2d.dispose();
     }
     
+    public static Graphics2D getTrasnparentString(Graphics g, float alpha) {
+
+        // Create an AlphaComposite instance with the specified alpha value
+        AlphaComposite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
+
+        // Save the current graphics state
+        Graphics2D g2d = (Graphics2D) g.create();
+
+        // Set the composite for transparency
+        g2d.setComposite(alphaComposite);
+
+        return g2d;
+    }
 
     public static void drawString(Graphics g, String text, int x, int y, int unitSize) {
         // Set font and color   
