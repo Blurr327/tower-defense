@@ -10,6 +10,8 @@ import model.AppModel;
 import model.gamelogic.BaseModel;
 import model.gamelogic.GameModel;
 import model.gamelogic.WaveModel;
+import model.map.MapModel;
+import model.towers.TowerManagerModel;
 import view.AppView;
 import view.GameView;
 import view.MapView;
@@ -51,12 +53,17 @@ public class GameController implements KeyListener {
         BaseController.initBase();
         // initializing the enemy arraylist according to the algorithm described in wavemodel
         WaveController.initWave();
+        // initializing the shmuckles
+        GameModel.setShmuckles(100);
+
+        MapModel.iniTiles();
         // running the loop to update gamelogic
-        runUpdateLoop();
+        runUpdateLoop(); 
     }
 
     public void endGame() {
         System.out.println("Game Ends");
+        TowerManagerModel.clearTowers();
         endWave();
         // stopping the update loop
         stopUpdateLoop();
@@ -83,6 +90,7 @@ public class GameController implements KeyListener {
             WaveController.resumeEnemySpawning();
         }
         else{
+            TowerManagerModel.updateCurrentEnemyTargets();
             WaveController.handleEnemyMovement();
             WaveController.updateEnemyArrayList();
             GameModel.updateBaseHealth();

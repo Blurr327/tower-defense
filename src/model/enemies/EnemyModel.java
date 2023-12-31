@@ -43,6 +43,28 @@ public abstract class EnemyModel extends AggressiveModel {
 
     public abstract void attack();
 
+    public float getXVelocity(){
+        switch (direction) {
+            case EAST:
+                return speed;
+            case WEST:
+                return -speed;
+            default:
+                return 0;
+        }
+    }
+
+    public float getYVelocity(){
+        switch (direction) {
+            case NORTH:
+                return -speed;
+            case SOUTH:
+                return speed;
+            default:
+                return 0;
+        }
+    }
+
     public static void setSpawnTile(TileModel spawnTile) {
         EnemyModel.spawnTile = spawnTile;
     }

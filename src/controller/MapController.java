@@ -6,6 +6,8 @@ import model.gamelogic.GameModel;
 import model.map.MapEditorModel;
 import model.map.MapModel;
 import model.map.TileType;
+import model.towers.TowerManagerModel;
+import model.towers.TowerModel;
 import view.AppView;
 import view.MapView;
 import java.awt.event.MouseMotionListener;
@@ -90,6 +92,7 @@ public class MapController implements MouseMotionListener, MouseListener {
     public void mouseClicked(MouseEvent e) {
         int x = e.getX()/AppView.UNIT_SIZE;
         int y = e.getY()/AppView.UNIT_SIZE;
+        if(GameModel.getGameMode().equals(GameModel.GameMode.PLAY)) return;
         switch(MapEditorModel.getMapEditorMode()) {
             case TILE:
                 if(MapEditorModel.isTileSelected()) 
@@ -110,8 +113,35 @@ public class MapController implements MouseMotionListener, MouseListener {
                 } else {
                     System.out.println("The target must be on a path !");
                 }
+            case TOWER:
+                if(MapEditorModel.getSelectedTower() !=null ) {
+                    if (!GameModel.isRichEnoughForTower(MapEditorModel.getSelectedTower())){
+                        System.out.println("Not enough money");
+                    }
+                    else {
+                        
+                        if(TowerManagerModel.canAddTowerAt(x, y)) {
+                            buyTower(MapEditorModel.getSelectedTower());
+                            placeTower(x, y);
+                        }
+                        else {
+                            System.out.println("Can't add tower here");
+                        }
+                    }
+                }
                 break;
         }
+    }
+
+    public void placeTower(int x, int y){
+        TowerModel towerToAdd = MapEditorModel.getSelectedTower().clone();
+                            towerToAdd.setX(x);
+                            towerToAdd.setY(y);
+                            TowerManagerModel.addTower(towerToAdd);
+    }
+
+    public void buyTower(TowerModel tower) {
+        GameModel.setShmuckles(GameModel.getShmuckles() - tower.getCost());
     }
 
     @Override

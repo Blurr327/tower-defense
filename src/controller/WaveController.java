@@ -81,13 +81,7 @@ public class WaveController {
     }
 
      public static void updateEnemyArrayList() {
-        Iterator<EnemyModel> iterator = WaveModel.enemies.iterator();
-        while(iterator.hasNext()){
-            EnemyModel enemy = iterator.next();
-            if(!enemy.isAlive()){
-                iterator.remove();
-            }
-        }
+        WaveModel.handleEnemyDeath();
      }
 }
 

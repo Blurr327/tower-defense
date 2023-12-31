@@ -4,7 +4,7 @@ public class TileModel {
     private int x;
     private int y;
     private TileType type;
-    private boolean hasTile;
+    private boolean hasTower;
 
 
     public TileModel(int x, int y, TileType type) {
@@ -39,12 +39,12 @@ public class TileModel {
         this.type = type;
     }
 
-    public boolean hasTile() {
-        return hasTile;
+    public boolean hasTower() {
+        return hasTower;
     }
 
-    public void setHasTile(boolean hasTile) {
-        this.hasTile = hasTile;
+    public void setHasTower(boolean hasTower) {
+        this.hasTower = hasTower;
     }
 
 }

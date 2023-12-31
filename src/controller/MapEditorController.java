@@ -3,8 +3,10 @@ package controller;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import model.gamelogic.GameModel;
 import model.map.MapEditorModel;
 import model.map.MapEditorModel.MapEditorMode;
+import model.towers.TowerModel;
 import view.MapEditorView;
 import view.MapView;
 
@@ -21,6 +23,11 @@ public class MapEditorController {
     public MapEditorController(MapEditorModel model, MapEditorView view){
         this.model= model;
         this.view = view;
+    }
+
+    public void towerSelected(TowerModel tower) {
+        MapEditorModel.setMapEditorMode(MapEditorModel.MapEditorMode.TOWER);
+        MapEditorModel.setSelectedTower(tower);
     }
 
     // this method is called when the user clicks on a tile button (present in the bottom section)

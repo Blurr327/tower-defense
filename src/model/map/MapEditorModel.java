@@ -1,16 +1,19 @@
 package model.map;
 
 import model.gamelogic.BottomSectionModel;
+import model.towers.TowerModel;
 
 public class MapEditorModel extends BottomSectionModel {
 
     public enum MapEditorMode {
-        SPAWN, TARGET, TILE;
+        SPAWN, TARGET, TILE, TOWER;
     }
 
     private static MapEditorMode mapEditorMode = MapEditorMode.TILE;
     
     private static int selectedTileId = -1;
+    private static TowerModel selectedTower;
+
     private static int tileToModX;
     private static int tileToModY;
 
@@ -48,6 +51,14 @@ public class MapEditorModel extends BottomSectionModel {
 
     public static void setMapEditorMode(MapEditorMode mapEditorMode) {
         MapEditorModel.mapEditorMode = mapEditorMode;
+    }
+
+    public static TowerModel getSelectedTower() {
+        return selectedTower;
+    }
+
+    public static void setSelectedTower(TowerModel selectedTower) {
+        MapEditorModel.selectedTower = selectedTower;
     }
 
     // returns the name of the tile that is currently selected and will be shown in the Terminal

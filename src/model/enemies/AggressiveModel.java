@@ -3,8 +3,8 @@ package model.enemies;
 import javax.swing.Timer;
 
 public abstract class AggressiveModel {
-    private Timer attackTimer;
-    private int attackSpeed;
+    protected Timer attackTimer;
+    protected int attackSpeed;
 
     public AggressiveModel(int attackSpeed) {
         this.attackSpeed = attackSpeed;

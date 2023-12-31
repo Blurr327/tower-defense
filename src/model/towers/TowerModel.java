@@ -2,41 +2,59 @@ package model.towers;
 
 import model.enemies.AggressiveModel;
 import model.enemies.EnemyModel;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
-public abstract class TowerModel extends AggressiveModel implements Upgradable{
+
+public abstract class TowerModel extends AggressiveModel implements Upgradable, Cloneable {
     protected int x;
     protected int y;
-    protected int damage;
+    protected ProjectileModel projectile;
     protected int range;
     protected int cost;
     protected int level;
     protected int upgradeCost;
     protected EnemyModel currentTargetEnemy;
+    protected ArrayList<ProjectileModel> projectilesShot = new ArrayList<>();
+    private boolean bought;
     
-    public TowerModel(int damage, int range, int cost, int upgradeCost, int attackSpeed) {
+    public TowerModel(int range, int attackSpeed, ProjectileModel projectile, int attackSpeedUpgradeCost, int rangeUpgradeCost) {
         super(attackSpeed);
-        this.damage = damage;
         this.range = range;
-        this.cost = cost;
+        this.projectile = projectile;
+        this.cost = calculateInitialCost();
         this.level = 1;
-        this.upgradeCost = upgradeCost;
+        this.upgradeCost = projectile.getUpgradeCost() + attackSpeedUpgradeCost + rangeUpgradeCost;
     }
 
-    public abstract void attackWithSpecialEffect(EnemyModel enemy);
+    public int calculateInitialCost(){
+        int cost = projectile.getCost();
+        if(attackSpeed<=2 || range>=5){
+            cost += 50;
+        }
+        else if(attackSpeed<=1 || range>=4){
+            cost += 20;
+        }
+        return cost;
+    }
 
-    public abstract void upgradeSpecialEffect();
+    public abstract void attack();
 
-    @Override
-    public void attack(){
-            currentTargetEnemy.takeDamage(damage);
-            attackWithSpecialEffect(currentTargetEnemy);
+    public abstract TowerModel clone();
+
+    public void setBought(boolean bought) {
+        this.bought = bought;
+    }
+
+    public boolean isBought() {
+        return bought;
     }
 
     public void upgrade(){
-        damage += 5;
+        projectile.upgrade();
         range += 1;
         cost += upgradeCost;
-        upgradeSpecialEffect();
         level++;
     }
 
@@ -44,8 +62,13 @@ public abstract class TowerModel extends AggressiveModel implements Upgradable{
         this.upgradeCost = upgradeCost;
     }
 
+    public void upgradeAttackSpeed(){
+        attackSpeed -= 500;
+    }
+
+
     public boolean isInRange(EnemyModel enemy){
-        return (Math.abs(enemy.getX() - x) <= range && Math.abs(enemy.getY() - y) <= range);
+        return Math.sqrt(Math.pow(enemy.getX() - x, 2) + Math.pow(enemy.getY() - y, 2)) <= range;
     }
 
     public int getX() {
@@ -54,10 +77,6 @@ public abstract class TowerModel extends AggressiveModel implements Upgradable{
 
     public int getY() {
         return y;
-    }
-
-    public int getDamage() {
-        return damage;
     }
 
     public int getRange() {
@@ -84,10 +103,6 @@ public abstract class TowerModel extends AggressiveModel implements Upgradable{
         this.y= y;
     }
 
-    public void setDamage(int damage) {
-        this.damage = damage;
-    }
-
     public void setRange(int range) {
         this.range = range;
     }
@@ -100,8 +115,43 @@ public abstract class TowerModel extends AggressiveModel implements Upgradable{
         this.level = level;
     }
 
-    public void setCurrentTargetEnemy(EnemyModel currentTargetEnemy) {
-        if(this.currentTargetEnemy != null)
-            this.currentTargetEnemy = currentTargetEnemy;
+    public void setCurrentTargetEnemyIfNotSet(EnemyModel currentTargetEnemy) {
+        if (this.currentTargetEnemy != null && isInRange(this.currentTargetEnemy)) {
+            return;
+        }
+        else this.currentTargetEnemy = currentTargetEnemy;
+    }
+
+    public void handleCurrentEnemyTargetOutOfRange(){
+        if(currentTargetEnemy != null && !isInRange(currentTargetEnemy)){
+            System.out.println("Enemy out of range");
+            currentTargetEnemy = null;
+            stopAttackTimer();
+        }
+    }
+
+    public void manageShotProjectiles(){
+        List<ProjectileModel> projectilesToRemove = new ArrayList<>();
+        if(currentTargetEnemy== null)
+            projectilesShot.clear();
+        for (ProjectileModel projectile : projectilesShot) {
+            projectile.move();
+            if (projectile.isInRange(currentTargetEnemy)) {
+                System.out.println("Projectile hit enemy");
+                projectile.applyDamage(currentTargetEnemy);
+                projectilesToRemove.add(projectile);
+            }
+        }
+    
+        // Remove projectiles after the iteration is complete
+        projectilesShot.removeAll(projectilesToRemove);
+    }
+
+    public int getNumberOfShotProjectiles(){
+        return projectilesShot.size();
+    }
+
+    public ProjectileModel getProjectileByIndex(int i){
+        return projectilesShot.get(i);
     }
 }

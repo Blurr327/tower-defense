@@ -1,6 +1,7 @@
 package model.gamelogic;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 import controller.WaveController;
@@ -158,6 +159,19 @@ public class WaveModel {
 
     public static void printWave() {
         System.out.println("Wave : " + getWaveNumber());
+    }
+
+    public static void handleEnemyDeath() {
+        Iterator<EnemyModel> iterator = WaveModel.enemies.iterator();
+        while(iterator.hasNext()){
+            EnemyModel enemy = iterator.next();
+            if(!enemy.isAlive()){
+                enemy.stopAttackTimer();
+                iterator.remove();
+                GameModel.setShmuckles(GameModel.getShmuckles()+enemy.getReward());
+                System.out.println(GameModel.getShmuckles());
+            }
+        }
     }
 }
 

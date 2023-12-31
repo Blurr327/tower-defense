@@ -19,6 +19,8 @@ import model.gamelogic.WaveModel;
 import model.map.MapEditorModel;
 import model.map.MapModel;
 import model.map.TileType;
+import model.towers.TowerFactory;
+import model.towers.TowerManagerModel;
 
 
 /*
@@ -74,6 +76,7 @@ public class MapView extends JPanel{
     public void renderEditorMap(Graphics g){
 
         int u= AppView.UNIT_SIZE;
+        renderTowers(g);
         switch(MapEditorModel.getMapEditorMode()) {
             case TILE:
                 if(tileEditInfo.allowedToBeDrawn()) tileEditInfo.drawDisappearingMessage(g);
@@ -95,6 +98,9 @@ public class MapView extends JPanel{
                     StringHelper.drawCenteredString(g, "X", MapEditorModel.getTileToModX(), MapEditorModel.getTileToModY(), u);
 
                     BaseView.renderBase(g, BaseModel.getX(), BaseModel.getY());
+            case TOWER:
+                    if(MapEditorModel.getSelectedTower()!=null)
+                        TowerView.renderTowerAt(g, MapEditorModel.getSelectedTower(), MapEditorModel.getTileToModX(), MapEditorModel.getTileToModY());
                     break;
 
         }
@@ -109,7 +115,16 @@ public class MapView extends JPanel{
 
         BaseView.renderBase(g, BaseModel.getX(), BaseModel.getY());
         BaseView.renderBaseHealth(g, ((MapModel.WIDTH-1)*AppView.UNIT_SIZE)-75, 10);
+
+        renderTowers(g);
         
+    }
+
+    public void renderTowers(Graphics g){
+        for(int i=0;i<TowerManagerModel.getNumberOfTowers();i++){
+            TowerView.renderTower(g, TowerManagerModel.getTowerByIndex(i));
+            TowerView.renderProjectilesOf(g, TowerManagerModel.getTowerByIndex(i));
+        }
     }
 
     public void setPanelSize(){

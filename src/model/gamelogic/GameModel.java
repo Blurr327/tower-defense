@@ -4,6 +4,7 @@ import javax.swing.Timer;
 
 import model.enemies.EnemyModel;
 import model.map.MapModel;
+import model.towers.TowerModel;
 import view.MapView;
 
 public class GameModel {
@@ -11,9 +12,18 @@ public class GameModel {
     EDIT, PLAY;
     }
     private static GameMode gameMode = GameMode.EDIT;
-    
+    private static int shmuckles = 30;
+     
     
    
+    public static int getShmuckles() {
+        return shmuckles;
+    }
+
+    public static void setShmuckles(int shmuckles) {
+        GameModel.shmuckles = shmuckles;
+    }
+
     public static GameMode getGameMode() {
         return gameMode;
     }
@@ -108,6 +118,12 @@ public class GameModel {
         }
     }
 
+    public static boolean isRichEnoughForTower(TowerModel tower){
+        if(shmuckles >= tower.getCost()){
+            return true;
+        }
+        return false;
+    }
 
 }
 
