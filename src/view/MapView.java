@@ -131,6 +131,7 @@ public class MapView extends JPanel{
         BaseView.renderBase(g, BaseModel.getX(), BaseModel.getY());
         BaseView.renderBaseHealth(g, ((MapModel.WIDTH-1)*AppView.UNIT_SIZE)-75, 10);
         
+        renderProjectiles(g);
     }
 
     public void renderTowers(Graphics g){
@@ -138,6 +139,9 @@ public class MapView extends JPanel{
             if(towerRemovalInfo.allowedToBeDrawn()) towerRemovalInfo.drawDisappearingMessage(g);
             TowerView.renderTower(g, TowerManagerModel.getTowerByIndex(i));
         }
+    }
+
+    public void renderProjectiles(Graphics g){
         for(int i=0;i<TowerManagerModel.getNumberOfTowers();i++){
             TowerView.renderProjectilesOf(g, TowerManagerModel.getTowerByIndex(i));
         }

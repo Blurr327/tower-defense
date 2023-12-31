@@ -11,7 +11,7 @@ public class TowerManagerModel {
     
     public static void addTower(TowerModel tower){
         towersInGame.add(tower);
-        MapModel.getTileAt(tower.getX(), tower.getY()).setTower(tower);
+        MapModel.getTileAt((int) tower.getX(), (int)tower.getY()).setTower(tower);
     }
 
     public static boolean canAddTowerAt(int x, int y){
@@ -23,7 +23,7 @@ public class TowerManagerModel {
     public static void removeTower(TowerModel tower){
         if(towersInGame.contains(tower)){
             towersInGame.remove(tower);
-            MapModel.getTileAt(tower.getX(), tower.getY()).setTower(null);
+            MapModel.getTileAt((int) tower.getX(), (int) tower.getY()).setTower(null);
         }
     }
 

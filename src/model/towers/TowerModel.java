@@ -8,8 +8,7 @@ import java.util.List;
 
 
 public abstract class TowerModel extends AggressiveModel implements Upgradable, Cloneable {
-    protected int x;
-    protected int y;
+
     protected ProjectileModel projectile;
     protected int range;
     protected int cost;
@@ -71,14 +70,6 @@ public abstract class TowerModel extends AggressiveModel implements Upgradable, 
         return Math.sqrt(Math.pow(enemy.getX() - x, 2) + Math.pow(enemy.getY() - y, 2)) <= range;
     }
 
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
     public int getRange() {
         return range;
     }
@@ -93,14 +84,6 @@ public abstract class TowerModel extends AggressiveModel implements Upgradable, 
 
     public int getUpgradeCost() {
         return upgradeCost;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void setY(int y) {
-        this.y= y;
     }
 
     public void setRange(int range) {

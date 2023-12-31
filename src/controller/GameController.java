@@ -91,6 +91,7 @@ public class GameController implements KeyListener {
         GameModel.setGameStarted(false);
         TowerManagerModel.clearTowers();
         GameModel.setShmuckles(100);
+        MapModel.iniTiles();
         endWave();
         // stopping the update loop
         stopUpdateLoop();
@@ -99,6 +100,7 @@ public class GameController implements KeyListener {
     public void endWave() {
         // stopping all attack timers
         WaveController.stopAttackTimers();
+
     }
 
     public void update(){

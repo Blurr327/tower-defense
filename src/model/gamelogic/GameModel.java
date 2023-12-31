@@ -13,8 +13,17 @@ public class GameModel {
     }
     private static GameMode gameMode = GameMode.EDIT;
     private static int shmuckles = 100;
+    private static int difficulty = 1;
     private static boolean gameStarted = false;
      
+
+    public static int getDifficulty() {
+        return difficulty;
+    }
+
+    public static void setDifficulty(int difficulty) {
+        GameModel.difficulty = difficulty;
+    }
     
    
     public static boolean hasGameStarted() {
@@ -75,7 +84,7 @@ public class GameModel {
         int x = (int) ex;
         int y = (int) ey;
         
-        // general idea : when the enemy reaches the center of the tile it is on, it changes direction and declares that has traversed the tile. If a tile has been traversed, changing direction on it becomes impossible
+        // general idea : when the enemy reaches the center of the tile it is on, it changes direction and declares that it has traversed the tile. If a tile has been traversed, changing direction on it becomes impossible
 
         // if the enemy has already traversed the tile, then it should not change direction on it
         // traversing a tile means that the enemy has passed the center of the tile

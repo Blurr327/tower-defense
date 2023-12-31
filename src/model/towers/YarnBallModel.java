@@ -6,12 +6,13 @@ import javax.swing.Timer;
 public class YarnBallModel extends ProjectileModel{
     private static int damage = 5;
     private static int upgradeCost = 10;
-    private Timer pacificationTimer;
-    private int pacificationDuration = 3000;
-    private static float range = 0.5f;
+    private static Timer pacificationTimer;
+    private static int pacificationDuration = 3000;
+    private static double range = 0.4;
+    private static float speed =0.5f; // this is the speed of the projectile in pixels per frame
 
     public YarnBallModel() {
-        super(damage, upgradeCost, range);
+        super(damage, upgradeCost, range, speed);
     }
 
     @Override
