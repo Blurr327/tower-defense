@@ -122,18 +122,16 @@ public abstract class TowerModel extends AggressiveModel implements Upgradable, 
         else this.currentTargetEnemy = currentTargetEnemy;
     }
 
-    public void handleCurrentEnemyTargetOutOfRange(){
-        if(currentTargetEnemy != null && !isInRange(currentTargetEnemy)){
+    public void handleCurrentEnemyTargetOutOfRangeOrDead(){
+        if(currentTargetEnemy != null && (!isInRange(currentTargetEnemy) || !currentTargetEnemy.isAlive())){
             System.out.println("Enemy out of range");
             currentTargetEnemy = null;
             stopAttackTimer();
         }
     }
-
     public void manageShotProjectiles(){
         List<ProjectileModel> projectilesToRemove = new ArrayList<>();
-        if(currentTargetEnemy== null)
-            projectilesShot.clear();
+        if(currentTargetEnemy== null) projectilesShot.clear();
         for (ProjectileModel projectile : projectilesShot) {
             projectile.move();
             if (projectile.isInRange(currentTargetEnemy)) {
@@ -153,5 +151,9 @@ public abstract class TowerModel extends AggressiveModel implements Upgradable, 
 
     public ProjectileModel getProjectileByIndex(int i){
         return projectilesShot.get(i);
+    }
+
+    public boolean hasTargetEnemy(){
+        return currentTargetEnemy != null;
     }
 }

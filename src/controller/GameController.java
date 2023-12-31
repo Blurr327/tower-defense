@@ -10,6 +10,7 @@ import model.AppModel;
 import model.gamelogic.BaseModel;
 import model.gamelogic.GameModel;
 import model.gamelogic.WaveModel;
+import model.gamelogic.GameModel.GameMode;
 import model.map.MapModel;
 import model.towers.TowerManagerModel;
 import view.AppView;
@@ -32,17 +33,41 @@ public class GameController implements KeyListener {
     }
 
     // this method switches to edit mode and stops the update loop
-    public void switchToEdit() {
-        System.out.println("Edit mode");
+    public void switchToEditAndEndGame() {
         endGame();
+        switchToEdit();
+    }
+
+    public void switchToEdit(){
+        System.out.println("Edit mode");
+        if(GameModel.hasGameStarted()){
+            view.getBottomSectionView().getMapEditorView().addResumeButton();
+            view.getBottomSectionView().getMapEditorView().getSwitchToPlayManagerButton().setText("Restart");
+        }    
+        else{
+         view.getBottomSectionView().getMapEditorView().removeResumeButton();
+            view.getBottomSectionView().getMapEditorView().getSwitchToPlayManagerButton().setText("Play");
+        }
+        stopUpdateLoop();
         GameModel.setGameMode(GameModel.GameMode.EDIT);
         view.getBottomSectionView().updateCard();
     }
 
     // this method switches to play mode
-    public void switchToPlay() {
-        System.out.println("Game Starts");
+    public void switchToPlayAndStartGame() {
+        if(GameModel.hasGameStarted()){
+            endGame();
+            GameModel.setGameStarted(false);
+            switchToEdit();
+            return;
+        }
         initGame();
+        switchToPlay();
+    }
+
+    public void switchToPlay(){
+        System.out.println("Game Starts");
+        runUpdateLoop();
         GameModel.setGameMode(GameModel.GameMode.PLAY);
         view.getBottomSectionView().updateCard();
     }
@@ -55,7 +80,7 @@ public class GameController implements KeyListener {
         WaveController.initWave();
         // initializing the shmuckles
         GameModel.setShmuckles(100);
-
+        GameModel.setGameStarted(true);
         MapModel.iniTiles();
         // running the loop to update gamelogic
         runUpdateLoop(); 
@@ -63,7 +88,9 @@ public class GameController implements KeyListener {
 
     public void endGame() {
         System.out.println("Game Ends");
+        GameModel.setGameStarted(false);
         TowerManagerModel.clearTowers();
+        GameModel.setShmuckles(100);
         endWave();
         // stopping the update loop
         stopUpdateLoop();
@@ -81,13 +108,15 @@ public class GameController implements KeyListener {
     public void updateGame(){
         if(GameModel.checkGameOverCondition()){
             // TODO: Show game over message 
-            switchToEdit();
+            switchToEditAndEndGame();
         }
         else if(GameModel.checkNextWaveCondition()){
             // TODO: Show next wave message and congratulate player
             endWave();
             WaveController.nextWave();
             WaveController.resumeEnemySpawning();
+            switchToEdit();
+            stopUpdateLoop();
         }
         else{
             TowerManagerModel.updateCurrentEnemyTargets();
@@ -101,12 +130,14 @@ public class GameController implements KeyListener {
         updateTimer.start();
         WaveController.resumeEnemySpawning();
         WaveController.resumeWave();
+        TowerManagerModel.startAllTowers();
     }
 
     public static void stopUpdateLoop(){
        updateTimer.stop();
         WaveController.stopEnemySpawning();
         WaveController.pauseWave();
+        TowerManagerModel.stopAllTowers();
     }
 
     // pressing escapes pauses the update loop if it is running and unpauses if it is paused AND if the game mode is PLAY

@@ -50,13 +50,15 @@ public class MapModel {
     public static void setTileAt(int x, int y, TileModel tile){
         tiles[y][x] = tile;
     }
+
     public static void iniTiles(){
         for(int y=0;y<HEIGHT;y++){
             for(int x=0;x<WIDTH;x++){
-                tiles[y][x].setHasTower(false);;
+                tiles[y][x].setTower(null);;
             }
         }
     }
+    
     public static void generateFlower() {
         Random r = new Random();
         int x = r.nextInt(HEIGHT);

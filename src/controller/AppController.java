@@ -25,9 +25,9 @@ public class AppController {
         view.getAppContainer().getGameView().requestFocusInWindow();
         if(g == AppModel.AppMode.MENU || g == AppModel.AppMode.SETTINGS)
             GameController.stopUpdateLoop();
-        else if(g == AppModel.AppMode.GAME)
+        //else if(g == AppModel.AppMode.GAME)
         // if the game is switched to, show a temporary message to the user telling them how to un/pause the game
-            showTemporaryMessage();
+           // showTemporaryMessage();
 
 
     }

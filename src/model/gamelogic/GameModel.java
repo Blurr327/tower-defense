@@ -12,10 +12,19 @@ public class GameModel {
     EDIT, PLAY;
     }
     private static GameMode gameMode = GameMode.EDIT;
-    private static int shmuckles = 30;
+    private static int shmuckles = 100;
+    private static boolean gameStarted = false;
      
     
    
+    public static boolean hasGameStarted() {
+        return gameStarted;
+    }
+
+    public static void setGameStarted(boolean gameStarted) {
+        GameModel.gameStarted = gameStarted;
+    }
+
     public static int getShmuckles() {
         return shmuckles;
     }

@@ -15,13 +15,13 @@ import model.map.MapModel;
  */
 public class PlayManagerView extends JPanel{
     PlayManagerModel model;
-    CustomButtonView switchToEditButton = new CustomButtonView("Edit");
+    CustomButtonView switchToEditAndEndGameButton = new CustomButtonView("Edit");
 
     public PlayManagerView(PlayManagerModel model){
         this.model = model;
         this.setLayout(null);
-        add(switchToEditButton);
-        switchToEditButton.setBounds(15,15,90,30);
+        add(switchToEditAndEndGameButton);
+        switchToEditAndEndGameButton.setBounds(15,15,90,30);
     }
 
     public void paintComponent(Graphics g){
@@ -36,7 +36,7 @@ public class PlayManagerView extends JPanel{
     }
 
     public CustomButtonView getSwitchToEditButton() {
-        return switchToEditButton;
+        return switchToEditAndEndGameButton;
     }
 
 }

@@ -34,7 +34,7 @@ public class MapController implements MouseMotionListener, MouseListener {
     // dragging the mouse when a tile is selected changes all of the tiles along the path of the mouse to the selected tile
     @Override
     public void mouseDragged(MouseEvent e) {
-        if(MapEditorModel.isTileSelected() && GameModel.getGameMode().equals(GameModel.GameMode.EDIT) && MapEditorModel.getMapEditorMode().equals(MapEditorModel.MapEditorMode.TILE)){
+        if(MapEditorModel.isTileSelected() && GameModel.getGameMode().equals(GameModel.GameMode.EDIT) && MapEditorModel.getMapEditorMode().equals(MapEditorModel.MapEditorMode.TILE) && GameModel.hasGameStarted() == false){
             updateSetTileToMod(e);
             MapModel.setTileIdAt(MapEditorModel.getTileToModX(), MapEditorModel.getTileToModY(), MapEditorModel.getSelectedTileId());
         }
@@ -93,9 +93,13 @@ public class MapController implements MouseMotionListener, MouseListener {
         int x = e.getX()/AppView.UNIT_SIZE;
         int y = e.getY()/AppView.UNIT_SIZE;
         if(GameModel.getGameMode().equals(GameModel.GameMode.PLAY)) return;
+        else if(e.getButton() == MouseEvent.BUTTON3) {
+            removeTowerIfExists(x, y);
+            return;
+        }
         switch(MapEditorModel.getMapEditorMode()) {
             case TILE:
-                if(MapEditorModel.isTileSelected()) 
+                if(MapEditorModel.isTileSelected() && !GameModel.hasGameStarted()) 
                     MapModel.setTileIdAt(MapEditorModel.getTileToModX(), MapEditorModel.getTileToModY(), MapEditorModel.getSelectedTileId());
                 break; 
             case SPAWN:
@@ -113,6 +117,7 @@ public class MapController implements MouseMotionListener, MouseListener {
                 } else {
                     System.out.println("The target must be on a path !");
                 }
+                break;
             case TOWER:
                 if(MapEditorModel.getSelectedTower() !=null ) {
                     if (!GameModel.isRichEnoughForTower(MapEditorModel.getSelectedTower())){
@@ -133,11 +138,18 @@ public class MapController implements MouseMotionListener, MouseListener {
         }
     }
 
+    public void removeTowerIfExists(int x, int y){
+        if(MapModel.getTileAt(x, y).hasTower()){
+            GameModel.setShmuckles(GameModel.getShmuckles()+MapModel.getTileAt(x, y).getTower().getCost());
+            TowerManagerModel.removeTower(MapModel.getTileAt(x, y).getTower());
+        }
+    }
+
     public void placeTower(int x, int y){
         TowerModel towerToAdd = MapEditorModel.getSelectedTower().clone();
-                            towerToAdd.setX(x);
-                            towerToAdd.setY(y);
-                            TowerManagerModel.addTower(towerToAdd);
+        towerToAdd.setX(x);
+        towerToAdd.setY(y);
+        TowerManagerModel.addTower(towerToAdd);
     }
 
     public void buyTower(TowerModel tower) {

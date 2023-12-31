@@ -11,7 +11,7 @@ public class TowerManagerModel {
     
     public static void addTower(TowerModel tower){
         towersInGame.add(tower);
-        MapModel.getTileAt(tower.getX(), tower.getY()).setHasTower(true);
+        MapModel.getTileAt(tower.getX(), tower.getY()).setTower(tower);
     }
 
     public static boolean canAddTowerAt(int x, int y){
@@ -21,9 +21,9 @@ public class TowerManagerModel {
     }
 
     public static void removeTower(TowerModel tower){
-        if(!towersInGame.contains(tower)){
+        if(towersInGame.contains(tower)){
             towersInGame.remove(tower);
-            MapModel.getTileAt(tower.getX(), tower.getY()).setHasTower(false);
+            MapModel.getTileAt(tower.getX(), tower.getY()).setTower(null);
         }
     }
 
@@ -36,7 +36,7 @@ public class TowerManagerModel {
                     tower.startAttackTimer();  
                 }
                  tower.manageShotProjectiles();
-                 tower.handleCurrentEnemyTargetOutOfRange();
+                 tower.handleCurrentEnemyTargetOutOfRangeOrDead();
             }
         }
     }
@@ -51,5 +51,18 @@ public class TowerManagerModel {
 
     public static void clearTowers(){
         towersInGame.clear();
+    }
+
+    public static void stopAllTowers(){
+        for(TowerModel tower : towersInGame){
+            tower.stopAttackTimer();
+        }
+    }
+
+    public static void startAllTowers(){
+        for(TowerModel tower : towersInGame){
+            if(tower.hasTargetEnemy())
+            tower.startAttackTimer();
+        }
     }
 }

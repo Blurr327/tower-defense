@@ -13,11 +13,13 @@ public abstract class ProjectileModel implements Upgradable{
     private int level;
     private int upgradeCost;
     private int cost;
+    private float range;
 
 
-    public ProjectileModel(int damage ,int upgradeCost) {
+    public ProjectileModel(int damage ,int upgradeCost, float range) {
         this.damage = damage;
         this.upgradeCost = upgradeCost;
+        this.range = range;
         this.cost = calculateInitialCost();;
     }
 
@@ -37,8 +39,11 @@ public abstract class ProjectileModel implements Upgradable{
 
     public abstract void upgradeSpecialEffect();
 
+    public abstract ProjectileModel clone();
+
     public void applyDamage(EnemyModel enemy) {
         enemy.setHealth(enemy.getHealth() - damage);
+        applySpecialEffect(enemy);
     }
 
     public boolean isInRange(EnemyModel enemy) {
@@ -48,7 +53,7 @@ public abstract class ProjectileModel implements Upgradable{
         float xDistance = enemy.getX() - x;
         float yDistance = enemy.getY() - y;
         float distance = (float) Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
-        return CoordinatesHelper.areApproximatelyEqual(0, distance);
+        return distance <= range;
     }
 
     public void move() {
@@ -56,7 +61,7 @@ public abstract class ProjectileModel implements Upgradable{
         y += yVelocity;
     }
 
-    public void targetEnemy(EnemyModel enemy, float durationTillImpact) {
+    public void targetEnemy(EnemyModel enemy) {
         if(enemy==null){
             return;
         }
@@ -65,8 +70,8 @@ public abstract class ProjectileModel implements Upgradable{
         float yDistance = enemy.getY() - y; // yDistance represents the y coordinate of the vector AB
         float distance = (float) Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2)); // this is the norm of AB
         // we divide the xDistance and yDistance by the norm of AB to get the unit vector of AB (i.e. the direction of AB)
-        xVelocity = 5*xDistance / (distance* 32); // we multiply by 32 because 1 Unit in our game is 32 pixels
-        yVelocity = 5*yDistance / (distance *32);  
+        xVelocity = 2*xDistance / (distance* 32); // we multiply by 32 because 1 Unit in our game is 32 pixels
+        yVelocity = 2*yDistance / (distance *32);  
         
     }
 

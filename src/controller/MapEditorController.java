@@ -9,6 +9,7 @@ import model.map.MapEditorModel.MapEditorMode;
 import model.towers.TowerModel;
 import view.MapEditorView;
 import view.MapView;
+import view.MessagesView;
 
 /*
  * This class is responsible for handling all events that occur on the map editor (i.e the events that occur on the bottom section when the gameMode is EDIT)
@@ -33,6 +34,11 @@ public class MapEditorController {
     // this method is called when the user clicks on a tile button (present in the bottom section)
 
     public void tileSelected(int id){
+        if(GameModel.hasGameStarted()) {
+            System.out.println("Can't modify map mid game");
+            MapView.showForbiddenMessage();
+            return;
+        }
         MapEditorModel.setMapEditorMode(MapEditorModel.MapEditorMode.TILE);
         MapEditorModel.setSelectedTileId(id);
         // print the name of the tile selected
@@ -52,5 +58,4 @@ public class MapEditorController {
         MapEditorModel.setMapEditorMode(MapEditorModel.MapEditorMode.TARGET);
         System.out.println("Choose a target area :");
     }
-
 }

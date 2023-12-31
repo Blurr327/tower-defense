@@ -4,14 +4,14 @@ import model.enemies.EnemyModel;
 import javax.swing.Timer;
 
 public class YarnBallModel extends ProjectileModel{
-    private static int damage = 1;
+    private static int damage = 5;
     private static int upgradeCost = 10;
     private Timer pacificationTimer;
-    private int pacificationDuration = 1000;
-
+    private int pacificationDuration = 3000;
+    private static float range = 0.5f;
 
     public YarnBallModel() {
-        super(damage, upgradeCost);
+        super(damage, upgradeCost, range);
     }
 
     @Override
@@ -30,4 +30,8 @@ public class YarnBallModel extends ProjectileModel{
         pacificationDuration += 500;
     }
     
+    @Override
+    public ProjectileModel clone() {
+        return new YarnBallModel();
+    }
 }

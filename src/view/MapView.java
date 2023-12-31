@@ -6,6 +6,8 @@ import javax.swing.JOptionPane;
 
 import controller.MapController;
 
+import java.util.ArrayList;
+
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Color;
@@ -29,10 +31,18 @@ import model.towers.TowerManagerModel;
 
 public class MapView extends JPanel{
     private MapModel map;
-    MessagesView pauseMessage = new MessagesView("Pressing escape will pause/unpause the game");
-    MessagesView spawnEditInfo = new MessagesView("Click on a tile to set it as the spawn point");
-    MessagesView targetEditInfo = new MessagesView("Click on a tile to set it as the target point");
-    MessagesView tileEditInfo = new MessagesView("Select a tile from the bottom section and click on a tile to change it");
+
+    private static final MessagesView spawnEditInfo = new MessagesView("Click on a tile to set it as the spawn point");
+    private static final MessagesView targetEditInfo = new MessagesView("Click on a tile to set it as the target point");
+    private static final MessagesView pauseMessage = new MessagesView("Pressing escape will pause/unpause the game");
+    private static final MessagesView tileEditInfo = new MessagesView("Select a tile from the bottom section and click on a tile to change it");
+    private static final MessagesView towerEditInfo = new MessagesView("Select a tower from the bottom section and click on a tile to place it");
+    private static final MessagesView towerRemovalInfo = new MessagesView("Right click on a tower to remove it");
+    private static final MessagesView forbiddenMapModificationInfo = new MessagesView("Can't modify map mid game");
+
+    static {
+        forbiddenMapModificationInfo.setAllowedToBeDrawn(false);
+    }
 
     public MapView(){
         map = new MapModel();
@@ -47,7 +57,7 @@ public class MapView extends JPanel{
     // This function is called 60 times per second because it is contained in the container panel that is repainted 60 times per second by the App Controller
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        
+
         renderMap(g);
 
         
@@ -80,6 +90,7 @@ public class MapView extends JPanel{
         switch(MapEditorModel.getMapEditorMode()) {
             case TILE:
                 if(tileEditInfo.allowedToBeDrawn()) tileEditInfo.drawDisappearingMessage(g);
+                if(forbiddenMapModificationInfo.allowedToBeDrawn()) forbiddenMapModificationInfo.drawDisappearingMessage(g);
                 if(MapEditorModel.isTileSelected()) {
                     TileView.renderTile(g, MapEditorModel.getTileToModX(), MapEditorModel.getTileToModY(), MapEditorModel.getSelectedTileId());
                 }
@@ -98,7 +109,9 @@ public class MapView extends JPanel{
                     StringHelper.drawCenteredString(g, "X", MapEditorModel.getTileToModX(), MapEditorModel.getTileToModY(), u);
 
                     BaseView.renderBase(g, BaseModel.getX(), BaseModel.getY());
+                    break;
             case TOWER:
+                    if(towerEditInfo.allowedToBeDrawn()) towerEditInfo.drawDisappearingMessage(g);
                     if(MapEditorModel.getSelectedTower()!=null)
                         TowerView.renderTowerAt(g, MapEditorModel.getSelectedTower(), MapEditorModel.getTileToModX(), MapEditorModel.getTileToModY());
                     break;
@@ -108,6 +121,8 @@ public class MapView extends JPanel{
 
     public void renderPlayMap(Graphics g){
 
+        renderTowers(g);
+
         for(int i=0;i<WaveModel.enemies.size();i++){
             EnemyView.renderEnemy(g, WaveModel.enemies.get(i));
             EnemyView.renderEnemyHealth(g, WaveModel.enemies.get(i));
@@ -115,14 +130,15 @@ public class MapView extends JPanel{
 
         BaseView.renderBase(g, BaseModel.getX(), BaseModel.getY());
         BaseView.renderBaseHealth(g, ((MapModel.WIDTH-1)*AppView.UNIT_SIZE)-75, 10);
-
-        renderTowers(g);
         
     }
 
     public void renderTowers(Graphics g){
         for(int i=0;i<TowerManagerModel.getNumberOfTowers();i++){
+            if(towerRemovalInfo.allowedToBeDrawn()) towerRemovalInfo.drawDisappearingMessage(g);
             TowerView.renderTower(g, TowerManagerModel.getTowerByIndex(i));
+        }
+        for(int i=0;i<TowerManagerModel.getNumberOfTowers();i++){
             TowerView.renderProjectilesOf(g, TowerManagerModel.getTowerByIndex(i));
         }
     }
@@ -134,7 +150,8 @@ public class MapView extends JPanel{
         setMinimumSize(size);
     }
 
-    public MessagesView getMessageView() {
-        return pauseMessage;
+    public static void showForbiddenMessage(){
+        forbiddenMapModificationInfo.setAllowedToBeDrawn(true);
     }
+
 }

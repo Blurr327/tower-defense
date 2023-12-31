@@ -3,6 +3,10 @@ package view;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+
 
 import javax.swing.JPanel;
 

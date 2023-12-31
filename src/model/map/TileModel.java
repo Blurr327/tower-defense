@@ -1,9 +1,13 @@
 package model.map;
 
+import model.towers.TowerModel;
+
 public class TileModel {
     private int x;
     private int y;
     private TileType type;
+    private TowerModel tower;
+
     private boolean hasTower;
 
 
@@ -40,12 +44,15 @@ public class TileModel {
     }
 
     public boolean hasTower() {
-        return hasTower;
+        return tower != null;
     }
 
-    public void setHasTower(boolean hasTower) {
-        this.hasTower = hasTower;
+    public TowerModel getTower() {
+        return tower;
     }
 
+    public void setTower(TowerModel tower) {
+        this.tower = tower;
+    }
 }
 
