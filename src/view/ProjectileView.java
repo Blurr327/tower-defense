@@ -1,5 +1,7 @@
 package view;
 
+import model.towers.BulletsBrrrrrModel;
+import model.towers.FireBallModel;
 import model.towers.ProjectileModel;
 import model.towers.YarnBallModel;
 
@@ -19,7 +21,17 @@ public class ProjectileView {
         if(projectile.getClass() == YarnBallModel.class){
             if(!projectileSprites.containsKey(projectile)){
             projectileSprites.put(projectile, AppView.spriteSheet.getSubimage(1*AppView.UNIT_SIZE, 7*AppView.UNIT_SIZE, AppView.UNIT_SIZE, AppView.UNIT_SIZE));
+            }
         }
+        if(projectile.getClass() == BulletsBrrrrrModel.class){
+            if(!projectileSprites.containsKey(projectile)){
+            projectileSprites.put(projectile, AppView.spriteSheet.getSubimage(3*AppView.UNIT_SIZE, 7*AppView.UNIT_SIZE, AppView.UNIT_SIZE, AppView.UNIT_SIZE));
+            }
+        }
+        if(projectile.getClass() == FireBallModel.class){
+            if(!projectileSprites.containsKey(projectile)){
+            projectileSprites.put(projectile, AppView.spriteSheet.getSubimage(7*AppView.UNIT_SIZE, 6*AppView.UNIT_SIZE, AppView.UNIT_SIZE, AppView.UNIT_SIZE));
+            }
         }
         return projectileSprites.get(projectile);
     }

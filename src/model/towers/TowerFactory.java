@@ -7,6 +7,8 @@ public class TowerFactory {
 
     static {
         allTowers.add(new ElGatoModel());
+        allTowers.add(new SteveModel());
+        allTowers.add(new GoesBrrrrrrrModel());
     }
 
     public static ArrayList<TowerModel> getTowersByCost(int cost){

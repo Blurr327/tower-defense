@@ -5,6 +5,7 @@ import javax.swing.*;
 
 import model.AppModel;
 import model.AppModel.AppMode;
+import model.enemies.EnemyModel;
 import model.gamelogic.BottomSectionModel;
 import model.map.MapModel;
 
@@ -122,6 +123,46 @@ public class AppView extends JFrame {
             controller.switchTo(AppModel.AppMode.MENU);
             System.out.println("Switching to menu !");
         }); 
+        settingsView.getSwitchToMenuButton().addActionListener(e -> {
+            controller.switchTo(AppModel.AppMode.MENU);
+            System.out.println("Switching to menu !");
+        }); 
+        settingsView.getChangeFPSTo30Button().addActionListener(e -> {
+            AppView.setFPS(30);
+            System.out.println("FPS : " + AppView.getFPS());
+        });
+        settingsView.getChangeFPSTo60Button().addActionListener(e -> {
+            AppView.setFPS(60);
+            System.out.println("FPS : " + AppView.getFPS());
+        });
+        settingsView.getChangeFPSTo120Button().addActionListener(e -> {
+            AppView.setFPS(120);
+            System.out.println("FPS : " + AppView.getFPS());
+        });
+        settingsView.getChangeTickRateTo32Button().addActionListener(e -> {
+            AppModel.setUPS(32);
+            System.out.println("Tickrate : " + AppModel.getUPS());
+        });
+        settingsView.getChangeTickRateTo64Button().addActionListener(e -> {
+            AppModel.setUPS(64);
+            System.out.println("Tickrate : " + AppModel.getUPS());
+        });
+        settingsView.getChangeTickRateTo128Button().addActionListener(e -> {
+            AppModel.setUPS(128);
+            System.out.println("Tickrate : " + AppModel.getUPS());
+        });
+        settingsView.getChangeDifficultyToEasyButton().addActionListener(e -> {
+            EnemyModel.setDifficultyMultiplierSpeed(0.75f);
+            System.out.println("Difficulty : Easy" + " (" + EnemyModel.getDifficultyMultiplierSpeed() + ")");
+        });
+        settingsView.getChangeDifficultyToNormalButton().addActionListener(e -> {
+            EnemyModel.setDifficultyMultiplierSpeed(1.0f);
+            System.out.println("Difficulty : Normal" + " (" + EnemyModel.getDifficultyMultiplierSpeed() + ")");
+        });
+        settingsView.getChangeDifficultyToHardButton().addActionListener(e -> {
+            EnemyModel.setDifficultyMultiplierSpeed(1.25f);
+            System.out.println("Difficulty : Hard" + " (" + EnemyModel.getDifficultyMultiplierSpeed() + ")");
+        });
     
     }
 

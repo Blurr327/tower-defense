@@ -24,6 +24,8 @@ public abstract class EnemyModel extends AggressiveModel {
     private boolean[][] path = new boolean[MapModel.HEIGHT][MapModel.WIDTH];
     private Tier tier;
     private DirectionModel direction;
+    private static float difficultyMultiplierSpeed = 1.0f; // 1 by default static because it is the same for all enemies
+
 
     private static TileModel spawnTile = MapModel.getTileAt(0, MapModel.HEIGHT/2);
 
@@ -211,6 +213,15 @@ public abstract class EnemyModel extends AggressiveModel {
         health -= damage;
     }
 
+    // will be usefull for the difficulties
+
+    public static float getDifficultyMultiplierSpeed() {
+        return EnemyModel.difficultyMultiplierSpeed;
+    }
+
+    public static void setDifficultyMultiplierSpeed(float difficultyMultiplierSpeed) {
+        EnemyModel.difficultyMultiplierSpeed = difficultyMultiplierSpeed;
+    }
 }
 
 

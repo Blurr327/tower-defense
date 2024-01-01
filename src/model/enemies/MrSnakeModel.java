@@ -10,7 +10,7 @@ public class MrSnakeModel extends EnemyModel{
     private static int id;
 
     public MrSnakeModel() {
-        super(health, speed, damage, attackSpeed);
+        super(health, speed * EnemyModel.getDifficultyMultiplierSpeed(), damage, attackSpeed);
     }
 
     @Override
