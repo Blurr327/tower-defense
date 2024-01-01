@@ -4,7 +4,7 @@ import model.enemies.EnemyModel;
 import javax.swing.Timer;
 
 public class YarnBallModel extends ProjectileModel{
-    private static int damage = 1;
+    private static int damage = 3;
     private static int upgradeCost = 10;
     private Timer pacificationTimer;
     private int pacificationDuration = 1000;
