@@ -3,23 +3,11 @@ package view;
 import java.awt.*;
 import javax.swing.*;
 
-import controller.AppController;
-import controller.EnemyController;
-import model.AppModel;
-import model.gamelogic.BottomSectionModel;
-
 
 /*
  * this class is used to adjust the FPS, difficulty and sound settings
  */
 public class SettingsView extends JPanel {
-    // Even though we're in setting view, we're still using the App's controller since 
-    // changing settings basically means changing the App's model
-    private AppController controller;
-    // changing the difficulty of the ennemies is the role of the setting
-    // that's why i'll be using the Settings' view and not the EnemyView
-    private EnemyController enemyController;
-    private AppModel model;
 
     CustomButtonView switchToMenuButton = new CustomButtonView("Menu");
 
