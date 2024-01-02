@@ -45,7 +45,7 @@ public class MapEditorController {
     public void tileSelected(int id){
         if(GameModel.hasGameStarted()) {
             System.out.println("Can't modify map mid game");
-            TileEditStateView.allowForbiddenMapModificationInfoToBeDrawn();
+            EditStateView.allowForbiddenMapModificationInfoToBeDrawn();
             return;
         }
         MapEditorModel.setMapEditorState(new TileStateModel());
