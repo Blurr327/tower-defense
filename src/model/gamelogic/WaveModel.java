@@ -10,7 +10,6 @@ import model.enemies.EnemyModel;
 
 public class WaveModel {
 
-    private static int difficulty = 1;
 
     // TODO: show wavenumber on the playmanager
     private static int waveNumber;
@@ -29,8 +28,6 @@ public class WaveModel {
         calculatePercentageOfCTierEnemies();
         calculatePercentageOfBTierEnemies();
         calculatePercentageOfATierEnemies();
-
-        Random rand = new Random();
         System.out.println(numberOfBTierEnemies);
         for(int i = 0; i < numberOfCTierEnemies; i++){
 
@@ -67,7 +64,7 @@ public class WaveModel {
 
         // 3/4 of the remaining enemies are B tier
 
-        if(waveNumber>5/difficulty) numberOfBTierEnemies = (3*(numberOfEnemies - numberOfCTierEnemies))/4;
+        if(waveNumber>5/GameModel.getDifficulty()) numberOfBTierEnemies = (3*(numberOfEnemies - numberOfCTierEnemies))/4;
         else numberOfBTierEnemies = numberOfEnemies - numberOfCTierEnemies;
         System.out.println("B-tier ennemies : " + numberOfBTierEnemies);
     }
@@ -76,7 +73,7 @@ public class WaveModel {
 
         // the rest are A tier if and only if the wave number is greater than 5
 
-        if(waveNumber>5/difficulty) numberOfATierEnemies = (numberOfEnemies - numberOfCTierEnemies)/4;
+        if(waveNumber>5/GameModel.getDifficulty()) numberOfATierEnemies = (numberOfEnemies - numberOfCTierEnemies)/4;
         System.out.println("A-tier ennemies : " + numberOfATierEnemies);
     }
 
@@ -129,17 +126,7 @@ public class WaveModel {
 
     public static boolean areAllEnemiesDead() {
 
-        for (EnemyModel enemy : enemies) {
-
-            if (enemy.isAlive()) {
-
-                return false;
-
-            }
-
-        }
-
-        return true;
+        return enemies.size() ==0;
 
     }
 
@@ -147,14 +134,6 @@ public class WaveModel {
         for(EnemyModel enemy : WaveModel.enemies){
             enemy.stopAttackTimer();
         }
-    }
-
-    public static int getDifficulty() {
-        return difficulty;
-    }
-
-    public static void setDifficulty(int difficulty) {
-        WaveModel.difficulty = difficulty;
     }
 
     public static void printWave() {
@@ -168,10 +147,12 @@ public class WaveModel {
             if(!enemy.isAlive()){
                 enemy.stopAttackTimer();
                 iterator.remove();
-                GameModel.setShmuckles(GameModel.getShmuckles()+enemy.getReward());
-                System.out.println(GameModel.getShmuckles());
+                ShmucklesModel.setShmuckles(ShmucklesModel.getShmuckles()+enemy.getReward());
+                System.out.println(ShmucklesModel.getShmuckles());
             }
         }
     }
+
+
 }
 

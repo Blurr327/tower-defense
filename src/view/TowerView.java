@@ -4,6 +4,7 @@ import model.towers.ElGatoModel;
 import model.towers.GoesBrrrrrrrModel;
 import model.towers.SteveModel;
 import model.towers.TowerModel;
+import model.towers.TowerManagerModel;
 
 import java.awt.image.BufferedImage;
 import java.awt.Graphics;
@@ -11,9 +12,10 @@ import java.util.HashMap;
 
 public class TowerView {
     private static HashMap<TowerModel, BufferedImage> towerSprites = new HashMap<TowerModel, BufferedImage>();
+    private static final MessagesView towerRemovalInfo = new MessagesView("Right click on a tower to remove it");
 
     public static void renderTower(Graphics g, TowerModel tower){
-        g.drawImage(getSprite(tower), tower.getX()*AppView.UNIT_SIZE, tower.getY()*AppView.UNIT_SIZE, null);
+        g.drawImage(getSprite(tower), (int) tower.getX()*AppView.UNIT_SIZE, (int) tower.getY()*AppView.UNIT_SIZE, null);
     }
 
     public static void renderTowerAt(Graphics g, TowerModel tower, int x, int y){
@@ -46,5 +48,11 @@ public class TowerView {
         }
     }
 
-    
+
+    public static void renderTowers(Graphics g){
+        for(int i=0;i<TowerManagerModel.getNumberOfTowers();i++){
+            if(towerRemovalInfo.allowedToBeDrawn()) towerRemovalInfo.drawDisappearingMessage(g);
+            TowerView.renderTower(g, TowerManagerModel.getTowerByIndex(i));
+        }
+    }
 }

@@ -18,8 +18,6 @@ public abstract class EnemyModel extends AggressiveModel {
     private float speed;
     private int damage;
     private int reward;
-    private float x;
-    private float y;
     private boolean spawned;
     private boolean[][] path = new boolean[MapModel.HEIGHT][MapModel.WIDTH];
     private Tier tier;
@@ -40,31 +38,9 @@ public abstract class EnemyModel extends AggressiveModel {
         this.direction = DirectionModel.EAST;
     }
 
-    public abstract EnemyModel clone();
+    public abstract EnemyModel newInstance();
 
     public abstract void attack();
-
-    public float getXVelocity(){
-        switch (direction) {
-            case EAST:
-                return speed;
-            case WEST:
-                return -speed;
-            default:
-                return 0;
-        }
-    }
-
-    public float getYVelocity(){
-        switch (direction) {
-            case NORTH:
-                return -speed;
-            case SOUTH:
-                return speed;
-            default:
-                return 0;
-        }
-    }
 
     public static void setSpawnTile(TileModel spawnTile) {
         EnemyModel.spawnTile = spawnTile;
@@ -164,21 +140,6 @@ public abstract class EnemyModel extends AggressiveModel {
         this.reward = reward;
     }
 
-    public float getX() {
-        return x;
-    }
-
-    public void setX(float x) {
-        this.x = x;
-    }
-
-    public float getY() {
-        return y;
-    }
-
-    public void setY(float y) {
-        this.y = y;
-    }
 
     public DirectionModel getDirection() {
         return direction;

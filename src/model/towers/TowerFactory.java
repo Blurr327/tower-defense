@@ -11,16 +11,6 @@ public class TowerFactory {
         allTowers.add(new SteveModel());
     }
 
-    public static ArrayList<TowerModel> getTowersByCost(int cost){
-        ArrayList<TowerModel> towers = new ArrayList<TowerModel>();
-        for(TowerModel tower : allTowers){
-            if(tower.getCost() <= cost){
-                towers.add(tower);
-            }
-        }
-        return towers;
-    }
-
     public static int getNumberOfTowers(){
         return allTowers.size();
     }

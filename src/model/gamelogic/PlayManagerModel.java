@@ -1,5 +1,5 @@
 package model.gamelogic;
 
-public class PlayManagerModel extends BottomSectionModel {
+public class PlayManagerModel extends BottomSectionModel{
     
 }

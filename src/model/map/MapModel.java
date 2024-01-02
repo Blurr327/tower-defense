@@ -36,27 +36,37 @@ public class MapModel {
     }
 
     public static int getTileIdAt(int x, int y){ 
+        if(x<0 || x>=WIDTH || y<0 || y>=HEIGHT)
+            return -1;
         return tiles[y][x].getTileType().getId();
     }
 
     public static void setTileIdAt(int x, int y, int id){
+        if(x<0 || x>=WIDTH || y<0 || y>=HEIGHT)
+            return;
         tiles[y][x].setTileType(TileType.getTileById(id));
     }
 
     public static TileModel getTileAt(int x, int y){
+        if(x<0 || x>=WIDTH || y<0 || y>=HEIGHT)
+            return null;
         return tiles[y][x];
     }
 
     public static void setTileAt(int x, int y, TileModel tile){
+        if(x<0 || x>=WIDTH || y<0 || y>=HEIGHT)
+            return;
         tiles[y][x] = tile;
     }
+
     public static void iniTiles(){
         for(int y=0;y<HEIGHT;y++){
             for(int x=0;x<WIDTH;x++){
-                tiles[y][x].setHasTower(false);;
+                tiles[y][x].setTower(null);;
             }
         }
     }
+    
     public static void generateFlower() {
         Random r = new Random();
         int x = r.nextInt(HEIGHT);

@@ -13,9 +13,9 @@ public class MessagesView {
 
     private String message;
     private Timer messageTimer;
-    final float[] alpha = {0.7f}; // Initial alpha value
+    private final float[] alpha = {0.7f}; // Initial alpha value
     private boolean allowedToBeDrawn = true;
-    private int[] delay = {15};
+    private final int[] delay = {15};
 
     public MessagesView(String message) {
         this.message = message;
@@ -68,23 +68,23 @@ public class MessagesView {
         if(alpha[0] <= 0.0f){
             messageTimer.stop();
             allowedToBeDrawn = false;
-            alpha[0] = 0.5f;
+            alpha[0] = 0.7f;
+            delay[0] = 15;
             return;
         }
         else if (messageTimer != null && messageTimer.isRunning()) {
             drawMessage(g, alpha[0]);
         }
         else {
-            initMessageTimer();
+            initMessageTimer(g);
         }
     }
 
-    public void initMessageTimer(){
+    public void initMessageTimer(Graphics g){
         messageTimer = new Timer(100, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 delay[0] = Math.max(0, delay[0] - 1);
-                System.out.println(delay[0]);
                 if(delay[0] == 0) alpha[0] -= 0.05f; // Decrease alpha value by 0.05
             }
         });

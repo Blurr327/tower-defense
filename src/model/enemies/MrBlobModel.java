@@ -27,7 +27,7 @@ public class MrBlobModel extends EnemyModel{
     }
 
     @Override
-    public MrBlobModel clone(){
+    public MrBlobModel newInstance(){
         MrBlobModel clone = new MrBlobModel();
         return clone;
     }
