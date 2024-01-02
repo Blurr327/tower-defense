@@ -6,22 +6,22 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 
-import model.BottomSectionModel;
-import model.MapModel;
-import model.PlayManagerModel;
+import model.gamelogic.BottomSectionModel;
+import model.gamelogic.PlayManagerModel;
+import model.map.MapModel;
 
 /*
  * This class is responsible for displaying your current balance, the current wave, and the towers available to you
  */
 public class PlayManagerView extends JPanel{
     PlayManagerModel model;
-    CustomButtonView switchToEditButton = new CustomButtonView("Edit");
+    CustomButtonView switchToEditAndEndGameButton = new CustomButtonView("Edit");
 
     public PlayManagerView(PlayManagerModel model){
         this.model = model;
         this.setLayout(null);
-        add(switchToEditButton);
-        switchToEditButton.setBounds(15,15,90,30);
+        add(switchToEditAndEndGameButton);
+        switchToEditAndEndGameButton.setBounds(15,15,90,30);
     }
 
     public void paintComponent(Graphics g){
@@ -36,7 +36,7 @@ public class PlayManagerView extends JPanel{
     }
 
     public CustomButtonView getSwitchToEditButton() {
-        return switchToEditButton;
+        return switchToEditAndEndGameButton;
     }
 
 }

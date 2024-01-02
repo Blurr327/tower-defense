@@ -5,8 +5,8 @@ import javax.swing.*;
 
 import controller.GameController;
 import controller.MapController;
-import model.BottomSectionModel;
-import model.MapModel;
+import model.gamelogic.BottomSectionModel;
+import model.map.MapModel;
 
 
 /*
@@ -16,6 +16,7 @@ import model.MapModel;
 public class GameView extends JPanel{
     private GameController gameController;
     private MapView mapView = new MapView();
+
     private CustomButtonView switchToMenuButton = new CustomButtonView("Menu");
 
     private BottomSectionView bottomSectionView= new BottomSectionView(new BottomSectionModel());
@@ -45,8 +46,9 @@ public class GameView extends JPanel{
     }
     
     public void addActionListeners(){
-        bottomSectionView.getMapEditorView().getSwitchToPlayManagerButton().addActionListener(e -> gameController.switchToPlay());
+        bottomSectionView.getMapEditorView().getSwitchToPlayManagerButton().addActionListener(e -> gameController.switchToPlayAndStartGame());
         bottomSectionView.getPlayManagerView().getSwitchToEditButton().addActionListener(e -> gameController.switchToEdit());
+        bottomSectionView.getMapEditorView().getResumeButton().addActionListener(e -> gameController.switchToPlay());
         addKeyListener(gameController);
     }
 
@@ -54,4 +56,7 @@ public class GameView extends JPanel{
         return bottomSectionView;
     }
 
+        public MapView getMapView() {
+        return mapView;
+    }
 }

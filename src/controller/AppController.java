@@ -1,8 +1,11 @@
 package controller;
 
 import model.AppModel;
-import model.GameModel;
+import model.gamelogic.GameModel;
 import view.AppView;
+
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 /*
@@ -18,12 +21,11 @@ public class AppController {
 
     public void switchTo(AppModel.AppMode g){
         AppModel.setAppMode(g);
-        if(g == AppModel.AppMode.MENU || g == AppModel.AppMode.SETTINGS)
-            GameController.stopUpdateLoop();
-            // TODO: Show a temporary message telling the user to hit escape to unapuse/pause the game
         view.updateCard();
         view.getAppContainer().getGameView().requestFocusInWindow();
-        
+        if(g == AppModel.AppMode.MENU || g == AppModel.AppMode.SETTINGS){
+            GameController.stopUpdateLoop();
+        }
     }
 
     public void runRenderLoop(){
@@ -32,7 +34,6 @@ public class AppController {
         Timer renderTimer = new Timer(delay, e -> view.getAppContainer().repaint());
         renderTimer.start();
     }
-
 
     public void runLoops(){
         runRenderLoop();
@@ -46,6 +47,8 @@ public class AppController {
     public void setView(AppView view) {
         this.view = view;
     }
+
+    
 
     
 

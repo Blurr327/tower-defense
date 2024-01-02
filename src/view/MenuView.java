@@ -19,7 +19,10 @@ public class MenuView extends JPanel {
         add(switchToGameButton);
         add(switchToSettingsButton);
         add(quitButton);
-        quitButton.addActionListener( e -> System.exit(0));
+        quitButton.addActionListener( e -> {
+            System.out.println("Goodbye ! :(");
+            System.exit(0);
+        });
         // variables for correctly positioning the buttons
         int spacing = 30;
         int button_height = 30;

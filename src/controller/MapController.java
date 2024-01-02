@@ -1,9 +1,14 @@
 package controller;
 
-import model.GameModel;
-import model.MapEditorModel;
-import model.MapModel;
-import model.TileType;
+import model.enemies.EnemyModel;
+import model.gamelogic.BaseModel;
+import model.gamelogic.GameModel;
+import model.gamelogic.ShmucklesModel;
+import model.map.MapEditorModel;
+import model.map.MapModel;
+import model.map.TileType;
+import model.towers.TowerManagerModel;
+import model.towers.TowerModel;
 import view.AppView;
 import view.MapView;
 import java.awt.event.MouseMotionListener;
@@ -30,9 +35,11 @@ public class MapController implements MouseMotionListener, MouseListener {
     // dragging the mouse when a tile is selected changes all of the tiles along the path of the mouse to the selected tile
     @Override
     public void mouseDragged(MouseEvent e) {
-        if(MapEditorModel.isTileSelected() && GameModel.getGameMode().equals(GameModel.EDIT) && MapEditorModel.getMapEditorMode().equals(MapEditorModel.MapEditorMode.TILE)){
-            updateSetTileToMod(e);
-            MapModel.setTileIdAt(MapEditorModel.getTileToModX(), MapEditorModel.getTileToModY(), MapEditorModel.getSelectedTileId());
+        int x = e.getX()/AppView.UNIT_SIZE;
+        int y = e.getY()/AppView.UNIT_SIZE;
+        if(MapEditorModel.isTileSelected() && GameModel.getGameMode().equals(GameModel.GameMode.EDIT) && MapEditorModel.stateIsTileState() && GameModel.hasGameStarted() == false){
+            MapEditorModel.setTileToMod(MapModel.getTileAt(x, y));
+            MapEditorModel.updateSelectedTileId();
         }
     }
 
@@ -40,38 +47,9 @@ public class MapController implements MouseMotionListener, MouseListener {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        if(GameModel.getGameMode().equals(GameModel.EDIT)){
-            updateSetTileToMod(e);
-        }
-    }
-
-    public void updateSetTileToMod(MouseEvent e) {
-        MapEditorModel.setTileToModX(e.getX()/AppView.UNIT_SIZE);
-        MapEditorModel.setTileToModY(e.getY()/AppView.UNIT_SIZE);
-    }
-
-    public void updateSpawnTile(MouseEvent e) {
-        MapEditorModel.setSpawnTileX(e.getX()/AppView.UNIT_SIZE);
-        MapEditorModel.setSpawnTileY(e.getY()/AppView.UNIT_SIZE);
-    }
-
-    public void updateTargetTile(MouseEvent e) {
-        MapEditorModel.setTargetTileX(e.getX()/AppView.UNIT_SIZE);
-        MapEditorModel.setTargetTileY(e.getY()/AppView.UNIT_SIZE);
-    }
-
-    // true if the tile selected is not the target tile and is walkable, false otherwise
-    public boolean spawnTileValid(int x, int y) {
-        boolean differentLocations = x != MapEditorModel.getTargetTileX() || y != MapEditorModel.getTargetTileY();
-        boolean spawnTileValid = TileType.getTileById(MapModel.getTileIdAt(x, y)).isWalkable();
-        return differentLocations && spawnTileValid;
-    }
-
-    // true if the tile selected is not the spawn tile and is walkable, false otherwise
-    public boolean targetTileValid(int x, int y) {
-        boolean differentLocations = x != MapEditorModel.getSpawnTileX() || y != MapEditorModel.getSpawnTileY();
-        boolean targetTileValid = TileType.getTileById(MapModel.getTileIdAt(x, y)).isWalkable();
-        return differentLocations && targetTileValid;
+        int x = e.getX()/AppView.UNIT_SIZE;
+        int y = e.getY()/AppView.UNIT_SIZE;
+        MapEditorModel.setTileToMod(MapModel.getTileAt(x, y));
     }
 
     /*
@@ -82,28 +60,19 @@ public class MapController implements MouseMotionListener, MouseListener {
      */
     @Override
     public void mouseClicked(MouseEvent e) {
-        switch(MapEditorModel.getMapEditorMode()) {
-            case TILE:
-                if(MapEditorModel.isTileSelected()) 
-                    MapModel.setTileIdAt(MapEditorModel.getTileToModX(), MapEditorModel.getTileToModY(), MapEditorModel.getSelectedTileId());
-                break; 
-            case SPAWN:
-                if(spawnTileValid(e.getX()/AppView.UNIT_SIZE, e.getY()/AppView.UNIT_SIZE)) {
-                    System.out.println("Spawn tile valid");
-                    updateSpawnTile(e);
-                } else {
-                    // TODO : Show message saying that the spawn tile is invalid
-                }
-                break;
-            case TARGET:
-                if(targetTileValid(e.getX()/AppView.UNIT_SIZE, e.getY()/AppView.UNIT_SIZE)) {
-                    updateTargetTile(e);
-                } else {
-                    // TODO : Show message saying that the target tile is invalid
-                }
-                break;
+        int x = e.getX()/AppView.UNIT_SIZE;
+        int y = e.getY()/AppView.UNIT_SIZE;
+        MapEditorModel.setTileToMod(MapModel.getTileAt(x, y));
+
+        if(GameModel.getGameMode().equals(GameModel.GameMode.PLAY)) return;
+        else if(e.getButton() == MouseEvent.BUTTON3) {
+            ShmucklesModel.sellTower(MapModel.getTileAt(x, y).getTower());
+            MapEditorModel.removeSelectedTowerIfExists();
+            return;
         }
+        MapEditorModel.handleModificationEvent();
     }
+
 
     @Override
     public void mouseEntered(MouseEvent arg0) {
@@ -126,3 +95,4 @@ public class MapController implements MouseMotionListener, MouseListener {
     }
 
 }
+

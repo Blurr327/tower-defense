@@ -3,13 +3,10 @@ import javax.swing.*;
 
 import controller.MapController;
 import main.Game;
-import model.MapModel;
+import model.map.MapModel;
 
 import java.awt.*;
 
-/*
- * This class is the container for all the 3 main views of the game : Menu, Game and Settings
- */
 public class AppContainer extends JPanel {
     private GameView gameView;
 
@@ -27,9 +24,14 @@ public class AppContainer extends JPanel {
         setMaximumSize(size);
         setMinimumSize(size);
     }
-    
+
+    public void updateGameViewCards() {
+        gameView.getBottomSectionView().updateCard();
+    }
+
     public GameView getGameView() {
         return gameView;
     }
 
 }
+

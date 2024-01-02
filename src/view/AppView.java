@@ -5,8 +5,9 @@ import javax.swing.*;
 
 import model.AppModel;
 import model.AppModel.AppMode;
-import model.BottomSectionModel;
-import model.MapModel;
+import model.enemies.EnemyModel;
+import model.gamelogic.BottomSectionModel;
+import model.map.MapModel;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -26,7 +27,7 @@ public class AppView extends JFrame {
     public static final int HEIGHT = (MapModel.HEIGHT + BottomSectionModel.SECTION_HEIGHT)*UNIT_SIZE; // height of the window, considering the bottom section
     public static final int WIDTH = MapModel.WIDTH*UNIT_SIZE;
 
-    private static double FPS = 120; // frames per second
+    private static double FPS = 30; // frames per second
 
     private AppModel model;
     private AppController controller;
@@ -66,7 +67,7 @@ public class AppView extends JFrame {
         initCardLayout();
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setResizable(true);
+        setResizable(false);
         pack();
         setLocationRelativeTo(null);
     }
@@ -108,10 +109,57 @@ public class AppView extends JFrame {
     }
 
     public void addActionListeners(){
-        gameView.getSwitchToMenuButton().addActionListener(e -> controller.switchTo(AppModel.AppMode.MENU));
-        menuView.getSwitchToGameButton().addActionListener(e-> controller.switchTo(AppModel.AppMode.GAME));
-        menuView.getSwitchToSettingsButton().addActionListener(e -> controller.switchTo(AppModel.AppMode.SETTINGS));
-        settingsView.getSwitchToMenuButton().addActionListener(e -> controller.switchTo(AppModel.AppMode.MENU));
+        gameView.getSwitchToMenuButton().addActionListener(e -> {
+            controller.switchTo(AppModel.AppMode.MENU);
+            System.out.println("Switching to menu !");});
+        menuView.getSwitchToGameButton().addActionListener(e-> {
+            controller.switchTo(AppModel.AppMode.GAME);
+            System.out.println("Good luck have fun :) !");});
+        menuView.getSwitchToSettingsButton().addActionListener(e -> {
+            controller.switchTo(AppModel.AppMode.SETTINGS);
+            System.out.println("Switching to settings !");
+        });
+        settingsView.getSwitchToMenuButton().addActionListener(e -> {
+            controller.switchTo(AppModel.AppMode.MENU);
+            System.out.println("Switching to menu !");
+        }); 
+        settingsView.getChangeFPSTo30Button().addActionListener(e -> {
+            AppView.setFPS(30);
+            System.out.println("FPS : " + AppView.getFPS());
+        });
+        settingsView.getChangeFPSTo60Button().addActionListener(e -> {
+            AppView.setFPS(60);
+            System.out.println("FPS : " + AppView.getFPS());
+        });
+        settingsView.getChangeFPSTo120Button().addActionListener(e -> {
+            AppView.setFPS(120);
+            System.out.println("FPS : " + AppView.getFPS());
+        });
+        settingsView.getChangeTickRateTo32Button().addActionListener(e -> {
+            AppModel.setUPS(32);
+            System.out.println("Tickrate : " + AppModel.getUPS());
+        });
+        settingsView.getChangeTickRateTo64Button().addActionListener(e -> {
+            AppModel.setUPS(64);
+            System.out.println("Tickrate : " + AppModel.getUPS());
+        });
+        settingsView.getChangeTickRateTo128Button().addActionListener(e -> {
+            AppModel.setUPS(128);
+            System.out.println("Tickrate : " + AppModel.getUPS());
+        });
+        settingsView.getChangeDifficultyToEasyButton().addActionListener(e -> {
+            EnemyModel.setDifficultyMultiplierSpeed(0.75f);
+            System.out.println("Difficulty : Easy" + " (" + EnemyModel.getDifficultyMultiplierSpeed() + ")");
+        });
+        settingsView.getChangeDifficultyToNormalButton().addActionListener(e -> {
+            EnemyModel.setDifficultyMultiplierSpeed(1.0f);
+            System.out.println("Difficulty : Normal" + " (" + EnemyModel.getDifficultyMultiplierSpeed() + ")");
+        });
+        settingsView.getChangeDifficultyToHardButton().addActionListener(e -> {
+            EnemyModel.setDifficultyMultiplierSpeed(0.25f);
+            System.out.println("Difficulty : Hard" + " (" + EnemyModel.getDifficultyMultiplierSpeed() + ")");
+        });
+    
     }
 
     private static BufferedImage importImg(){

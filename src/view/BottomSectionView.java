@@ -3,14 +3,18 @@ package view;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+
 
 import javax.swing.JPanel;
 
 import controller.BottomSectionController;
-import model.BottomSectionModel;
-import model.GameModel;
-import model.MapModel;
-import model.PlayManagerModel;
+import model.gamelogic.BottomSectionModel;
+import model.gamelogic.GameModel;
+import model.gamelogic.PlayManagerModel;
+import model.map.MapModel;
 
 public class BottomSectionView extends JPanel {
     private BottomSectionModel model;

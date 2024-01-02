@@ -8,7 +8,8 @@ import javax.imageio.ImageIO;
 
 
 public class AppModel {
-    public enum AppMode{
+    // very little possibility of needing more states, thus using an enum is fine
+    public static enum AppMode{
         MENU, SETTINGS, GAME;
     }
     private static AppMode appMode = AppMode.MENU;
