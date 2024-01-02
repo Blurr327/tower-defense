@@ -62,7 +62,7 @@ public class MapModel {
     public static void iniTiles(){
         for(int y=0;y<HEIGHT;y++){
             for(int x=0;x<WIDTH;x++){
-                tiles[y][x].setTower(null);;
+                tiles[y][x].setMapComponentOnTile(null);
             }
         }
     }

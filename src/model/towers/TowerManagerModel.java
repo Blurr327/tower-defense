@@ -11,19 +11,19 @@ public class TowerManagerModel {
     
     public static void addTower(TowerModel tower){
         towersInGame.add(tower);
-        MapModel.getTileAt((int) tower.getX(), (int)tower.getY()).setTower(tower);
+        MapModel.getTileAt((int) tower.getX(), (int)tower.getY()).setMapComponentOnTile(tower);
     }
 
     public static boolean canAddTowerAt(int x, int y){
         boolean tileIsBuildable = !MapModel.getTileAt(x, y).getTileType().isWalkable();
-        boolean positionIsTaken = MapModel.getTileAt(x, y).hasTower();
+        boolean positionIsTaken = MapModel.getTileAt(x, y).hasMapComponent();
         return !positionIsTaken && tileIsBuildable;
     }
 
     public static void removeTower(TowerModel tower){
         if(towersInGame.contains(tower)){
             towersInGame.remove(tower);
-            MapModel.getTileAt((int) tower.getX(), (int) tower.getY()).setTower(null);
+            MapModel.getTileAt((int) tower.getX(), (int) tower.getY()).setMapComponentOnTile(null);
         }
     }
 

@@ -115,8 +115,8 @@ public class MapEditorModel extends BottomSectionModel {
     public static void removeSelectedTowerIfExists(){
         int x = tileToMod.getX();
         int y = tileToMod.getY();
-        if(MapModel.getTileAt(x, y).hasTower()){
-            TowerManagerModel.removeTower(MapModel.getTileAt(x, y).getTower());
+        if(MapModel.getTileAt(x, y).getMapComponent() instanceof TowerModel t){
+            TowerManagerModel.removeTower(t);
         }
     }
 

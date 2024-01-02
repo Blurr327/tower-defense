@@ -1,14 +1,14 @@
 package model.map;
 
+import model.gamelogic.MapComponentModel;
 import model.towers.TowerModel;
 
 public class TileModel {
     private int x;
     private int y;
     private TileType type;
-    private TowerModel tower;
 
-    private boolean hasTower;
+    private MapComponentModel mapComponent;
 
 
     public TileModel(int x, int y, TileType type) {
@@ -43,16 +43,16 @@ public class TileModel {
         this.type = type;
     }
 
-    public boolean hasTower() {
-        return tower != null;
+    public void setMapComponentOnTile(MapComponentModel mapComponent) {
+        this.mapComponent = mapComponent;
     }
 
-    public TowerModel getTower() {
-        return tower;
+    public boolean hasMapComponent() {
+        return mapComponent != null;
     }
 
-    public void setTower(TowerModel tower) {
-        this.tower = tower;
+    public MapComponentModel getMapComponent() {
+        return mapComponent;
     }
 }
 
