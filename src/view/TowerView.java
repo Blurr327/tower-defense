@@ -4,12 +4,14 @@ import model.towers.ElGatoModel;
 import model.towers.GoesBrrrrrrrModel;
 import model.towers.SteveModel;
 import model.towers.TowerModel;
+import model.towers.projectiles.ProjectileModel;
 import view.helperclasses.MessagesView;
 import model.towers.TowerManagerModel;
 
 import java.awt.image.BufferedImage;
 import java.awt.Graphics;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class TowerView {
     private static HashMap<TowerModel, BufferedImage> towerSprites = new HashMap<TowerModel, BufferedImage>();
@@ -44,16 +46,18 @@ public class TowerView {
     }
 
     public static void renderProjectilesOf(Graphics g, TowerModel tower){
-        for(int i = 0; i < tower.getNumberOfShotProjectiles(); i++){
-            ProjectileView.renderProjectile(g, tower.getProjectileByIndex(i));
+        Iterator<ProjectileModel> projectileIterator = tower.getShotProjectilesIterator();
+        while(projectileIterator.hasNext()){
+            ProjectileView.renderProjectile(g, projectileIterator.next());
         }
     }
 
 
     public static void renderTowers(Graphics g){
-        for(int i=0;i<TowerManagerModel.getNumberOfTowers();i++){
+        Iterator<TowerModel> towerIterator = TowerManagerModel.getTowerIterator();
+        while(towerIterator.hasNext()){
             if(towerRemovalInfo.allowedToBeDrawn()) towerRemovalInfo.drawDisappearingMessage(g);
-            TowerView.renderTower(g, TowerManagerModel.getTowerByIndex(i));
+            TowerView.renderTower(g, towerIterator.next());
         }
     }
 }

@@ -17,11 +17,14 @@ public class WaveController {
 
     static {
         spawningTimer = new Timer(2 * 1000, e -> {
-            for (EnemyModel enemy : WaveModel.enemies) {
-                if(!enemy.isSpawned()){
+
+            Iterator<EnemyModel> iterator = WaveModel.getEnemyIterator();
+            while (iterator.hasNext()) {
+                EnemyModel enemy = iterator.next();
+                if (!enemy.isSpawned()) {
                     enemy.setSpawned(true);
                     break;
-                } 
+                }
             }
         });
     }
@@ -56,8 +59,10 @@ public class WaveController {
     
 
     public static void handleEnemyMovement(){
-        for (EnemyModel enemy : WaveModel.enemies) {
-            if(enemy.isAlive() && enemy.isSpawned()){
+        Iterator<EnemyModel> iterator = WaveModel.getEnemyIterator();
+        while (iterator.hasNext()) {
+            EnemyModel enemy = iterator.next();
+            if (enemy.isAlive() && enemy.isSpawned()) {
                 GameModel.handleEnemyMovement(enemy);
             }
         }
@@ -68,15 +73,20 @@ public class WaveController {
     }
 
     public static void pauseWave(){
-        for(EnemyModel enemy : WaveModel.enemies){
+        Iterator<EnemyModel> iterator = WaveModel.getEnemyIterator();
+        while (iterator.hasNext()) {
+            EnemyModel enemy = iterator.next();
             enemy.stopAttackTimer();
         }
     }
 
     public static void resumeWave(){
-        for(EnemyModel enemy : WaveModel.enemies){
-            if(GameModel.checkEnemyReachedBase(enemy))
+        Iterator<EnemyModel> iterator = WaveModel.getEnemyIterator();
+        while (iterator.hasNext()) {
+            EnemyModel enemy = iterator.next();
+            if (GameModel.checkEnemyReachedBase(enemy)) {
                 enemy.startAttackTimer();
+            }
         }
     }
 

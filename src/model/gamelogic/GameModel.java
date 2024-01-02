@@ -1,5 +1,7 @@
 package model.gamelogic;
 
+import java.util.Iterator;
+
 import javax.swing.Timer;
 
 import model.enemies.EnemyModel;
@@ -117,7 +119,9 @@ public class GameModel {
     }
     
     public static void updateBaseHealth(){
-        for(EnemyModel enemy : WaveModel.enemies){
+        Iterator<EnemyModel> iterator = WaveModel.getEnemyIterator();
+        while(iterator.hasNext()){
+            EnemyModel enemy = iterator.next();
             if(checkEnemyReachedBase(enemy)  && enemy.isAlive()){
                 enemy.startAttackTimer();
             }

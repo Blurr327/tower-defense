@@ -1,6 +1,7 @@
 package model.towers;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import model.enemies.EnemyModel;
 import model.gamelogic.WaveModel;
@@ -28,8 +29,12 @@ public class TowerManagerModel {
     }
 
     public static void updateCurrentEnemyTargets(){
-        for(EnemyModel enemy : WaveModel.enemies) {
-            for(TowerModel tower : towersInGame){
+        Iterator<EnemyModel> enemyIterator = WaveModel.getEnemyIterator();
+        while(enemyIterator.hasNext()){
+            EnemyModel enemy = enemyIterator.next();
+            Iterator<TowerModel> towerIterator = towersInGame.iterator();
+            while(towerIterator.hasNext()){
+                TowerModel tower = towerIterator.next();
                 if(tower.isInRange(enemy)) {
                     // if the tower is already attacking an enemy, don't change it until they're out of range or dead
                     tower.setCurrentTargetEnemyIfNotSet(enemy);
@@ -64,5 +69,9 @@ public class TowerManagerModel {
             if(tower.hasTargetEnemy())
             tower.startAttackTimer();
         }
+    }
+
+    public static Iterator<TowerModel> getTowerIterator(){
+        return towersInGame.iterator();
     }
 }

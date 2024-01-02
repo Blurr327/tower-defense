@@ -123,15 +123,11 @@ public abstract class TowerModel extends AggressiveModel implements Upgradable, 
         projectilesShot.removeAll(projectilesToRemove);
     }
 
-    public int getNumberOfShotProjectiles(){
-        return projectilesShot.size();
-    }
-
-    public ProjectileModel getProjectileByIndex(int i){
-        return projectilesShot.get(i);
-    }
-
     public boolean hasTargetEnemy(){
         return currentTargetEnemy != null;
+    }
+
+    public Iterator<ProjectileModel> getShotProjectilesIterator(){
+        return projectilesShot.iterator();
     }
 }

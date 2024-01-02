@@ -8,7 +8,7 @@ import controller.WaveController;
 import model.enemies.EnemyFactory;
 import model.enemies.EnemyModel;
 
-public class WaveModel {
+public class WaveModel extends ArrayList<EnemyModel>{
 
 
     // TODO: show wavenumber on the playmanager
@@ -19,7 +19,7 @@ public class WaveModel {
     private static int numberOfBTierEnemies;
     private static int numberOfATierEnemies;
 
-    public static final ArrayList<EnemyModel> enemies = new ArrayList<>();
+    private static final ArrayList<EnemyModel> enemies = new ArrayList<>();
 
 
     public static void initEnemyArrayList(){
@@ -153,6 +153,10 @@ public class WaveModel {
         }
     }
 
+
+    public static Iterator<EnemyModel> getEnemyIterator() {
+        return enemies.iterator();
+    }
 
 }
 

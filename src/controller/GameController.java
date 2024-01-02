@@ -5,8 +5,10 @@ import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Iterator;
 
 import model.AppModel;
+import model.enemies.EnemyModel;
 import model.gamelogic.BaseModel;
 import model.gamelogic.GameModel;
 import model.gamelogic.WaveModel;
@@ -161,8 +163,10 @@ public class GameController implements KeyListener {
         // pressing K kills all enemies, used for debugging and testing out wave management
 
         else if(e.getKeyCode() == KeyEvent.VK_K){
-            for(int i=0;WaveModel.enemies.size()>i;i++){
-                WaveModel.enemies.get(i).setHealth(0);
+            Iterator<EnemyModel> iterator = WaveModel.getEnemyIterator();
+            while(iterator.hasNext()){
+                EnemyModel enemy = iterator.next();
+                enemy.setHealth(0);
             }
         }
     }

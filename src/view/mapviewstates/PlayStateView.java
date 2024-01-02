@@ -1,7 +1,9 @@
 package view.mapviewstates;
 
 import java.awt.Graphics;
+import java.util.Iterator;
 
+import model.enemies.EnemyModel;
 import model.gamelogic.BaseModel;
 import model.map.MapModel;
 import model.towers.TowerManagerModel;
@@ -22,10 +24,11 @@ public class PlayStateView implements MapViewState{
     }
 
     public void renderPlayMap(Graphics g){
-
-        for(int i=0;i<WaveModel.enemies.size();i++){
-            EnemyView.renderEnemy(g, WaveModel.enemies.get(i));
-            EnemyView.renderEnemyHealth(g, WaveModel.enemies.get(i));
+        Iterator<EnemyModel> enemyIterator = WaveModel.getEnemyIterator();
+        while(enemyIterator.hasNext()){
+            EnemyModel enemy = enemyIterator.next();
+            EnemyView.renderEnemy(g, enemy);
+            EnemyView.renderEnemyHealth(g, enemy);
         }
 
         BaseView.renderBase(g, BaseModel.getX(), BaseModel.getY());
