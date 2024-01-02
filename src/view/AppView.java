@@ -16,6 +16,7 @@ import java.io.InputStream;
 import java.nio.file.Paths;
 
 import controller.AppController;
+import controller.GameController;
 
 /*
  * This class is the main JFRAME of the entire application
@@ -27,12 +28,13 @@ public class AppView extends JFrame {
     public static final int HEIGHT = (MapModel.HEIGHT + BottomSectionModel.SECTION_HEIGHT)*UNIT_SIZE; // height of the window, considering the bottom section
     public static final int WIDTH = MapModel.WIDTH*UNIT_SIZE;
 
-    private static double FPS = 30; // frames per second
+    private static double FPS; // frames per second
 
     private AppModel model;
     private AppController controller;
     private AppContainer container; // container for the 3 main views of the game
     private CardLayout cardLayout; // used to switch between the 3 main views of the game
+    //private GameController gameController; 
 
     public static final BufferedImage spriteSheet = importImg();
     
@@ -45,6 +47,15 @@ public class AppView extends JFrame {
     public AppView(AppModel model, AppController controller){
         this.model = model;
         this.controller = controller;
+        AppView.FPS = 60;
+        initUI();
+    }
+
+    // an other constructor which take into account the FPS
+    public AppView(AppModel model, AppController controller, double FPS){
+        this.model = model;
+        this.controller = controller;
+        AppView.FPS = FPS;
         initUI();
     }
 
@@ -123,28 +134,43 @@ public class AppView extends JFrame {
             controller.switchTo(AppModel.AppMode.MENU);
             System.out.println("Switching to menu !");
         }); 
+        /* 
         settingsView.getChangeFPSTo30Button().addActionListener(e -> {
             AppView.setFPS(30);
             System.out.println("FPS : " + AppView.getFPS());
         });
+        */
+        
+        settingsView.getChangeFPSTo30Button().addActionListener(e -> {
+            AppView.setFPS(30);
+            controller.updateFPS((int)AppView.getFPS());
+            System.out.println("FPS : " + AppView.getFPS());
+            
+        });
         settingsView.getChangeFPSTo60Button().addActionListener(e -> {
             AppView.setFPS(60);
+            controller.updateFPS((int)AppView.getFPS());
             System.out.println("FPS : " + AppView.getFPS());
+            
         });
         settingsView.getChangeFPSTo120Button().addActionListener(e -> {
             AppView.setFPS(120);
+            controller.updateFPS((int)AppView.getFPS());
             System.out.println("FPS : " + AppView.getFPS());
         });
         settingsView.getChangeTickRateTo32Button().addActionListener(e -> {
             AppModel.setUPS(32);
+            //GameController.updateUPS(32);
             System.out.println("Tickrate : " + AppModel.getUPS());
         });
         settingsView.getChangeTickRateTo64Button().addActionListener(e -> {
             AppModel.setUPS(64);
+            //gameController.updateUPS((int)AppModel.getUPS());
             System.out.println("Tickrate : " + AppModel.getUPS());
         });
         settingsView.getChangeTickRateTo128Button().addActionListener(e -> {
             AppModel.setUPS(128);
+            //gameController.updateUPS((int)AppModel.getUPS());
             System.out.println("Tickrate : " + AppModel.getUPS());
         });
         settingsView.getChangeDifficultyToEasyButton().addActionListener(e -> {
@@ -156,7 +182,7 @@ public class AppView extends JFrame {
             System.out.println("Difficulty : Normal" + " (" + EnemyModel.getDifficultyMultiplierSpeed() + ")");
         });
         settingsView.getChangeDifficultyToHardButton().addActionListener(e -> {
-            EnemyModel.setDifficultyMultiplierSpeed(0.25f);
+            EnemyModel.setDifficultyMultiplierSpeed(1.25f);
             System.out.println("Difficulty : Hard" + " (" + EnemyModel.getDifficultyMultiplierSpeed() + ")");
         });
     

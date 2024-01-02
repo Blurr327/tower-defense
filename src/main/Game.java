@@ -15,7 +15,7 @@ public class Game implements Runnable{
     public Game(){
         model = new AppModel();
         controller = new AppController(model);
-        view = new AppView(model, controller);
+        view = new AppView(model, controller, 60);
         
         controller.setView(view);
 

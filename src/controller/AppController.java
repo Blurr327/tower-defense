@@ -14,6 +14,7 @@ import javax.swing.Timer;
 public class AppController {
     private AppModel model;
     private AppView view;
+    private static Timer renderTimer;
 
     public AppController(AppModel model){
         this.model = model;
@@ -31,7 +32,7 @@ public class AppController {
     public void runRenderLoop(){
         int delay = ((int) (1000/AppView.getFPS())); // delay for 120 frames per second
         // Set up Timer for rendering (120 frames per second)
-        Timer renderTimer = new Timer(delay, e -> view.getAppContainer().repaint());
+        renderTimer = new Timer(delay, e -> view.getAppContainer().repaint());
         renderTimer.start();
     }
 
@@ -48,8 +49,17 @@ public class AppController {
         this.view = view;
     }
 
-    
+    public void stopRenderLoop(){
+        if(renderTimer != null){
+            renderTimer.stop();
+        }
+    }
 
-    
+    public void updateFPS(int newFPS) {
+        stopRenderLoop();
+        int delay = (int) (1000 / newFPS);
+        renderTimer = new Timer(delay, e -> view.getAppContainer().repaint());
+        renderTimer.start();
+    }
 
 }

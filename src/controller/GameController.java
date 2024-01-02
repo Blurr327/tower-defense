@@ -46,7 +46,7 @@ public class GameController implements KeyListener {
             view.getBottomSectionView().getMapEditorView().getSwitchToPlayManagerButton().setText("Restart");
         }    
         else{
-         view.getBottomSectionView().getMapEditorView().removeResumeButton();
+            view.getBottomSectionView().getMapEditorView().removeResumeButton();
             view.getBottomSectionView().getMapEditorView().getSwitchToPlayManagerButton().setText("Play");
         }
         stopUpdateLoop();
@@ -138,7 +138,7 @@ public class GameController implements KeyListener {
     }
 
     public static void stopUpdateLoop(){
-       updateTimer.stop();
+        updateTimer.stop();
         WaveController.stopEnemySpawning();
         WaveController.pauseWave();
         TowerManagerModel.stopAllTowers();
@@ -177,7 +177,12 @@ public class GameController implements KeyListener {
         
     }
 
-    
+    public void updateUPS(int newUPS) {
+        stopUpdateLoop();
+        int delay = (int) (1000 / newUPS);
+        updateTimer = new Timer(delay, e -> update());
+        updateTimer.start();
+    }
 
 }
 
