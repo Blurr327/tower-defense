@@ -1,9 +1,9 @@
 package view;
 
-import model.towers.BulletsBrrrrrModel;
-import model.towers.FireBallModel;
-import model.towers.ProjectileModel;
-import model.towers.YarnBallModel;
+import model.towers.projectiles.BulletsBrrrrrModel;
+import model.towers.projectiles.FireBallModel;
+import model.towers.projectiles.ProjectileModel;
+import model.towers.projectiles.YarnBallModel;
 
 import java.awt.image.BufferedImage;
 import java.awt.Graphics;

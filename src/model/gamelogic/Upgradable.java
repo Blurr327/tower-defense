@@ -1,4 +1,4 @@
-package model.towers;
+package model.gamelogic;
 
 public interface Upgradable {
 

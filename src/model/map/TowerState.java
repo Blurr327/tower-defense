@@ -1,6 +1,7 @@
 package model.map;
 
 import model.gamelogic.ShmucklesModel;
+import model.map.mapeditorstates.MapEditorState;
 import model.towers.TowerManagerModel;
 
 

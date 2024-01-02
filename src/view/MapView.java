@@ -23,6 +23,8 @@ import model.map.MapModel;
 import model.map.TileType;
 import model.towers.TowerFactory;
 import model.towers.TowerManagerModel;
+import view.mapviewstates.EditStateView;
+import view.mapviewstates.MapViewState;
 
 
 /*

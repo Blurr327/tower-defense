@@ -1,6 +1,8 @@
-package model.map;
+package model.map.mapeditorstates;
 
 import model.gamelogic.GameModel;
+import model.map.MapEditorModel;
+import model.map.MapModel;
 
 public class TileStateModel implements MapEditorState{
     

@@ -8,6 +8,8 @@ import model.enemies.EnemyModel;
 import model.gamelogic.BaseModel;
 import model.gamelogic.BottomSectionModel;
 import model.gamelogic.ShmucklesModel;
+import model.map.mapeditorstates.MapEditorState;
+import model.map.mapeditorstates.TileStateModel;
 import model.gamelogic.GameModel;
 import model.towers.TowerModel;
 import model.towers.TowerManagerModel;

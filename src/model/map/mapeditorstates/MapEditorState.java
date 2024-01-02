@@ -1,4 +1,4 @@
-package model.map;
+package model.map.mapeditorstates;
 
 @FunctionalInterface
 public interface MapEditorState {

@@ -51,7 +51,7 @@ public class GameController implements KeyListener {
         }
         stopUpdateLoop();
         GameModel.setGameMode(GameModel.GameMode.EDIT);
-        MapView.setMapViewState(new view.EditStateView());
+        MapView.setMapViewState(new view.mapviewstates.EditStateView());
         view.getBottomSectionView().updateCard();
     }
 
@@ -71,7 +71,7 @@ public class GameController implements KeyListener {
         System.out.println("Game Starts");
         runUpdateLoop();
         GameModel.setGameMode(GameModel.GameMode.PLAY);
-        MapView.setMapViewState(new view.PlayStateView());
+        MapView.setMapViewState(new view.mapviewstates.PlayStateView());
         view.getBottomSectionView().updateCard();
     }
 

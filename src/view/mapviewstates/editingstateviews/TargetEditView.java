@@ -1,9 +1,13 @@
-package view;
+package view.mapviewstates.editingstateviews;
 
 import java.awt.Graphics;
 
 import model.enemies.EnemyModel;
 import model.map.MapEditorModel;
+import view.AppView;
+import view.BaseView;
+import view.helperclasses.MessagesView;
+import view.helperclasses.StringHelper;
 import model.gamelogic.BaseModel;
 
 

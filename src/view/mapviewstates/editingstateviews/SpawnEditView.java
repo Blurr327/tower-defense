@@ -1,9 +1,12 @@
-package view;
+package view.mapviewstates.editingstateviews;
 
 import java.awt.Graphics;
 
 import model.enemies.EnemyModel;
 import model.map.MapEditorModel;
+import view.AppView;
+import view.helperclasses.MessagesView;
+import view.helperclasses.StringHelper;
 
 public class SpawnEditView implements EditingState{
     private static final MessagesView spawnEditInfo = new MessagesView("Click on a tile to set it as the spawn point");

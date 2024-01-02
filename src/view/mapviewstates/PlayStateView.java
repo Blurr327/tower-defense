@@ -1,10 +1,15 @@
-package view;
+package view.mapviewstates;
 
 import java.awt.Graphics;
 
 import model.gamelogic.BaseModel;
 import model.map.MapModel;
 import model.towers.TowerManagerModel;
+import view.AppView;
+import view.BaseView;
+import view.EnemyView;
+import view.TowerView;
+import view.helperclasses.MessagesView;
 import model.gamelogic.WaveModel;
 
 public class PlayStateView implements MapViewState{

@@ -1,4 +1,4 @@
-package view;
+package view.mapviewstates.editingstateviews;
 
 import java.awt.Graphics;
 

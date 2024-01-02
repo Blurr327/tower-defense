@@ -1,4 +1,4 @@
-package model.towers;
+package model.gamelogic;
 
 public class MapComponentModel {
     protected float x;

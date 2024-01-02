@@ -1,6 +1,10 @@
-package view;
+package view.mapviewstates;
 
 import java.awt.Graphics;
+
+import view.helperclasses.MessagesView;
+import view.mapviewstates.editingstateviews.EditingState;
+import view.mapviewstates.editingstateviews.TileEditStateView;
 
 public class EditStateView implements MapViewState{
     private static EditingState state = new TileEditStateView();

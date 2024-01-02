@@ -1,5 +1,8 @@
 package model.towers;
 
+import model.towers.projectiles.FireBallModel;
+import model.towers.projectiles.ProjectileModel;
+
 public class SteveModel extends TowerModel {
 
     private static int range = 3;

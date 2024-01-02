@@ -2,6 +2,9 @@ package model.towers;
 
 import java.util.Iterator;
 
+import model.towers.projectiles.ProjectileModel;
+import model.towers.projectiles.YarnBallModel;
+
 public class ElGatoModel extends TowerModel{
     private static int range = 3;
     private static int attackSpeed = 1000;

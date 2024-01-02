@@ -1,7 +1,9 @@
-package model.towers;
+package model.towers.projectiles;
 
 import model.enemies.EnemyModel;
 import model.gamelogic.CoordinatesHelper;
+import model.gamelogic.MapComponentModel;
+import model.gamelogic.Upgradable;
 import view.AppView;
 
 public abstract class ProjectileModel extends MapComponentModel implements Upgradable{

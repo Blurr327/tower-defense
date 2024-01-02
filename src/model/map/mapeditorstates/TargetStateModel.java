@@ -1,4 +1,6 @@
-package model.map;
+package model.map.mapeditorstates;
+
+import model.map.MapEditorModel;
 
 public class TargetStateModel implements MapEditorState{
     

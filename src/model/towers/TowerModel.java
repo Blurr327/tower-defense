@@ -2,6 +2,9 @@ package model.towers;
 
 import model.enemies.AggressiveModel;
 import model.enemies.EnemyModel;
+import model.gamelogic.Upgradable;
+import model.towers.projectiles.ProjectileModel;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;

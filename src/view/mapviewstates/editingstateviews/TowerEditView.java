@@ -1,8 +1,10 @@
-package view;
+package view.mapviewstates.editingstateviews;
 
 import java.awt.Graphics;
 
 import model.map.MapEditorModel;
+import view.TowerView;
+import view.helperclasses.MessagesView;
 
 
 public class TowerEditView implements EditingState{

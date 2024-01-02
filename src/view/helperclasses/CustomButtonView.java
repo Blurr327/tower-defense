@@ -1,4 +1,4 @@
-package view;
+package view.helperclasses;
 
 import javax.swing.JButton;
 

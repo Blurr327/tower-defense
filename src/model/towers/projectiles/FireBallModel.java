@@ -1,17 +1,19 @@
-package model.towers;
+package model.towers.projectiles;
 
 import model.enemies.EnemyModel;
+
 import javax.swing.Timer;
 
-public class YarnBallModel extends ProjectileModel{
-    private static int damage = 5;
+public class FireBallModel extends ProjectileModel{
+    private static int damage = 10;
     private static int upgradeCost = 10;
-    private static Timer pacificationTimer;
-    private static int pacificationDuration = 3000;
+    private Timer pacificationTimer;
+    private int pacificationDuration = 1000;
     private static double range = 0.4;
-    private static float speed =0.5f; // this is the speed of the projectile in pixels per frame
+    private static float speed = 0.3f;
 
-    public YarnBallModel() {
+
+    public FireBallModel() {
         super(damage, upgradeCost, range, speed);
     }
 
@@ -30,9 +32,10 @@ public class YarnBallModel extends ProjectileModel{
     public void upgradeSpecialEffect() {
         pacificationDuration += 500;
     }
-    
+
     @Override
     public ProjectileModel newInstance() {
-        return new YarnBallModel();
+        return new FireBallModel();
     }
+    
 }

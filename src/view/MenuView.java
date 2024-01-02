@@ -4,6 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import model.AppModel;
+import view.helperclasses.CustomButtonView;
 
 /*
  * this class is the view for the menu

@@ -4,6 +4,7 @@ import model.towers.ElGatoModel;
 import model.towers.GoesBrrrrrrrModel;
 import model.towers.SteveModel;
 import model.towers.TowerModel;
+import view.helperclasses.MessagesView;
 import model.towers.TowerManagerModel;
 
 import java.awt.image.BufferedImage;

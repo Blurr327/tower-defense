@@ -1,4 +1,4 @@
-package view;
+package view.helperclasses;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,6 +8,7 @@ import java.awt.geom.Rectangle2D;
 import javax.swing.Timer;
 
 import model.map.MapModel;
+import view.AppView;
 
 public class MessagesView {
 

@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import model.gamelogic.BaseModel;
+import view.helperclasses.HealthBar;
+import view.helperclasses.StringHelper;
 
 public class BaseView {
 

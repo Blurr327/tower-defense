@@ -7,17 +7,17 @@ import model.gamelogic.GameModel;
 import model.map.MapEditorModel;
 import model.towers.TowerModel;
 import model.map.TowerState;
-import model.map.TileStateModel;
-import model.map.SpawnState;
-import model.map.TargetStateModel;
+import model.map.mapeditorstates.SpawnState;
+import model.map.mapeditorstates.TargetStateModel;
+import model.map.mapeditorstates.TileStateModel;
 import view.MapEditorView;
 import view.MapView;
-import view.MessagesView;
-import view.TileEditStateView;
-import view.EditStateView;
-import view.SpawnEditView;
-import view.TargetEditView;
-import view.TowerEditView;
+import view.helperclasses.MessagesView;
+import view.mapviewstates.EditStateView;
+import view.mapviewstates.editingstateviews.SpawnEditView;
+import view.mapviewstates.editingstateviews.TargetEditView;
+import view.mapviewstates.editingstateviews.TileEditStateView;
+import view.mapviewstates.editingstateviews.TowerEditView;
 
 /*
  * This class is responsible for handling all events that occur on the map editor (i.e the events that occur on the bottom section when the gameMode is EDIT)
