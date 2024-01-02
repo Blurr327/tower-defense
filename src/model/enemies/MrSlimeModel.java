@@ -10,7 +10,7 @@ public class MrSlimeModel extends EnemyModel{
     private static int id;
 
     public MrSlimeModel() {
-        super(health, speed, damage, attackSpeed);
+        super(health, speed * EnemyModel.getDifficultyMultiplierSpeed(), damage, attackSpeed);
     }
 
     @Override

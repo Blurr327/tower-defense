@@ -1,6 +1,8 @@
 package view;
 
 import model.towers.ElGatoModel;
+import model.towers.GoesBrrrrrrrModel;
+import model.towers.SteveModel;
 import model.towers.TowerModel;
 import model.towers.TowerManagerModel;
 
@@ -24,9 +26,20 @@ public class TowerView {
         if(tower.getClass() == ElGatoModel.class){
             if(!towerSprites.containsKey(tower)){
             towerSprites.put(tower, AppView.spriteSheet.getSubimage(0, 7*AppView.UNIT_SIZE, AppView.UNIT_SIZE, AppView.UNIT_SIZE));
+            }
         }
+        if (tower.getClass() == GoesBrrrrrrrModel.class){
+            if(!towerSprites.containsKey(tower)){
+            towerSprites.put(tower, AppView.spriteSheet.getSubimage(2*AppView.UNIT_SIZE , 7*AppView.UNIT_SIZE, AppView.UNIT_SIZE, AppView.UNIT_SIZE));
+            }
+        }
+        if (tower.getClass() == SteveModel.class){
+            if(!towerSprites.containsKey(tower)){
+            towerSprites.put(tower, AppView.spriteSheet.getSubimage(4*AppView.UNIT_SIZE , 7*AppView.UNIT_SIZE, AppView.UNIT_SIZE, AppView.UNIT_SIZE));
+            }
         }
         return towerSprites.get(tower);
+        
     }
 
     public static void renderProjectilesOf(Graphics g, TowerModel tower){
@@ -34,6 +47,7 @@ public class TowerView {
             ProjectileView.renderProjectile(g, tower.getProjectileByIndex(i));
         }
     }
+
 
     public static void renderTowers(Graphics g){
         for(int i=0;i<TowerManagerModel.getNumberOfTowers();i++){

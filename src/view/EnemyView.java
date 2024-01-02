@@ -1,5 +1,6 @@
 package view;
 
+import model.AppModel;
 import model.enemies.EnemyModel;
 import model.enemies.MrBlobModel;
 import model.enemies.MrSlimeModel;
@@ -9,6 +10,8 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import view.SettingsView;
 
 /*
  * this class is responsible for retriving the sprite of the enemy depending on its id
@@ -46,7 +49,6 @@ public class EnemyView {
                 return null;
         
     }
-
 
 }
 
