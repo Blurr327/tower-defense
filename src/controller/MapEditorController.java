@@ -10,6 +10,7 @@ import model.map.mapeditorstates.SpawnState;
 import model.map.mapeditorstates.TargetStateModel;
 import model.map.mapeditorstates.TileStateModel;
 import model.map.mapeditorstates.TowerState;
+import model.map.tiletypes.TileType;
 import view.MapEditorView;
 import view.MapView;
 import view.helperclasses.MessagesView;
@@ -42,7 +43,7 @@ public class MapEditorController {
 
     // this method is called when the user clicks on a tile button (present in the bottom section)
 
-    public void tileSelected(int id){
+    public void tileSelected(TileType type){
         if(GameModel.hasGameStarted()) {
             System.out.println("Can't modify map mid game");
             EditStateView.allowForbiddenMapModificationInfoToBeDrawn();
@@ -50,7 +51,7 @@ public class MapEditorController {
         }
         MapEditorModel.setMapEditorState(new TileStateModel());
         EditStateView.setEditStateView(new TileEditStateView());
-        MapEditorModel.setSelectedTileId(id);
+        MapEditorModel.setSelectedTileType(type);
         // print the name of the tile selected
         System.out.println("Tile selected : " + MapEditorModel.getTileName());
     }

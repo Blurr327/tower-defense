@@ -1,6 +1,7 @@
 package model.towers;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class TowerFactory {
     public static final ArrayList<TowerModel> allTowers = new ArrayList<TowerModel>();
@@ -17,5 +18,9 @@ public class TowerFactory {
 
     public static TowerModel getTowerByIndex(int index){
         return allTowers.get(index);
+    }
+
+    public static Iterator<TowerModel> getTowerIterator(){
+        return allTowers.iterator();
     }
 }

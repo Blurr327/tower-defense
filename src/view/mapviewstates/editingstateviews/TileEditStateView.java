@@ -13,7 +13,7 @@ public class TileEditStateView implements EditingState {
     public void renderEditingState(Graphics g) {
         if(tileEditInfo.allowedToBeDrawn()) tileEditInfo.drawDisappearingMessage(g);
                 if(MapEditorModel.isTileSelected()) {
-                    TileView.renderTile(g, MapEditorModel.getTileToModX(), MapEditorModel.getTileToModY(), MapEditorModel.getSelectedTileId());
+                    TileView.renderTile(g, MapEditorModel.getTileToModX(), MapEditorModel.getTileToModY(), MapEditorModel.getSelectedTileType());
                 }
     }
 

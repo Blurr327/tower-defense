@@ -10,6 +10,7 @@ import model.gamelogic.BottomSectionModel;
 import model.gamelogic.ShmucklesModel;
 import model.map.mapeditorstates.MapEditorState;
 import model.map.mapeditorstates.TileStateModel;
+import model.map.tiletypes.TileType;
 import model.gamelogic.GameModel;
 import model.towers.TowerModel;
 import model.towers.TowerManagerModel;
@@ -19,7 +20,7 @@ public class MapEditorModel extends BottomSectionModel {
 
     private static MapEditorState mapEditorState = new TileStateModel();
     
-    private static int selectedTileId = -1;
+    private static TileType selectedTileType = null;
     private static TowerModel selectedTower;
 
     private static TileModel tileToMod;
@@ -37,16 +38,16 @@ public class MapEditorModel extends BottomSectionModel {
         return tileToMod.getY();
     }
 
-    public static int getSelectedTileId() {
-        return selectedTileId;
+    public static TileType getSelectedTileType() {
+        return selectedTileType;
     }
 
-    public static void setSelectedTileId(int selectedTileId) {
-        MapEditorModel.selectedTileId = selectedTileId;
+    public static void setSelectedTileType(TileType selectedTileType) {
+        MapEditorModel.selectedTileType = selectedTileType;
     }
 
     public static boolean isTileSelected() {
-        return selectedTileId != -1;
+        return selectedTileType != null;
     }
 
 
@@ -68,7 +69,7 @@ public class MapEditorModel extends BottomSectionModel {
 
     // returns the name of the tile that is currently selected and will be shown in the Terminal
     public static String getTileName() {
-        return TileType.getTileById(selectedTileId).toString();
+        return selectedTileType.toString();
     }
 
 
@@ -93,7 +94,7 @@ public class MapEditorModel extends BottomSectionModel {
         int x = tileToMod.getX();
         int y = tileToMod.getY();
         boolean differentLocations = x != BaseModel.getX() || y != BaseModel.getY();
-        boolean spawnTileValid = TileType.getTileById(MapModel.getTileIdAt(x, y)).isWalkable();
+        boolean spawnTileValid = MapModel.getTileTypeAt(x, y).isWalkable();
         return differentLocations && spawnTileValid;
     }
 
@@ -102,7 +103,7 @@ public class MapEditorModel extends BottomSectionModel {
         int x = tileToMod.getX();
         int y = tileToMod.getY();
         boolean differentLocations = x != EnemyModel.getSpawnTileX() || y != EnemyModel.getSpawnTileY();
-        boolean targetTileValid = TileType.getTileById(MapModel.getTileIdAt(x, y)).isWalkable();
+        boolean targetTileValid = MapModel.getTileTypeAt(x, y).isWalkable();
         return differentLocations && targetTileValid;
     }
 
@@ -130,7 +131,7 @@ public class MapEditorModel extends BottomSectionModel {
     }
 
     public static void updateSelectedTileId(){
-        tileToMod.setTileType(TileType.getTileById(selectedTileId));
+        tileToMod.setTileType(selectedTileType);
     }
 
     public static void handleModificationEvent(){

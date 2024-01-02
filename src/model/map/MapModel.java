@@ -1,5 +1,11 @@
 package model.map;
 import java.util.Random;
+
+import model.map.tiletypes.FlowerTileType;
+import model.map.tiletypes.GrassTileType;
+import model.map.tiletypes.PathTileType;
+import model.map.tiletypes.TileType;
+
 import java.util.ArrayList;
 import view.AppContainer;
 
@@ -13,21 +19,21 @@ public class MapModel {
 
             for(int y=0;y<HEIGHT;y++){
                 for(int x=0;x<WIDTH;x++){
-                    tiles[y][x] = new TileModel(x, y, TileType.GRASS);
+                    tiles[y][x] = new TileModel(x, y, new GrassTileType());
                 }
             }
 
             for(int x=0;x<WIDTH/2;x++){
 
-                tiles[HEIGHT/2][x].setTileType(TileType.PATH);
+                tiles[HEIGHT/2][x].setTileType(new PathTileType());
             }
             for(int y=HEIGHT/4;y<=HEIGHT/2;y++){
 
-                tiles[y][WIDTH/2].setTileType(TileType.PATH);
+                tiles[y][WIDTH/2].setTileType(new PathTileType());
             }
             for(int x=WIDTH/2;x<WIDTH;x++){
 
-                tiles[HEIGHT/4][x].setTileType(TileType.PATH);
+                tiles[HEIGHT/4][x].setTileType(new PathTileType());
             }
 
             for(int i=0;i<8;i++){
@@ -35,16 +41,16 @@ public class MapModel {
             }
     }
 
-    public static int getTileIdAt(int x, int y){ 
+    public static TileType getTileTypeAt(int x, int y){ 
         if(x<0 || x>=WIDTH || y<0 || y>=HEIGHT)
-            return -1;
-        return tiles[y][x].getTileType().getId();
+            return null;
+        return tiles[y][x].getTileType();
     }
 
-    public static void setTileIdAt(int x, int y, int id){
+    public static void setTileTypeAt(int x, int y, TileType type){
         if(x<0 || x>=WIDTH || y<0 || y>=HEIGHT)
             return;
-        tiles[y][x].setTileType(TileType.getTileById(id));
+        tiles[y][x].setTileType(type);
     }
 
     public static TileModel getTileAt(int x, int y){
@@ -71,11 +77,11 @@ public class MapModel {
         Random r = new Random();
         int x = r.nextInt(HEIGHT);
         int y = r.nextInt(WIDTH);
-        while(tiles[y][x].getTileType() == TileType.PATH){
+        while(tiles[y][x].getTileType() instanceof PathTileType){
             x = r.nextInt(HEIGHT);
             y = r.nextInt(WIDTH);
         }
-        tiles[y][x].setTileType(TileType.FLOWER);
+        tiles[y][x].setTileType(new FlowerTileType());
     }
 
 }

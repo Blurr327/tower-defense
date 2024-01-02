@@ -6,7 +6,7 @@ import model.gamelogic.GameModel;
 import model.gamelogic.ShmucklesModel;
 import model.map.MapEditorModel;
 import model.map.MapModel;
-import model.map.TileType;
+import model.map.tiletypes.TileType;
 import model.towers.TowerManagerModel;
 import model.towers.TowerModel;
 import view.AppView;

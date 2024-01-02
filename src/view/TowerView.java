@@ -13,6 +13,8 @@ import java.awt.Graphics;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import javax.swing.ImageIcon;
+
 public class TowerView {
     private static HashMap<TowerModel, BufferedImage> towerSprites = new HashMap<TowerModel, BufferedImage>();
     private static final MessagesView towerRemovalInfo = new MessagesView("Right click on a tower to remove it");
@@ -59,5 +61,9 @@ public class TowerView {
             if(towerRemovalInfo.allowedToBeDrawn()) towerRemovalInfo.drawDisappearingMessage(g);
             TowerView.renderTower(g, towerIterator.next());
         }
+    }
+
+    public static ImageIcon getIcon(TowerModel tower){
+        return new ImageIcon(getSprite(tower));
     }
 }

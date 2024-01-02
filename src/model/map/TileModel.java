@@ -1,6 +1,7 @@
 package model.map;
 
 import model.gamelogic.MapComponentModel;
+import model.map.tiletypes.TileType;
 import model.towers.TowerModel;
 
 public class TileModel {

@@ -20,7 +20,7 @@ import model.gamelogic.GameModel;
 import model.gamelogic.WaveModel;
 import model.map.MapEditorModel;
 import model.map.MapModel;
-import model.map.TileType;
+import model.map.tiletypes.TileType;
 import model.towers.TowerFactory;
 import model.towers.TowerManagerModel;
 import view.mapviewstates.EditStateView;
@@ -59,7 +59,7 @@ public class MapView extends JPanel{
         int u= AppView.UNIT_SIZE;
         for(int y=0;y<MapModel.HEIGHT;y++){
             for(int x=0;x<MapModel.WIDTH;x++){
-                TileView.renderTile(g, x, y, MapModel.getTileIdAt(x, y));
+                TileView.renderTile(g, x, y, MapModel.getTileTypeAt(x, y));
             }
         }
     }

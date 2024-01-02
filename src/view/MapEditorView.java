@@ -10,15 +10,20 @@ import model.gamelogic.GameModel;
 import model.gamelogic.ShmucklesModel;
 import model.map.MapEditorModel;
 import model.map.MapModel;
-import model.map.TileType;
+import model.map.tiletypes.TileType;
 import model.towers.TowerFactory;
+import model.towers.TowerModel;
+import model.map.tiletypes.TileTypeManagerModel;
 import view.helperclasses.CustomButtonView;
+
 
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.awt.Font;
+
+import java.util.Iterator;
 
 
 public class MapEditorView extends JPanel{
@@ -29,38 +34,11 @@ public class MapEditorView extends JPanel{
     private CustomButtonView switchToPlayAndStartGameManagerButton = new CustomButtonView("Play");
 
     private CustomButtonView resumeButton = new CustomButtonView("Resume");
-    
-    // array list containing all of the tile buttons which are going to be displayed on the bottom section
-    private ArrayList<JButton> tileButtons = new ArrayList<JButton>();
 
-    private ArrayList<JButton> towerButtons = new ArrayList<JButton>();
-
-    // array containing all of the icons for the tower buttons
-    private static final ImageIcon[] towerIconArray;
-
-
-    // this is the array containing all of the icons for the tile buttons
-    private static final ImageIcon[] tileIconArray;
 
     // buttons used for switching to the spawn point editor and target point editor
     private CustomButtonView spawnPointEditorButton = new CustomButtonView("Spawn");
     private CustomButtonView targetPointEditorButton = new CustomButtonView("Target");
-
-    // initializing the icon array
-    static {
-
-        // TODO: write a generic class that handles the display of buttons and icons
-        
-        tileIconArray = new ImageIcon[TileType.values().length];
-        for(TileType tile : TileType.values()) {
-            tileIconArray[tile.getId()] = new ImageIcon(TileView.getSpriteById(tile.getId()));
-        }
-
-        towerIconArray = new ImageIcon[TowerFactory.getNumberOfTowers()];
-        for(int i = 0; i < towerIconArray.length;i++){
-            towerIconArray[i] = new ImageIcon(TowerView.getSprite(TowerFactory.getTowerByIndex(i)));
-        }
-    }
 
 
     public MapEditorView(){
@@ -72,13 +50,10 @@ public class MapEditorView extends JPanel{
         this.controller = new MapEditorController(model, this);
         
         // initializing the tile buttons
-        for(int i = 0; i < tileIconArray.length;i++){
-            tileButtons.add(new JButton(tileIconArray[i]));
-        }
+        initTileButtons();
 
-        for (int i = 0; i < towerIconArray.length; i++) {
-            towerButtons.add(new JButton(towerIconArray[i]));
-        }
+        initTowerButtons();
+
 
         // initializing and positioning switch to play manager button
         add(switchToPlayAndStartGameManagerButton);
@@ -91,18 +66,6 @@ public class MapEditorView extends JPanel{
         //initializing and positioning target point editor button
         add(targetPointEditorButton);
         targetPointEditorButton.setBounds(15, 85, 90, 30);
-
-        
-        // positioning the tile buttons and adding them to the panel
-        for(int i = 0; i < tileButtons.size();i++){
-            tileButtons.get(i).setBounds(100 + (i+1)*50, 15, AppView.UNIT_SIZE, AppView.UNIT_SIZE);
-            add(tileButtons.get(i));
-        }
-
-        for (int i = 0; i < towerButtons.size(); i++) {
-            towerButtons.get(i).setBounds(100 + (i + 1) * 50, 50, AppView.UNIT_SIZE, AppView.UNIT_SIZE);
-            add(towerButtons.get(i));
-        }
         
         // add actions listenrs to the buttons
         addActionListeners();
@@ -113,7 +76,7 @@ public class MapEditorView extends JPanel{
         draw(g);
     }
 
-        public void renderShmuckles(Graphics g){
+    public void renderShmuckles(Graphics g){
         // draw shmuckles on bottom right corner of bottom section
         g.setColor(Color.black);
         g.setFont(new Font("Dialog", Font.PLAIN, 20));
@@ -132,17 +95,6 @@ public class MapEditorView extends JPanel{
     }
 
     public void addActionListeners() {
-
-        // add action listeners to the tile buttons
-        for (int i = 0; i < tileButtons.size(); i++) {
-            final int index = i; // Create a final copy of the variable i
-            tileButtons.get(i).addActionListener(e -> controller.tileSelected(index));
-        }
-
-        for (int i = 0; i < towerButtons.size(); i++) {
-            final int index = i; // Create a final copy of the variable i
-            towerButtons.get(i).addActionListener(e -> controller.towerSelected(TowerFactory.getTowerByIndex(index)));
-        }
 
         // add action listener to the spawn point editor button
         spawnPointEditorButton.addActionListener(e -> controller.spawnPointEditorButtonClicked());
@@ -174,4 +126,29 @@ public class MapEditorView extends JPanel{
         return resumeButton;
     }
 
+    public void initTileButtons() {
+        Iterator<TileType> tileTypeIterator = TileTypeManagerModel.getTileTypesIterator();
+        int i=0;
+        while(tileTypeIterator.hasNext()) {
+            TileType type = tileTypeIterator.next();
+            JButton button = new JButton(TileView.getIcon(type));
+            button.addActionListener(e -> controller.tileSelected(type));
+            button.setBounds(100 + (i+1)*50, 15, AppView.UNIT_SIZE, AppView.UNIT_SIZE);
+            this.add(button);
+            i++;
+        }
+    }
+
+    public void initTowerButtons(){
+        Iterator<TowerModel> towerIterator = TowerFactory.getTowerIterator();
+        int i=0;
+        while(towerIterator.hasNext()) {
+            TowerModel tower = towerIterator.next();
+            JButton button = new JButton(TowerView.getIcon(tower));
+            button.addActionListener(e -> controller.towerSelected(tower));
+            button.setBounds(100 + (i+1)*50, 50, AppView.UNIT_SIZE, AppView.UNIT_SIZE);
+            this.add(button);
+            i++;
+        }
+    }
 }
