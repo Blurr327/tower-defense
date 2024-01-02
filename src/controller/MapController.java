@@ -3,6 +3,7 @@ package controller;
 import model.enemies.EnemyModel;
 import model.gamelogic.BaseModel;
 import model.gamelogic.GameModel;
+import model.gamelogic.ShmucklesModel;
 import model.map.MapEditorModel;
 import model.map.MapModel;
 import model.map.TileType;
@@ -34,9 +35,11 @@ public class MapController implements MouseMotionListener, MouseListener {
     // dragging the mouse when a tile is selected changes all of the tiles along the path of the mouse to the selected tile
     @Override
     public void mouseDragged(MouseEvent e) {
-        if(MapEditorModel.isTileSelected() && GameModel.getGameMode().equals(GameModel.GameMode.EDIT) && MapEditorModel.getMapEditorMode().equals(MapEditorModel.MapEditorMode.TILE) && GameModel.hasGameStarted() == false){
-            updateSetTileToMod(e);
-            MapModel.setTileIdAt(MapEditorModel.getTileToModX(), MapEditorModel.getTileToModY(), MapEditorModel.getSelectedTileId());
+        int x = e.getX()/AppView.UNIT_SIZE;
+        int y = e.getY()/AppView.UNIT_SIZE;
+        if(MapEditorModel.isTileSelected() && GameModel.getGameMode().equals(GameModel.GameMode.EDIT) && MapEditorModel.stateIsTileState() && GameModel.hasGameStarted() == false){
+            MapEditorModel.setTileToMod(MapModel.getTileAt(x, y));
+            MapEditorModel.updateSelectedTileId();
         }
     }
 
@@ -44,42 +47,9 @@ public class MapController implements MouseMotionListener, MouseListener {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        if(GameModel.getGameMode().equals(GameModel.GameMode.EDIT)){
-            updateSetTileToMod(e);
-        }
-    }
-
-    public void updateSetTileToMod(MouseEvent e) {
-        MapEditorModel.setTileToModX(e.getX()/AppView.UNIT_SIZE);
-        MapEditorModel.setTileToModY(e.getY()/AppView.UNIT_SIZE);
-    }
-
-    public void updateSpawnTile(MouseEvent e) {
-        int newX = e.getX()/AppView.UNIT_SIZE;
-        int newY = e.getY()/AppView.UNIT_SIZE;
-
-        EnemyController.updateEnemySpawnTile(newX, newY);
-    }
-
-    public void updateTargetTile(MouseEvent e) {
-        int newX = e.getX()/AppView.UNIT_SIZE;
-        int newY = e.getY()/AppView.UNIT_SIZE;
-
-        BaseController.updateBaseCoords(newX, newY);
-    }
-
-    // true if the tile selected is not the target tile and is walkable, false otherwise
-    public boolean spawnTileValid(int x, int y) {
-        boolean differentLocations = x != BaseModel.getX() || y != BaseModel.getY();
-        boolean spawnTileValid = TileType.getTileById(MapModel.getTileIdAt(x, y)).isWalkable();
-        return differentLocations && spawnTileValid;
-    }
-
-    // true if the tile selected is not the spawn tile and is walkable, false otherwise
-    public boolean targetTileValid(int x, int y) {
-        boolean differentLocations = x != EnemyModel.getSpawnTileX() || y != EnemyModel.getSpawnTileY();
-        boolean targetTileValid = TileType.getTileById(MapModel.getTileIdAt(x, y)).isWalkable();
-        return differentLocations && targetTileValid;
+        int x = e.getX()/AppView.UNIT_SIZE;
+        int y = e.getY()/AppView.UNIT_SIZE;
+        MapEditorModel.setTileToMod(MapModel.getTileAt(x, y));
     }
 
     /*
@@ -92,69 +62,17 @@ public class MapController implements MouseMotionListener, MouseListener {
     public void mouseClicked(MouseEvent e) {
         int x = e.getX()/AppView.UNIT_SIZE;
         int y = e.getY()/AppView.UNIT_SIZE;
+        MapEditorModel.setTileToMod(MapModel.getTileAt(x, y));
+
         if(GameModel.getGameMode().equals(GameModel.GameMode.PLAY)) return;
         else if(e.getButton() == MouseEvent.BUTTON3) {
-            removeTowerIfExists(x, y);
+            ShmucklesModel.sellTower(MapModel.getTileAt(x, y).getTower());
+            MapEditorModel.removeSelectedTowerIfExists();
             return;
         }
-        switch(MapEditorModel.getMapEditorMode()) {
-            case TILE:
-                if(MapEditorModel.isTileSelected() && !GameModel.hasGameStarted()) 
-                    MapModel.setTileIdAt(MapEditorModel.getTileToModX(), MapEditorModel.getTileToModY(), MapEditorModel.getSelectedTileId());
-                break; 
-            case SPAWN:
-                if(spawnTileValid(x, y)) {
-                    System.out.println("Spawn tile valid");
-                    updateSpawnTile(e);
-                } else {
-                    System.out.println("The spawn must be on a path !");
-                }
-                break;
-            case TARGET:
-                if(targetTileValid(x, y)) {
-                    System.out.println("Target set to (" + x + ", " + y + ")");
-                    updateTargetTile(e);
-                } else {
-                    System.out.println("The target must be on a path !");
-                }
-                break;
-            case TOWER:
-                if(MapEditorModel.getSelectedTower() !=null ) {
-                    if (!GameModel.isRichEnoughForTower(MapEditorModel.getSelectedTower())){
-                        System.out.println("Not enough money");
-                    }
-                    else {
-                        
-                        if(TowerManagerModel.canAddTowerAt(x, y)) {
-                            buyTower(MapEditorModel.getSelectedTower());
-                            placeTower(x, y);
-                        }
-                        else {
-                            System.out.println("Can't add tower here");
-                        }
-                    }
-                }
-                break;
-        }
+        MapEditorModel.handleModificationEvent();
     }
 
-    public void removeTowerIfExists(int x, int y){
-        if(MapModel.getTileAt(x, y).hasTower()){
-            GameModel.setShmuckles(GameModel.getShmuckles()+MapModel.getTileAt(x, y).getTower().getCost());
-            TowerManagerModel.removeTower(MapModel.getTileAt(x, y).getTower());
-        }
-    }
-
-    public void placeTower(int x, int y){
-        TowerModel towerToAdd = MapEditorModel.getSelectedTower().clone();
-        towerToAdd.setX(x);
-        towerToAdd.setY(y);
-        TowerManagerModel.addTower(towerToAdd);
-    }
-
-    public void buyTower(TowerModel tower) {
-        GameModel.setShmuckles(GameModel.getShmuckles() - tower.getCost());
-    }
 
     @Override
     public void mouseEntered(MouseEvent arg0) {

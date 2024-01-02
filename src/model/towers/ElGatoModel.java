@@ -17,7 +17,7 @@ public class ElGatoModel extends TowerModel{
 
     @Override
     public void attack() {
-        YarnBallModel yarnBall =(YarnBallModel) projectile.clone();
+        YarnBallModel yarnBall =(YarnBallModel) projectile.newInstance();
         yarnBall.setX(x);
         yarnBall.setY(y);
         yarnBall.targetEnemy(currentTargetEnemy);
@@ -25,7 +25,7 @@ public class ElGatoModel extends TowerModel{
     }
     
     @Override
-    public TowerModel clone() {
+    public TowerModel newInstance() {
         return new ElGatoModel();
     }
 }

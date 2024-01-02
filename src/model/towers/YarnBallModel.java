@@ -32,7 +32,7 @@ public class YarnBallModel extends ProjectileModel{
     }
     
     @Override
-    public ProjectileModel clone() {
+    public ProjectileModel newInstance() {
         return new YarnBallModel();
     }
 }

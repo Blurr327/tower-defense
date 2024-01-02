@@ -16,8 +16,7 @@ public abstract class TowerModel extends AggressiveModel implements Upgradable, 
     protected int upgradeCost;
     protected EnemyModel currentTargetEnemy;
     protected ArrayList<ProjectileModel> projectilesShot = new ArrayList<>();
-    private boolean bought;
-    
+
     public TowerModel(int range, int attackSpeed, ProjectileModel projectile, int attackSpeedUpgradeCost, int rangeUpgradeCost) {
         super(attackSpeed);
         this.range = range;
@@ -40,15 +39,7 @@ public abstract class TowerModel extends AggressiveModel implements Upgradable, 
 
     public abstract void attack();
 
-    public abstract TowerModel clone();
-
-    public void setBought(boolean bought) {
-        this.bought = bought;
-    }
-
-    public boolean isBought() {
-        return bought;
-    }
+    public abstract TowerModel newInstance();
 
     public void upgrade(){
         projectile.upgrade();

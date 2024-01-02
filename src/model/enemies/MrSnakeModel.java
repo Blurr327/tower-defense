@@ -27,7 +27,7 @@ public class MrSnakeModel extends EnemyModel{
     }
 
     @Override
-    public MrSnakeModel clone(){
+    public MrSnakeModel newInstance(){
         MrSnakeModel clone = new MrSnakeModel();
         return clone;
     }

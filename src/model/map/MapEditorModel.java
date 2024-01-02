@@ -1,36 +1,38 @@
 package model.map;
 
+import org.w3c.dom.events.MouseEvent;
+
+import controller.BaseController;
+import controller.EnemyController;
+import model.enemies.EnemyModel;
+import model.gamelogic.BaseModel;
 import model.gamelogic.BottomSectionModel;
+import model.gamelogic.ShmucklesModel;
+import model.gamelogic.GameModel;
 import model.towers.TowerModel;
+import model.towers.TowerManagerModel;
+import view.AppView;
 
 public class MapEditorModel extends BottomSectionModel {
 
-    public enum MapEditorMode {
-        SPAWN, TARGET, TILE, TOWER;
-    }
-
-    private static MapEditorMode mapEditorMode = MapEditorMode.TILE;
+    private static MapEditorState mapEditorState = new TileStateModel();
     
     private static int selectedTileId = -1;
     private static TowerModel selectedTower;
 
-    private static int tileToModX;
-    private static int tileToModY;
+    private static TileModel tileToMod;
 
-    public static int getTileToModX() {
-        return tileToModX;
+    public static void setTileToMod(TileModel tileToMod) {
+        if(tileToMod != null)
+            MapEditorModel.tileToMod = tileToMod;
     }
 
-    public static void setTileToModX(int tileToModX) {
-        MapEditorModel.tileToModX = tileToModX;
+    public static int getTileToModX() {
+        return tileToMod.getX();
     }
 
     public static int getTileToModY() {
-        return tileToModY;
-    }
-
-    public static void setTileToModY(int tileToModY) {
-        MapEditorModel.tileToModY = tileToModY;
+        return tileToMod.getY();
     }
 
     public static int getSelectedTileId() {
@@ -45,14 +47,15 @@ public class MapEditorModel extends BottomSectionModel {
         return selectedTileId != -1;
     }
 
-    public static MapEditorMode getMapEditorMode() {
-        return mapEditorMode;
+
+    public static void setMapEditorState(MapEditorState mapEditorState) {
+        MapEditorModel.mapEditorState = mapEditorState;
     }
 
-    public static void setMapEditorMode(MapEditorMode mapEditorMode) {
-        MapEditorModel.mapEditorMode = mapEditorMode;
+    public static boolean stateIsTileState() {
+        return mapEditorState instanceof TileStateModel;
     }
-
+    
     public static TowerModel getSelectedTower() {
         return selectedTower;
     }
@@ -66,6 +69,71 @@ public class MapEditorModel extends BottomSectionModel {
         return TileType.getTileById(selectedTileId).toString();
     }
 
+
+    public static void updateTileToMod(int x, int y) {
+        tileToMod.setX(x);
+        tileToMod.setY(y);
+    }
+
+    public static void updateSpawnTileToSelectedTile() {
+        EnemyController.updateEnemySpawnTile(tileToMod.getX(), tileToMod.getY());
+    }
+
+    public static void updateTargetTileToSelectedTile() {
+        int x = tileToMod.getX();
+        int y = tileToMod.getY();
+        BaseController.updateBaseCoords(x, y);
+        System.out.println("Target set to (" + x + ", " + y + ")");
+    }
+
+        // true if the tile selected is not the target tile and is walkable, false otherwise
+    public static boolean selectedSpawnTileIsValid() {
+        int x = tileToMod.getX();
+        int y = tileToMod.getY();
+        boolean differentLocations = x != BaseModel.getX() || y != BaseModel.getY();
+        boolean spawnTileValid = TileType.getTileById(MapModel.getTileIdAt(x, y)).isWalkable();
+        return differentLocations && spawnTileValid;
+    }
+
+    // true if the tile selected is not the spawn tile and is walkable, false otherwise
+    public static boolean selectedTargetTileIsValid() {
+        int x = tileToMod.getX();
+        int y = tileToMod.getY();
+        boolean differentLocations = x != EnemyModel.getSpawnTileX() || y != EnemyModel.getSpawnTileY();
+        boolean targetTileValid = TileType.getTileById(MapModel.getTileIdAt(x, y)).isWalkable();
+        return differentLocations && targetTileValid;
+    }
+
+    public static boolean selectedTowerTileIsValid() {
+        int x = tileToMod.getX();
+        int y = tileToMod.getY();
+        return TowerManagerModel.canAddTowerAt(x, y);
+    }
+
+    public static void removeSelectedTowerIfExists(){
+        int x = tileToMod.getX();
+        int y = tileToMod.getY();
+        if(MapModel.getTileAt(x, y).hasTower()){
+            TowerManagerModel.removeTower(MapModel.getTileAt(x, y).getTower());
+        }
+    }
+
+    public static void placeSelectedTower(){
+        int x = tileToMod.getX();
+        int y = tileToMod.getY();
+        TowerModel towerToAdd = selectedTower.newInstance();
+        towerToAdd.setX(x);
+        towerToAdd.setY(y);
+        TowerManagerModel.addTower(towerToAdd);
+    }
+
+    public static void updateSelectedTileId(){
+        tileToMod.setTileType(TileType.getTileById(selectedTileId));
+    }
+
+    public static void handleModificationEvent(){
+        mapEditorState.handleState();
+    }
 }
 
 

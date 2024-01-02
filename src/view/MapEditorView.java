@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import controller.MapEditorController;
 import model.gamelogic.BottomSectionModel;
 import model.gamelogic.GameModel;
+import model.gamelogic.ShmucklesModel;
 import model.map.MapEditorModel;
 import model.map.MapModel;
 import model.map.TileType;
@@ -46,6 +47,9 @@ public class MapEditorView extends JPanel{
 
     // initializing the icon array
     static {
+
+        // TODO: write a generic class that handles the display of buttons and icons
+        
         tileIconArray = new ImageIcon[TileType.values().length];
         for(TileType tile : TileType.values()) {
             tileIconArray[tile.getId()] = new ImageIcon(TileView.getSpriteById(tile.getId()));
@@ -112,7 +116,7 @@ public class MapEditorView extends JPanel{
         // draw shmuckles on bottom right corner of bottom section
         g.setColor(Color.black);
         g.setFont(new Font("Dialog", Font.PLAIN, 20));
-        g.drawString("Shmuckles: " + GameModel.getShmuckles(), BottomSectionModel.SECTION_WIDTH*AppView.UNIT_SIZE - 200, BottomSectionModel.SECTION_HEIGHT*AppView.UNIT_SIZE - 15);
+        g.drawString("Shmuckles: " + ShmucklesModel.getShmuckles(), BottomSectionModel.SECTION_WIDTH*AppView.UNIT_SIZE - 200, BottomSectionModel.SECTION_HEIGHT*AppView.UNIT_SIZE - 15);
     }
 
     public void draw(Graphics g) {

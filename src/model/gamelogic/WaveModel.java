@@ -28,8 +28,6 @@ public class WaveModel {
         calculatePercentageOfCTierEnemies();
         calculatePercentageOfBTierEnemies();
         calculatePercentageOfATierEnemies();
-
-        Random rand = new Random();
         System.out.println(numberOfBTierEnemies);
         for(int i = 0; i < numberOfCTierEnemies; i++){
 
@@ -128,17 +126,7 @@ public class WaveModel {
 
     public static boolean areAllEnemiesDead() {
 
-        for (EnemyModel enemy : enemies) {
-
-            if (enemy.isAlive()) {
-
-                return false;
-
-            }
-
-        }
-
-        return true;
+        return enemies.size() ==0;
 
     }
 
@@ -159,10 +147,12 @@ public class WaveModel {
             if(!enemy.isAlive()){
                 enemy.stopAttackTimer();
                 iterator.remove();
-                GameModel.setShmuckles(GameModel.getShmuckles()+enemy.getReward());
-                System.out.println(GameModel.getShmuckles());
+                ShmucklesModel.setShmuckles(ShmucklesModel.getShmuckles()+enemy.getReward());
+                System.out.println(ShmucklesModel.getShmuckles());
             }
         }
     }
+
+
 }
 

@@ -37,7 +37,7 @@ public abstract class EnemyModel extends AggressiveModel {
         this.direction = DirectionModel.EAST;
     }
 
-    public abstract EnemyModel clone();
+    public abstract EnemyModel newInstance();
 
     public abstract void attack();
 

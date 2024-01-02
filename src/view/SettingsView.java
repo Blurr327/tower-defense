@@ -20,8 +20,8 @@ public class SettingsView extends JPanel {
     }
 
     public void draw(Graphics g) {
-        g.setColor(Color.blue);
-        g.fillRect(0,0,640,640);
+        g.setColor(Color.lightGray);
+        g.fillRect(0,0,AppView.WIDTH,AppView.HEIGHT);
     }
     
     public CustomButtonView getSwitchToMenuButton() {

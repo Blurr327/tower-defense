@@ -66,7 +66,7 @@ public class AppView extends JFrame {
         initCardLayout();
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setResizable(true);
+        setResizable(false);
         pack();
         setLocationRelativeTo(null);
     }

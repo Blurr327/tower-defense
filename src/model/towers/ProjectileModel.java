@@ -39,7 +39,7 @@ public abstract class ProjectileModel extends MapComponentModel implements Upgra
 
     public abstract void upgradeSpecialEffect();
 
-    public abstract ProjectileModel clone();
+    public abstract ProjectileModel newInstance();
 
     public void applyDamage(EnemyModel enemy) {
         enemy.setHealth(enemy.getHealth() - damage);

@@ -12,7 +12,6 @@ public class GameModel {
     EDIT, PLAY;
     }
     private static GameMode gameMode = GameMode.EDIT;
-    private static int shmuckles = 100;
     private static int difficulty = 1;
     private static boolean gameStarted = false;
      
@@ -32,14 +31,6 @@ public class GameModel {
 
     public static void setGameStarted(boolean gameStarted) {
         GameModel.gameStarted = gameStarted;
-    }
-
-    public static int getShmuckles() {
-        return shmuckles;
-    }
-
-    public static void setShmuckles(int shmuckles) {
-        GameModel.shmuckles = shmuckles;
     }
 
     public static GameMode getGameMode() {
@@ -134,13 +125,6 @@ public class GameModel {
                 enemy.stopAttackTimer();
             }
         }
-    }
-
-    public static boolean isRichEnoughForTower(TowerModel tower){
-        if(shmuckles >= tower.getCost()){
-            return true;
-        }
-        return false;
     }
 
 }
