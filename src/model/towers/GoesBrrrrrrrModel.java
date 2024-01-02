@@ -16,15 +16,15 @@ public class GoesBrrrrrrrModel extends TowerModel {
 
     @Override
     public void attack() {
-        BulletsBrrrrrModel bullets = new BulletsBrrrrrModel();
+        BulletsBrrrrrModel bullets = (BulletsBrrrrrModel) projectile.newInstance();
         bullets.setX(x);
         bullets.setY(y);
-        bullets.targetEnemy(currentTargetEnemy, attackSpeed);
+        bullets.targetEnemy(currentTargetEnemy);
         projectilesShot.add(bullets); 
     }
     
     @Override
-    public TowerModel clone() {
+    public TowerModel newInstance() {
         return new GoesBrrrrrrrModel();
     }
     

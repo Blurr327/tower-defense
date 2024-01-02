@@ -84,7 +84,6 @@ public class GameController implements KeyListener {
         // initializing the shmuckles
         ShmucklesModel.initShmuckles();
         GameModel.setGameStarted(true);
-        MapModel.iniTiles();
         // running the loop to update gamelogic
         runUpdateLoop(); 
     }

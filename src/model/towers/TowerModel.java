@@ -108,6 +108,7 @@ public abstract class TowerModel extends AggressiveModel implements Upgradable, 
         if(currentTargetEnemy== null) projectilesShot.clear();
         for (ProjectileModel projectile : projectilesShot) {
             projectile.move();
+            System.out.println(projectile);
             if (projectile.isInRange(currentTargetEnemy)) {
                 System.out.println("Projectile hit enemy");
                 projectile.applyDamage(currentTargetEnemy);

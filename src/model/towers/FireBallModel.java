@@ -8,10 +8,12 @@ public class FireBallModel extends ProjectileModel{
     private static int upgradeCost = 10;
     private Timer pacificationTimer;
     private int pacificationDuration = 1000;
+    private static double range = 0.4;
+    private static float speed = 0.3f;
 
 
     public FireBallModel() {
-        super(damage, upgradeCost);
+        super(damage, upgradeCost, range, speed);
     }
 
     @Override
@@ -28,6 +30,11 @@ public class FireBallModel extends ProjectileModel{
     @Override
     public void upgradeSpecialEffect() {
         pacificationDuration += 500;
+    }
+
+    @Override
+    public ProjectileModel newInstance() {
+        return new FireBallModel();
     }
     
 }

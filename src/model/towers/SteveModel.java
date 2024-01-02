@@ -16,15 +16,15 @@ public class SteveModel extends TowerModel {
 
     @Override
     public void attack() {
-        FireBallModel fireBall = new FireBallModel();
+        FireBallModel fireBall = (FireBallModel) projectile.newInstance();
         fireBall.setX(x);
         fireBall.setY(y);
-        fireBall.targetEnemy(currentTargetEnemy, attackSpeed);
+        fireBall.targetEnemy(currentTargetEnemy);
         projectilesShot.add(fireBall); 
     }
     
     @Override
-    public TowerModel clone() {
+    public TowerModel newInstance() {
         return new SteveModel();
     }
     
