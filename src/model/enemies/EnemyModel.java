@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.Timer;
 
+import model.gamelogic.AggressiveModel;
 import model.gamelogic.DirectionModel;
 import model.map.MapModel;
 import model.map.TileModel;

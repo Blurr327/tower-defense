@@ -14,11 +14,14 @@ import model.gamelogic.GameModel;
 import model.gamelogic.WaveModel;
 import model.gamelogic.ShmucklesModel;
 import model.gamelogic.GameModel.GameMode;
+import model.gamelogic.wavestates.MarathonWaveState;
+import model.gamelogic.wavestates.NormalWaveState;
 import model.map.MapModel;
 import model.towers.TowerManagerModel;
 import view.AppView;
 import view.GameView;
 import view.MapView;
+import view.helperclasses.MessagesView;
 
 /*
  * this class is responsible for switching between the edit and play modes, it also handles events when the application is in GAME mode
@@ -43,6 +46,7 @@ public class GameController implements KeyListener {
 
     public void switchToEdit(){
         System.out.println("Edit mode");
+        
         if(GameModel.hasGameStarted()){
             view.getBottomSectionView().getMapEditorView().addResumeButton();
             view.getBottomSectionView().getMapEditorView().getSwitchToPlayManagerButton().setText("Restart");
@@ -79,6 +83,12 @@ public class GameController implements KeyListener {
 
     // this method initializes the spawn and target tiles for the enemies and starts the update loop
     public void initGame(){
+        if(!(WaveModel.getWaveModelState() instanceof MarathonWaveState)) {
+            view.getBottomSectionView().getPlayManagerView().disableSwitchToEditButton();
+        }
+        else {
+            view.getBottomSectionView().getPlayManagerView().enableSwitchToEditButton();
+        } 
         // initializing base health
         BaseController.initBase();
         // initializing the enemy arraylist according to the algorithm described in wavemodel
@@ -116,13 +126,13 @@ public class GameController implements KeyListener {
             // TODO: Show game over message 
             switchToEditAndEndGame();
         }
-        else if(GameModel.checkNextWaveCondition()){
+        else if(WaveModel.getWaveModelState().checkNextWaveCondition()){
             // TODO: Show next wave message and congratulate player
-            endWave();
-            WaveController.nextWave();
-            WaveController.resumeEnemySpawning();
-            switchToEdit();
-            stopUpdateLoop();
+            WaveModel.getWaveModelState().handleNextWaveCondition();
+            if(WaveModel.getWaveModelState() instanceof NormalWaveState) {
+                switchToEdit();
+                stopUpdateLoop();
+            }
         }
         else{
             TowerManagerModel.updateCurrentEnemyTargets();

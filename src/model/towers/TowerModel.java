@@ -1,7 +1,7 @@
 package model.towers;
 
-import model.enemies.AggressiveModel;
 import model.enemies.EnemyModel;
+import model.gamelogic.AggressiveModel;
 import model.gamelogic.Upgradable;
 import model.towers.projectiles.ProjectileModel;
 

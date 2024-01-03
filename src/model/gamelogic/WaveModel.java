@@ -1,19 +1,27 @@
 package model.gamelogic;
 
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
+
+import javax.swing.Timer;
 
 import controller.WaveController;
 import model.enemies.EnemyFactory;
 import model.enemies.EnemyModel;
+import model.gamelogic.wavestates.NormalWaveState;
+import model.gamelogic.wavestates.WaveModelState;
 
 public class WaveModel extends ArrayList<EnemyModel>{
 
 
     // TODO: show wavenumber on the playmanager
+    private static boolean stopSpawning;
     private static int waveNumber;
     private static int numberOfEnemies;
+    private static WaveModelState waveModelState = new NormalWaveState();
 
     private static int numberOfCTierEnemies;
     private static int numberOfBTierEnemies;
@@ -22,33 +30,25 @@ public class WaveModel extends ArrayList<EnemyModel>{
     private static final ArrayList<EnemyModel> enemies = new ArrayList<>();
 
 
+    public static WaveModelState getWaveModelState() {
+        return waveModelState;
+    }
+
+    public static void setWaveModelState(WaveModelState waveModelState) {
+        WaveModel.waveModelState = waveModelState;
+    }
+
+
     public static void initEnemyArrayList(){
         
         printWave();
         calculatePercentageOfCTierEnemies();
         calculatePercentageOfBTierEnemies();
         calculatePercentageOfATierEnemies();
+        enemies.add(EnemyFactory.createRandomCTierEnemy());
+        numberOfCTierEnemies--;
         System.out.println(numberOfBTierEnemies);
-        for(int i = 0; i < numberOfCTierEnemies; i++){
-
-            // generating random enemies from C tier
-
-            enemies.add(EnemyFactory.createRandomCTierEnemy());
-        }
-
-        for(int i = numberOfCTierEnemies; i < numberOfCTierEnemies + numberOfBTierEnemies; i++){
-
-            // generating random enemies from B tier
-
-            enemies.add(EnemyFactory.createRandomBTierEnemy());
-        }
-
-        for(int i = numberOfCTierEnemies + numberOfBTierEnemies; i < numberOfEnemies; i++){
-
-            // generating random enemies from A tier
-
-            enemies.add(EnemyFactory.createRandomATierEnemy());
-        }
+        spawnEnemies();
 
     }
 
@@ -125,7 +125,7 @@ public class WaveModel extends ArrayList<EnemyModel>{
     }
 
     public static boolean areAllEnemiesDead() {
-
+        if(enemies.size() == 0) System.out.println("No enemies left");
         return enemies.size() ==0;
 
     }
@@ -158,5 +158,72 @@ public class WaveModel extends ArrayList<EnemyModel>{
         return enemies.iterator();
     }
 
+    private static void addCtierThenTheRest(){
+        System.out.println(numberOfCTierEnemies);
+        if(numberOfCTierEnemies<=0 || stopSpawning){
+            if(!stopSpawning) addBTierThenTheRest();
+            return;
+        }
+        Timer timer = new Timer(2000, e -> {
+            numberOfCTierEnemies--;
+            enemies.add(EnemyFactory.createRandomCTierEnemy());
+            addCtierThenTheRest();  
+        });
+        timer.setRepeats(false);
+        timer.start();
+    }
+
+    private static void addBTierThenTheRest(){
+        if(numberOfBTierEnemies<=0 || stopSpawning){
+            if(!stopSpawning) addATierEnemies();
+            return;
+        }
+        Timer timer = new Timer(2000, e -> {
+            numberOfBTierEnemies--;
+            enemies.add(EnemyFactory.createRandomBTierEnemy());
+            addBTierThenTheRest();
+        });
+        timer.setRepeats(false);
+        timer.start();
+    }
+
+
+    private static void addATierEnemies(){
+        if(numberOfATierEnemies<=0 || stopSpawning) return;
+        Timer timer = new Timer(2000, e -> {
+            numberOfATierEnemies--;
+            enemies.add(EnemyFactory.createRandomATierEnemy());
+            addATierEnemies();
+        });
+        timer.setRepeats(false);
+        timer.start();
+    }
+
+
+    public static void stopSpawning(){
+        stopSpawning = true;
+    }
+
+    public static void spawnEnemies(){
+        stopSpawning = false;
+        addCtierThenTheRest();
+    }
+
+    public static boolean getStopSpawning(){
+        return stopSpawning;
+    }
+
+
+    public static int getNumberOfCTierEnemies() {
+        return numberOfCTierEnemies;
+    }
+
+    public static int getNumberOfBTierEnemies() {
+        return numberOfBTierEnemies;
+    }
+
+    public static int getNumberOfATierEnemies() {
+        return numberOfATierEnemies;
+    }
 }
 

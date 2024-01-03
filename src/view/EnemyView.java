@@ -22,12 +22,12 @@ public class EnemyView {
 
 
     public static void renderEnemy(Graphics g, EnemyModel enemyModel){
-        if(enemyModel.isAlive() && enemyModel.isSpawned())
+        if(enemyModel.isAlive())
             g.drawImage(getSprite(enemyModel),(int) (enemyModel.getX()*AppView.UNIT_SIZE), (int) (enemyModel.getY()*AppView.UNIT_SIZE), null);
     }
 
     public static void renderEnemyHealth(Graphics g, EnemyModel enemyModel){
-        if(enemyModel.isAlive() && enemyModel.isSpawned())
+        if(enemyModel.isAlive())
             g.drawString(String.valueOf(enemyModel.getHealth()), (int) (enemyModel.getX()*AppView.UNIT_SIZE) + g.getFontMetrics().stringWidth(String.valueOf(enemyModel.getHealth()))/2, (int) (enemyModel.getY()*AppView.UNIT_SIZE));
     }
 

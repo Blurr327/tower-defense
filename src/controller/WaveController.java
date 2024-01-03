@@ -13,48 +13,22 @@ import model.gamelogic.GameModel;
 import model.gamelogic.WaveModel;
 
 public class WaveController {
-    private static Timer spawningTimer;
-
-    static {
-        spawningTimer = new Timer(2 * 1000, e -> {
-
-            Iterator<EnemyModel> iterator = WaveModel.getEnemyIterator();
-            while (iterator.hasNext()) {
-                EnemyModel enemy = iterator.next();
-                if (!enemy.isSpawned()) {
-                    enemy.setSpawned(true);
-                    break;
-                }
-            }
-        });
-    }
-
-     public static void startWave() {
-         WaveModel.initEnemyArrayList();
-     }
 
      public static void nextWave() {
          WaveModel.nextWave();
-         initEnemySpawning();
      }
 
      public static void initWave() {
          WaveModel.initWave();
      }
 
-    public static void initEnemySpawning() {
-
-
-        spawningTimer.start();
-
-    }
-
     public static void stopEnemySpawning(){
-        spawningTimer.stop();
+        WaveModel.stopSpawning();
     }
 
     public static void resumeEnemySpawning(){
-        spawningTimer.start();
+        if(WaveModel.getStopSpawning())
+            WaveModel.spawnEnemies();
     }
     
 
@@ -62,7 +36,7 @@ public class WaveController {
         Iterator<EnemyModel> iterator = WaveModel.getEnemyIterator();
         while (iterator.hasNext()) {
             EnemyModel enemy = iterator.next();
-            if (enemy.isAlive() && enemy.isSpawned()) {
+            if (enemy.isAlive()) {
                 GameModel.handleEnemyMovement(enemy);
             }
         }

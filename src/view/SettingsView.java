@@ -7,6 +7,9 @@ import controller.AppController;
 import controller.EnemyController;
 import model.AppModel;
 import model.gamelogic.BottomSectionModel;
+import model.gamelogic.WaveModel;
+import model.gamelogic.wavestates.MarathonWaveState;
+import model.gamelogic.wavestates.NormalWaveState;
 import view.helperclasses.CustomButtonView;
 
 
@@ -38,6 +41,14 @@ public class SettingsView extends JPanel {
     CustomButtonView changeDifficultyToEasyButton = new CustomButtonView("Easy");
     CustomButtonView changeDifficultyToMediumButton = new CustomButtonView("Medium");
     CustomButtonView changeDifficultyToHardButton = new CustomButtonView("Hard");
+
+    private static CustomButtonView switchToMarathonButton = new CustomButtonView("Marathon");
+    private static CustomButtonView switchToNormalButton = new CustomButtonView("Normal");
+
+    static {
+        switchToMarathonButton.addActionListener(e -> WaveModel.setWaveModelState(new MarathonWaveState()));
+        switchToNormalButton.addActionListener(e -> WaveModel.setWaveModelState(new NormalWaveState()));
+    }
 
     Dimension buttonSize = new Dimension(120, 30); // Définir la taille préférée
 
@@ -94,6 +105,18 @@ public class SettingsView extends JPanel {
         gbc.gridx = 2;
         buttonsPanel.add(changeDifficultyToHardButton, gbc);
         changeDifficultyToHardButton.setPreferredSize(buttonSize);
+
+        // add marathon button neatly 
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        buttonsPanel.add(switchToMarathonButton, gbc);
+        switchToMarathonButton.setPreferredSize(buttonSize);
+
+        // add normal button neatly
+        gbc.gridx = 2;
+        buttonsPanel.add(switchToNormalButton, gbc);
+        switchToNormalButton.setPreferredSize(buttonSize);
+
 
     
         // Ajouter les JPanel à la SettingsView
@@ -152,4 +175,11 @@ public class SettingsView extends JPanel {
         return changeDifficultyToHardButton;
     }
 
+    public CustomButtonView getSwitchToMarathonButton() {
+        return switchToMarathonButton;
+    }
+
+    public CustomButtonView getSwitchToNormalButton() {
+        return switchToNormalButton;
+    }
 }

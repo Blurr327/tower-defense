@@ -40,4 +40,12 @@ public class PlayManagerView extends JPanel{
         return switchToEditAndEndGameButton;
     }
 
+    public void disableSwitchToEditButton() {
+        switchToEditAndEndGameButton.setEnabled(false);
+    }
+
+    public void enableSwitchToEditButton() {
+        switchToEditAndEndGameButton.setEnabled(true);
+    }
+
 }

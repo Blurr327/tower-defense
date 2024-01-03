@@ -1,8 +1,6 @@
-package model.enemies;
+package model.gamelogic;
 
 import javax.swing.Timer;
-
-import model.gamelogic.MapComponentModel;
 
 public abstract class AggressiveModel extends MapComponentModel{
     protected Timer attackTimer;
