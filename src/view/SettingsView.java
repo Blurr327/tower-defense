@@ -7,6 +7,7 @@ import controller.AppController;
 import controller.EnemyController;
 import model.AppModel;
 import model.gamelogic.BottomSectionModel;
+import model.gamelogic.GameModel;
 import model.gamelogic.WaveModel;
 import model.gamelogic.wavestates.MarathonWaveState;
 import model.gamelogic.wavestates.NormalWaveState;
@@ -46,8 +47,16 @@ public class SettingsView extends JPanel {
     private static CustomButtonView switchToNormalButton = new CustomButtonView("Normal");
 
     static {
-        switchToMarathonButton.addActionListener(e -> WaveModel.setWaveModelState(new MarathonWaveState()));
-        switchToNormalButton.addActionListener(e -> WaveModel.setWaveModelState(new NormalWaveState()));
+        switchToMarathonButton.addActionListener(e -> {
+            WaveModel.setWaveModelState(new MarathonWaveState());
+            GameModel.setGameStarted(false);
+        }
+        );
+        switchToNormalButton.addActionListener(e -> {
+            WaveModel.setWaveModelState(new NormalWaveState());
+            GameModel.setGameStarted(false);
+        }
+        );
     }
 
     Dimension buttonSize = new Dimension(120, 30); // Définir la taille préférée

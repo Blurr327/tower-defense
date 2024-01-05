@@ -24,7 +24,7 @@ public class AppController {
         view.updateCard();
         view.getAppContainer().getGameView().requestFocusInWindow();
         if(g == AppModel.AppMode.MENU || g == AppModel.AppMode.SETTINGS){
-            GameController.stopUpdateLoop();
+            view.getAppContainer().getGameView().switchToEdit();
         }
     }
 

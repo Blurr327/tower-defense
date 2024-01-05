@@ -1,5 +1,7 @@
 package model.gamelogic.wavestates;
 
+import javax.swing.Timer;
+
 import model.gamelogic.WaveModel;
 
 public class MarathonWaveState implements WaveModelState{

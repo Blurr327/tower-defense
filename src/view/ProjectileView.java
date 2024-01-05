@@ -14,7 +14,6 @@ public class ProjectileView {
     private static HashMap<ProjectileModel, BufferedImage> projectileSprites = new HashMap<ProjectileModel, BufferedImage>();
 
     public static void renderProjectile(Graphics g,ProjectileModel projectile){
-        System.out.println(projectile.getX() + " " + projectile.getY());
         g.drawImage(getSprite(projectile), (int) (projectile.getX()*AppView.UNIT_SIZE), (int) (projectile.getY()*AppView.UNIT_SIZE), null);
     }
 

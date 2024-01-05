@@ -1,9 +1,12 @@
 package model.map.mapeditorstates;
 
+import model.gamelogic.GameModel;
 import model.gamelogic.ShmucklesModel;
+import model.gamelogic.WaveModel;
+import model.gamelogic.wavestates.MarathonWaveState;
 import model.map.MapEditorModel;
 import model.towers.TowerManagerModel;
-
+    
 
 public class TowerState implements MapEditorState{
     

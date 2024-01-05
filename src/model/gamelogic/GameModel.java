@@ -50,18 +50,45 @@ public class GameModel {
         return false;
     }
 
-    public static boolean  checkNextWaveCondition() {
-        if(WaveModel.areAllEnemiesDead()){
-            return true;
-        }
-        return false;
-    }
-
     public static boolean checkGameOverCondition() {
         if(BaseModel.getHealth() <= 0){
             return true;
         }
         return false;
+    }
+
+    public static void updateEnemiesAndTileObservers() {
+        int oldx;
+        int oldy;
+        int newx;
+        int newy;
+        Iterator<EnemyModel> iterator = WaveModel.getEnemyIterator();
+        while (iterator.hasNext()) {
+            EnemyModel enemy = iterator.next();
+            
+            if (enemy.isAlive()) {
+                oldx = (int) enemy.getX();
+                oldy = (int) enemy.getY();
+
+                handeEnemyDirection(enemy);
+                enemy.move();
+
+                newx = (int) enemy.getX();
+                newy = (int) enemy.getY();
+
+                if(oldx != newx || oldy != newy){
+                    MapModel.getTileAt(oldx, oldy).notifyObserversOfDeparture(enemy, MapModel.getTileAt(newx, newy));
+                    MapModel.getTileAt(newx, newy).notifyObserversOfEntering(enemy);
+                }
+            }
+            else {
+                enemy.stopAttackTimer();
+                iterator.remove();
+                ShmucklesModel.setShmuckles(ShmucklesModel.getShmuckles()+enemy.getReward());
+                MapModel.getTileAt((int)enemy.getX(), (int)enemy.getY()).notifyObserversOfEnemyDeath(enemy);
+            }
+
+        }
     }
 
     public static void handleEnemyMovement(EnemyModel enemyModel){

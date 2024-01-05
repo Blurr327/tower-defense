@@ -17,6 +17,7 @@ import model.gamelogic.GameModel.GameMode;
 import model.gamelogic.wavestates.MarathonWaveState;
 import model.gamelogic.wavestates.NormalWaveState;
 import model.map.MapModel;
+import model.map.TileModel;
 import model.towers.TowerManagerModel;
 import view.AppView;
 import view.GameView;
@@ -83,18 +84,13 @@ public class GameController implements KeyListener {
 
     // this method initializes the spawn and target tiles for the enemies and starts the update loop
     public void initGame(){
-        if(!(WaveModel.getWaveModelState() instanceof MarathonWaveState)) {
-            view.getBottomSectionView().getPlayManagerView().disableSwitchToEditButton();
-        }
-        else {
-            view.getBottomSectionView().getPlayManagerView().enableSwitchToEditButton();
-        } 
         // initializing base health
         BaseController.initBase();
         // initializing the enemy arraylist according to the algorithm described in wavemodel
         WaveController.initWave();
         // initializing the shmuckles
         ShmucklesModel.initShmuckles();
+        
         GameModel.setGameStarted(true);
         // running the loop to update gamelogic
         runUpdateLoop(); 
@@ -135,9 +131,8 @@ public class GameController implements KeyListener {
             }
         }
         else{
-            TowerManagerModel.updateCurrentEnemyTargets();
-            WaveController.handleEnemyMovement();
-            WaveController.updateEnemyArrayList();
+            GameModel.updateEnemiesAndTileObservers();
+            TowerManagerModel.handleShotProjectiles();
             GameModel.updateBaseHealth();
         }
     }

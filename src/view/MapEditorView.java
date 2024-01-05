@@ -151,4 +151,22 @@ public class MapEditorView extends JPanel{
             i++;
         }
     }
+
+    public void disableTowerButtons(){
+        Iterator<TowerModel> towerIterator = TowerFactory.getTowerIterator();
+        while(towerIterator.hasNext()) {
+            TowerModel tower = towerIterator.next();
+            JButton button = new JButton(TowerView.getIcon(tower));
+            button.setEnabled(false);
+        }
+    }
+
+    public void enableTowerButtons(){
+        Iterator<TowerModel> towerIterator = TowerFactory.getTowerIterator();
+        while(towerIterator.hasNext()) {
+            TowerModel tower = towerIterator.next();
+            JButton button = new JButton(TowerView.getIcon(tower));
+            button.setEnabled(true);
+        }
+    }
 }

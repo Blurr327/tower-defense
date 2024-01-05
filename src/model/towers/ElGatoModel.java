@@ -6,7 +6,7 @@ import model.towers.projectiles.ProjectileModel;
 import model.towers.projectiles.YarnBallModel;
 
 public class ElGatoModel extends TowerModel{
-    private static int range = 3;
+    private static int range = 1;
     private static int attackSpeed = 1000;
     private static ProjectileModel projectile = new YarnBallModel();
     private static int attackSpeedUpgradeCost = 30;

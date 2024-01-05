@@ -6,6 +6,8 @@ import javax.swing.*;
 import controller.GameController;
 import controller.MapController;
 import model.gamelogic.BottomSectionModel;
+import model.gamelogic.WaveModel;
+import model.gamelogic.wavestates.NormalWaveState;
 import model.map.MapModel;
 import view.helperclasses.CustomButtonView;
 
@@ -60,4 +62,11 @@ public class GameView extends JPanel{
         public MapView getMapView() {
         return mapView;
     }
+
+    public void switchToEdit() {
+         gameController.switchToEdit();
+         if(WaveModel.getWaveModelState() instanceof NormalWaveState) bottomSectionView.getMapEditorView().disableTowerButtons();
+            else bottomSectionView.getMapEditorView().enableTowerButtons();
+    }
+
 }
