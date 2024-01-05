@@ -7,6 +7,7 @@ import model.enemies.EnemyModel;
 import model.gamelogic.BaseModel;
 import model.map.MapModel;
 import model.towers.TowerManagerModel;
+import model.towers.TowerModel;
 import view.AppView;
 import view.BaseView;
 import view.EnemyView;
@@ -38,8 +39,9 @@ public class PlayStateView implements MapViewState{
     }
 
     public void renderProjectiles(Graphics g){
-        for(int i=0;i<TowerManagerModel.getNumberOfTowers();i++){
-            TowerView.renderProjectilesOf(g, TowerManagerModel.getTowerByIndex(i));
+        Iterator<TowerModel> towerIterator = TowerManagerModel.getTowerIterator();
+        while(towerIterator.hasNext()){
+            TowerView.renderProjectilesOf(g, towerIterator.next());
         }
     }
 

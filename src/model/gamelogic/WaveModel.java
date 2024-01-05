@@ -140,19 +140,6 @@ public class WaveModel extends ArrayList<EnemyModel>{
         System.out.println("Wave : " + getWaveNumber());
     }
 
-    public static void handleEnemyDeath() {
-        Iterator<EnemyModel> iterator = WaveModel.enemies.iterator();
-        while(iterator.hasNext()){
-            EnemyModel enemy = iterator.next();
-            if(!enemy.isAlive()){
-                enemy.stopAttackTimer();
-                iterator.remove();
-                ShmucklesModel.setShmuckles(ShmucklesModel.getShmuckles()+enemy.getReward());
-                System.out.println(ShmucklesModel.getShmuckles());
-            }
-        }
-    }
-
 
     public static Iterator<EnemyModel> getEnemyIterator() {
         return enemies.iterator();

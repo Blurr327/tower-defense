@@ -44,23 +44,6 @@ public class TowerManagerModel {
         return false;
     }
 
-    public static void updateCurrentEnemyTargets(){
-        Iterator<EnemyModel> enemyIterator = WaveModel.getEnemyIterator();
-        while(enemyIterator.hasNext()){
-            EnemyModel enemy = enemyIterator.next();
-            Iterator<TowerModel> towerIterator = towersInGame.iterator();
-            while(towerIterator.hasNext()){
-                TowerModel tower = towerIterator.next();
-                if(tower.isInRange(enemy)) {
-                    // if the tower is already attacking an enemy, don't change it until they're out of range or dead
-                    tower.setCurrentTargetEnemyIfNotSet(enemy);
-                    tower.startAttackTimer();  
-                }
-                 tower.handleCurrentEnemyTargetOutOfRangeOrDead();
-            }
-        }
-    }
-
     public static void handleShotProjectiles() {
         Iterator<TowerModel> towerIterator = towersInGame.iterator();
         while(towerIterator.hasNext()){
@@ -71,10 +54,6 @@ public class TowerManagerModel {
 
     public static int getNumberOfTowers(){
         return towersInGame.size();
-    }
-
-    public static TowerModel getTowerByIndex(int index){
-        return towersInGame.get(index);
     }
 
     public static void clearTowers(){

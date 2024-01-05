@@ -64,8 +64,5 @@ public class WaveController {
         }
     }
 
-     public static void updateEnemyArrayList() {
-        WaveModel.handleEnemyDeath();
-     }
 }
 

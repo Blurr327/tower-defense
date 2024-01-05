@@ -16,10 +16,6 @@ public class TowerFactory {
         return allTowers.size();
     }
 
-    public static TowerModel getTowerByIndex(int index){
-        return allTowers.get(index);
-    }
-
     public static Iterator<TowerModel> getTowerIterator(){
         return allTowers.iterator();
     }

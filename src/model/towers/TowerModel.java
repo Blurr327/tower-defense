@@ -62,11 +62,6 @@ public abstract class TowerModel extends AggressiveModel implements Upgradable {
         attackSpeed -= 500;
     }
 
-
-    public boolean isInRange(EnemyModel enemy){
-        return Math.sqrt(Math.pow(enemy.getX() - x, 2) + Math.pow(enemy.getY() - y, 2)) <= range;
-    }
-
     public int getRange() {
         return range;
     }
@@ -95,20 +90,6 @@ public abstract class TowerModel extends AggressiveModel implements Upgradable {
         this.level = level;
     }
 
-    public void setCurrentTargetEnemyIfNotSet(EnemyModel currentTargetEnemy) {
-        if (this.currentTargetEnemy != null && isInRange(this.currentTargetEnemy)) {
-            return;
-        }
-        else this.currentTargetEnemy = currentTargetEnemy;
-    }
-
-    public void handleCurrentEnemyTargetOutOfRangeOrDead(){
-        if(currentTargetEnemy != null && (!isInRange(currentTargetEnemy) || !currentTargetEnemy.isAlive())){
-            System.out.println("Enemy out of range");
-            currentTargetEnemy = null;
-            stopAttackTimer();
-        }
-    }
     public void manageShotProjectiles(){
         List<ProjectileModel> projectilesToRemove = new ArrayList<>();
         if(currentTargetEnemy== null) projectilesShot.clear();
@@ -139,13 +120,10 @@ public abstract class TowerModel extends AggressiveModel implements Upgradable {
             this.startAttackTimer();
         }
         if(!enemiesInRange.contains(enemy)) enemiesInRange.add(enemy);
-        System.out.println(enemiesInRange + "enemies in range added");
     }
 
     public void updateEnemyOutOfRangeOrDead(EnemyModel enemy) {
-                System.out.println(enemiesInRange+ "before deletion");
         enemiesInRange.remove(enemy);
-        System.out.println(enemiesInRange+ "after deletion");
         this.stopAttackTimer();
         if(!enemiesInRange.isEmpty()){
             currentTargetEnemy = enemiesInRange.get(0);
@@ -163,7 +141,6 @@ public abstract class TowerModel extends AggressiveModel implements Upgradable {
                 }
             }
         }
-        tilesWithinRange.forEach(tile -> System.out.println(tile.getX() + " " + tile.getY()));
         return tilesWithinRange;
     }
 }
