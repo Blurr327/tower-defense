@@ -38,8 +38,10 @@ public class SteveModel extends TowerModel {
     }
 
     @Override
-    public double getFireRate() {
-        return attackSpeed;
+    public float getFireRate() {
+        double mtos = (double) attackSpeed / 1000;
+        double rpm = mtos * 60;
+        return (float)rpm;
     }
     
 }

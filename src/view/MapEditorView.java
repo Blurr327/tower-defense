@@ -167,7 +167,7 @@ public class MapEditorView extends JPanel{
         if (MapEditorModel.getSelectedTower() != null) {
             String statistics = "Range : " + MapEditorModel.getSelectedTower().getRange()  
                                 + " | Damage : " + MapEditorModel.getSelectedTower().getProjectile().getDamage()
-                                + " | Firerate : " + MapEditorModel.getSelectedTower().getFireRate() / 1000 * 60 + "rpm";
+                                + " | Firerate : " + MapEditorModel.getSelectedTower().getFireRate() + "rpm";
             g.drawString(statistics, BottomSectionModel.SECTION_WIDTH*AppView.UNIT_SIZE - 320, BottomSectionModel.SECTION_HEIGHT*AppView.UNIT_SIZE - 80 + AppView.UNIT_SIZE/2);
         }
     }
