@@ -175,9 +175,11 @@ public class MapEditorView extends JPanel{
     public void draw(Graphics g) {
         g.setColor(Color.lightGray);
         g.fillRect(0, 0, BottomSectionModel.SECTION_WIDTH*AppView.UNIT_SIZE, BottomSectionModel.SECTION_HEIGHT*AppView.UNIT_SIZE);
+        if(!(MapEditorModel.getSelectedTower() == null)){
+            renderTowerStatsName(g);
+            renderTowerStatsFirePower(g);
+        }
         renderShmuckles(g);
-        renderTowerStatsName(g);
-        renderTowerStatsFirePower(g);
     }
         
     public CustomButtonView getSwitchToPlayManagerButton() {

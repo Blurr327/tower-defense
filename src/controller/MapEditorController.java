@@ -52,6 +52,7 @@ public class MapEditorController {
         MapEditorModel.setMapEditorState(new TileStateModel());
         EditStateView.setEditStateView(new TileEditStateView());
         MapEditorModel.setSelectedTileType(type);
+        MapEditorModel.setSelectedTower(null);
         // print the name of the tile selected
         System.out.println("Tile selected : " + MapEditorModel.getTileName());
     }
