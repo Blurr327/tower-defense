@@ -13,6 +13,10 @@ import model.gamelogic.wavestates.MarathonWaveState;
 import model.gamelogic.wavestates.NormalWaveState;
 import view.helperclasses.CustomButtonView;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.ActionEvent;
+
 
 /*
  * this class is used to adjust the FPS, difficulty and sound settings
@@ -132,6 +136,118 @@ public class SettingsView extends JPanel {
         add(menuPanel, BorderLayout.NORTH);
         add(buttonsPanel, BorderLayout.CENTER);
 
+        // idk why I had to do that, addActionListener doesn't want to work
+        Action BackToMenu = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Simulate a click on the settings button
+                getSwitchToMenuButton().doClick();
+            }
+        };
+    
+        // Add the key binding to the JPanel, we have to do it for every bind... but no choice I guess è_é
+        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('m'), "BackToMenu");
+        this.getActionMap().put("BackToMenu", BackToMenu);
+
+        Action ChangeTheDifficulty = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Simulate a click on the settings button
+                int currentDifficulty = GameModel.getDifficulty();
+                int newDifficulty = currentDifficulty < 3 ? currentDifficulty + 1 : 1;
+                GameModel.setDifficulty(newDifficulty);
+
+                switch (newDifficulty){
+                    case 1:
+                        getChangeDifficultyToEasyButton().doClick();
+                        System.out.println("Enemies are now 25% slower :D");
+                        break;
+                    case 2:
+                        getChangeDifficultyToNormalButton().doClick();
+                        System.out.println("Enemies pace unchanged :)");
+                        break;
+                    case 3:
+                        getChangeDifficultyToHardButton().doClick();
+                        System.out.println("Enemies are now 25% faster (°)_(°)'");
+                        break;
+                }
+            }
+        };
+
+        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('d'), "ChangeTheDifficulty");
+        this.getActionMap().put("ChangeTheDifficulty", ChangeTheDifficulty);
+
+        Action ChangeTheFPS = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Cycle through the FPS options
+                int currentFPS = (int)AppView.getFPS();
+                int newFPS;
+                if (currentFPS == 30) {
+                    newFPS = 60;
+                } else if (currentFPS == 60) {
+                    newFPS = 120;
+                } else {
+                    newFPS = 30;
+                }
+                AppView.setFPS(newFPS);
+
+                switch (newFPS){
+                    case 30:
+                        getChangeFPSTo30Button().doClick();
+                        System.out.println("(FPS changed with a keystroke)");
+                        break;
+                    case 60:
+                        getChangeFPSTo60Button().doClick();
+                        System.out.println("(FPS changed with a keystroke)");
+                        break;
+                    case 120:
+                        getChangeFPSTo120Button().doClick();
+                        System.out.println("(FPS changed with a keystroke)");
+                        break;
+                }
+            }
+        };
+
+        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('f'), "ChangeTheFPS");
+        this.getActionMap().put("ChangeTheFPS", ChangeTheFPS);
+
+        Action ChangeTheTickrates = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Cycle through the tickrate options
+                int currentTickrate = (int)AppModel.getUPS();
+                int newTickrate;
+                if (currentTickrate == 32) {
+                    newTickrate = 64;
+                } else if (currentTickrate == 64) {
+                    newTickrate = 128;
+                } else {
+                    newTickrate = 32;
+                }
+                AppModel.setUPS(newTickrate);
+        
+                switch (newTickrate){
+                    case 32:
+                        getChangeTickRateTo32Button().doClick();
+                        System.out.println("(Tickrate changed with a keystroke)");
+                        break;
+                    case 64:
+                        getChangeTickRateTo64Button().doClick();
+                        System.out.println("(Tickrate changed with a keystroke)");
+                        break;
+                    case 128:
+                        getChangeTickRateTo128Button().doClick();
+                        System.out.println("(Tickrate changed with a keystroke)");
+                        break;
+                }
+            }
+        };
+        
+        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('t'), "ChangeTheTickrates");
+        this.getActionMap().put("ChangeTheTickrates", ChangeTheTickrates);
+        
+
     }
 
     public void paintComponent(Graphics g){
@@ -169,7 +285,7 @@ public class SettingsView extends JPanel {
     }
 
     public CustomButtonView getChangeTickRateTo128Button() {
-        return changeTickRateTo128Button;
+        return changeTickRateTo128Button; // Even Counter-Strike 2 doesn't have 128 tickrates anymore (° ) _ (° )
     }
 
     public CustomButtonView getChangeDifficultyToEasyButton() {

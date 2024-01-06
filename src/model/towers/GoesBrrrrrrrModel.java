@@ -10,6 +10,7 @@ public class GoesBrrrrrrrModel extends TowerModel {
     private static ProjectileModel projectile = new BulletsBrrrrrModel();
     private static int attackSpeedUpgradeCost = 100;
     private static int rangeUpgradeCost = 100;
+    private static String name = "Bunker";
    
 
     public GoesBrrrrrrrModel() {
@@ -29,6 +30,16 @@ public class GoesBrrrrrrrModel extends TowerModel {
     @Override
     public TowerModel newInstance() {
         return new GoesBrrrrrrrModel();
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public int getFireRate() {
+        return attackSpeed;
     }
     
 }

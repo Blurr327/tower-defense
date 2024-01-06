@@ -31,11 +31,19 @@ public class MapEditorModel extends BottomSectionModel {
     }
 
     public static int getTileToModX() {
-        return tileToMod.getX();
+        if (tileToMod != null) {
+            return tileToMod.getX();
+        } else {
+            return -1; // had to do it, otherwise pressing t would crash the game
+        }
     }
 
     public static int getTileToModY() {
-        return tileToMod.getY();
+        if (tileToMod != null) {
+            return tileToMod.getY();
+        } else {
+            return -1;
+        }
     }
 
     public static TileType getSelectedTileType() {
@@ -137,6 +145,7 @@ public class MapEditorModel extends BottomSectionModel {
     public static void handleModificationEvent(){
         mapEditorState.handleState();
     }
+
 }
 
 

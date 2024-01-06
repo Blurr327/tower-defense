@@ -7,6 +7,7 @@ import model.AppModel;
 import model.AppModel.AppMode;
 import model.enemies.EnemyModel;
 import model.gamelogic.BottomSectionModel;
+import model.gamelogic.GameModel;
 import model.map.MapModel;
 
 import java.awt.*;
@@ -46,6 +47,7 @@ public class AppView extends JFrame {
         this.model = model;
         this.controller = controller;
         initUI();
+        
     }
 
     public void setModel(AppModel model) {  
@@ -149,14 +151,17 @@ public class AppView extends JFrame {
         });
         settingsView.getChangeDifficultyToEasyButton().addActionListener(e -> {
             EnemyModel.setDifficultyMultiplierSpeed(0.75f);
+            GameModel.setDifficulty(1);
             System.out.println("Difficulty : Easy" + " (" + EnemyModel.getDifficultyMultiplierSpeed() + ")");
         });
         settingsView.getChangeDifficultyToNormalButton().addActionListener(e -> {
             EnemyModel.setDifficultyMultiplierSpeed(1.0f);
+            GameModel.setDifficulty(2);
             System.out.println("Difficulty : Normal" + " (" + EnemyModel.getDifficultyMultiplierSpeed() + ")");
         });
         settingsView.getChangeDifficultyToHardButton().addActionListener(e -> {
-            EnemyModel.setDifficultyMultiplierSpeed(0.25f);
+            EnemyModel.setDifficultyMultiplierSpeed(1.25f);
+            GameModel.setDifficulty(3);
             System.out.println("Difficulty : Hard" + " (" + EnemyModel.getDifficultyMultiplierSpeed() + ")");
         });
     

@@ -11,6 +11,7 @@ public class ElGatoModel extends TowerModel{
     private static ProjectileModel projectile = new YarnBallModel();
     private static int attackSpeedUpgradeCost = 30;
     private static int rangeUpgradeCost = 30;
+    private static String name = "Tower Cat";
    
 
     public ElGatoModel() {
@@ -30,5 +31,15 @@ public class ElGatoModel extends TowerModel{
     @Override
     public TowerModel newInstance() {
         return new ElGatoModel();
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public int getFireRate() {
+        return attackSpeed;
     }
 }

@@ -25,6 +25,17 @@ import java.awt.Font;
 
 import java.util.Iterator;
 
+import javax.swing.JComponent;
+import javax.swing.KeyStroke;
+import javax.swing.Action;
+import javax.swing.AbstractAction;
+import java.awt.event.ActionEvent;
+
+import javax.swing.JComponent;
+import javax.swing.KeyStroke;
+import javax.swing.Action;
+import javax.swing.AbstractAction;
+import java.awt.event.ActionEvent;
 
 public class MapEditorView extends JPanel{
 
@@ -69,6 +80,60 @@ public class MapEditorView extends JPanel{
         
         // add actions listenrs to the buttons
         addActionListeners();
+
+        Action LaunchTheGame = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Simulate a click on the settings button
+                getSwitchToPlayManagerButton().doClick();
+                System.out.println("(With a pressed key)");
+            }
+        };
+    
+        // Add the key binding to the JPanel, we have to do it for every bind... but no choice I guess è_é
+        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('p'), "LaunchTheGame");
+        this.getActionMap().put("LaunchTheGame", LaunchTheGame);
+
+        Action ResumeTheGame = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Simulate a click on the settings button
+                getResumeButton().doClick();
+                System.out.println("(With a pressed key)");
+            }
+        };
+    
+        // Add the key binding to the JPanel, we have to do it for every bind... but no choice I guess è_é
+        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('r'), "ResumeTheGame");
+        this.getActionMap().put("ResumeTheGame", ResumeTheGame);
+
+        Action SelectTarget = new AbstractAction() {
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                // Simulate a click on the settings button
+                targetPointEditorButton.doClick();
+                System.out.println("(With a pressed key)");
+            }
+        };
+    
+        // Add the key binding to the JPanel, we have to do it for every bind... but no choice I guess è_é
+        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('t'), "SelectTarget");
+        this.getActionMap().put("SelectTarget", SelectTarget);
+
+        Action SelectSpawn = new AbstractAction() {
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                // Simulate a click on the settings button
+                spawnPointEditorButton.doClick();
+                System.out.println("(With a pressed key)");
+            }
+        };
+    
+        // Add the key binding to the JPanel, we have to do it for every bind... but no choice I guess è_é
+        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('s'), "SelectSpawn");
+        this.getActionMap().put("SelectSpawn", SelectSpawn);
+
+        
     }
 
     public void paintComponent(Graphics g){
@@ -77,18 +142,43 @@ public class MapEditorView extends JPanel{
     }
 
     public void renderShmuckles(Graphics g){
-        // draw shmuckles on bottom right corner of bottom section
-        g.setColor(Color.black);
-        g.setFont(new Font("Dialog", Font.PLAIN, 20));
+        // draw shmuckles on bottom right corner of bottom 
+        Color greenMoney = new Color (17, 140, 79);
+        g.setColor(greenMoney);
+        g.setFont(new Font("Dialog", Font.PLAIN, AppView.UNIT_SIZE/2)); // Using Unit_Size instead of an random Int would make the placement easier
         g.drawString("Shmuckles: " + ShmucklesModel.getShmuckles(), BottomSectionModel.SECTION_WIDTH*AppView.UNIT_SIZE - 200, BottomSectionModel.SECTION_HEIGHT*AppView.UNIT_SIZE - 15);
     }
+
+    // to display the stats of the tower (costs, range, ...)
+    public void renderTowerStatsName (Graphics g){
+        g.setColor(Color.black);
+        g.setFont(new Font("Dialog", Font.PLAIN, AppView.UNIT_SIZE/2)); 
+        if (MapEditorModel.getSelectedTower() != null) {
+            String statistics = MapEditorModel.getSelectedTower().getName() 
+                                + " (" + MapEditorModel.getSelectedTower().getCost() + " Shmuckles" + ")";
+            g.drawString(statistics, BottomSectionModel.SECTION_WIDTH*AppView.UNIT_SIZE - 320, BottomSectionModel.SECTION_HEIGHT*AppView.UNIT_SIZE - 80);
+        }
+    }
+
+    public void renderTowerStatsFirePower (Graphics g){
+        g.setColor(Color.black);
+        g.setFont(new Font("Dialog", Font.PLAIN, AppView.UNIT_SIZE/2)); 
+        if (MapEditorModel.getSelectedTower() != null) {
+            String statistics = "Range : " + MapEditorModel.getSelectedTower().getRange()  
+                                + " | Damage : " + MapEditorModel.getSelectedTower().getProjectile().getDamage()
+                                + " | Fire Delay : " + MapEditorModel.getSelectedTower().getAttackSpeed();
+            g.drawString(statistics, BottomSectionModel.SECTION_WIDTH*AppView.UNIT_SIZE - 320, BottomSectionModel.SECTION_HEIGHT*AppView.UNIT_SIZE - 80 + AppView.UNIT_SIZE/2);
+        }
+    }
+
 
     public void draw(Graphics g) {
         g.setColor(Color.lightGray);
         g.fillRect(0, 0, BottomSectionModel.SECTION_WIDTH*AppView.UNIT_SIZE, BottomSectionModel.SECTION_HEIGHT*AppView.UNIT_SIZE);
         renderShmuckles(g);
+        renderTowerStatsName(g);
+        renderTowerStatsFirePower(g);
     }
-
         
     public CustomButtonView getSwitchToPlayManagerButton() {
         return switchToPlayAndStartGameManagerButton;

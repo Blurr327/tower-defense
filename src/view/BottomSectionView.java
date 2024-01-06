@@ -32,6 +32,7 @@ public class BottomSectionView extends JPanel {
         this.controller = new BottomSectionController(this, model);
         initCardLayout();
         setPanelSize();
+        
     }
 
     public void initCardLayout(){

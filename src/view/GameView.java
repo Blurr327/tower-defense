@@ -11,6 +11,7 @@ import model.gamelogic.wavestates.NormalWaveState;
 import model.map.MapModel;
 import view.helperclasses.CustomButtonView;
 
+import java.awt.event.ActionEvent;
 
 /*
  * This class is the container containing the bottom section and the map
@@ -41,6 +42,17 @@ public class GameView extends JPanel{
         switchToMenuButton.setBounds(5, 5, 80, 30);
         bottomSectionView.setBounds(0, MapModel.HEIGHT*AppView.UNIT_SIZE, BottomSectionModel.SECTION_WIDTH*AppView.UNIT_SIZE, BottomSectionModel.SECTION_HEIGHT*AppView.UNIT_SIZE);
         mapView.setBounds(0,0,MapModel.WIDTH*AppView.UNIT_SIZE, MapModel.HEIGHT*AppView.UNIT_SIZE);
+        Action BackToMenu = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Simulate a click on the settings button
+                getSwitchToMenuButton().doClick();
+            }
+        };
+    
+        // Add the key binding to the JPanel, we have to do it for every bind... but no choice I guess è_é
+        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('m'), "BackToMenu");
+        this.getActionMap().put("BackToMenu", BackToMenu);
     }
 
 

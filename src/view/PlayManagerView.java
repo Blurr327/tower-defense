@@ -11,6 +11,12 @@ import model.gamelogic.PlayManagerModel;
 import model.map.MapModel;
 import view.helperclasses.CustomButtonView;
 
+import javax.swing.JComponent;
+import javax.swing.KeyStroke;
+import javax.swing.Action;
+import javax.swing.AbstractAction;
+import java.awt.event.ActionEvent;
+
 /*
  * This class is responsible for displaying your current balance, the current wave, and the towers available to you
  */
@@ -23,6 +29,19 @@ public class PlayManagerView extends JPanel{
         this.setLayout(null);
         add(switchToEditAndEndGameButton);
         switchToEditAndEndGameButton.setBounds(15,15,90,30);
+
+        Action StartEditing = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Simulate a click on the settings button
+                getSwitchToEditButton().doClick();
+                System.out.println("(With a pressed key)");
+            }
+        };
+    
+        // Add the key binding to the JPanel, we have to do it for every bind... but no choice I guess è_é
+        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('e'), "StartEditing");
+        this.getActionMap().put("StartEditing", StartEditing);
     }
 
     public void paintComponent(Graphics g){

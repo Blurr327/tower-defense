@@ -143,4 +143,14 @@ public abstract class TowerModel extends AggressiveModel implements Upgradable {
         }
         return tilesWithinRange;
     }
+
+    // to get the type of ammunition being used 
+    public ProjectileModel getProjectile() {
+        return projectile;
+    }
+
+    public abstract String getName();
+
+    public abstract int getFireRate();
+
 }
