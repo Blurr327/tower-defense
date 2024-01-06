@@ -28,4 +28,5 @@ public abstract class AggressiveModel extends MapComponentModel{
     public void setAttackSpeed(int attackSpeed) {
         this.attackSpeed = attackSpeed;
     }
+    
 }

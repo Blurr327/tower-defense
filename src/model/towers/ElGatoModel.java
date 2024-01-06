@@ -39,7 +39,7 @@ public class ElGatoModel extends TowerModel{
     }
 
     @Override
-    public int getFireRate() {
+    public double getFireRate() {
         return attackSpeed;
     }
 }

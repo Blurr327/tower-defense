@@ -151,6 +151,6 @@ public abstract class TowerModel extends AggressiveModel implements Upgradable {
 
     public abstract String getName();
 
-    public abstract int getFireRate();
+    public abstract double getFireRate();
 
 }

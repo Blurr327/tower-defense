@@ -38,7 +38,7 @@ public class GoesBrrrrrrrModel extends TowerModel {
     }
 
     @Override
-    public int getFireRate() {
+    public double getFireRate() {
         return attackSpeed;
     }
     

@@ -154,9 +154,10 @@ public class MapEditorView extends JPanel{
         g.setColor(Color.black);
         g.setFont(new Font("Dialog", Font.PLAIN, AppView.UNIT_SIZE/2)); 
         if (MapEditorModel.getSelectedTower() != null) {
-            String statistics = MapEditorModel.getSelectedTower().getName() 
+            String ident = MapEditorModel.getSelectedTower().getName() 
+                                + " lvl " + MapEditorModel.getSelectedTower().getLevel()
                                 + " (" + MapEditorModel.getSelectedTower().getCost() + " Shmuckles" + ")";
-            g.drawString(statistics, BottomSectionModel.SECTION_WIDTH*AppView.UNIT_SIZE - 320, BottomSectionModel.SECTION_HEIGHT*AppView.UNIT_SIZE - 80);
+            g.drawString(ident, BottomSectionModel.SECTION_WIDTH*AppView.UNIT_SIZE - 320, BottomSectionModel.SECTION_HEIGHT*AppView.UNIT_SIZE - 80);
         }
     }
 
@@ -166,7 +167,7 @@ public class MapEditorView extends JPanel{
         if (MapEditorModel.getSelectedTower() != null) {
             String statistics = "Range : " + MapEditorModel.getSelectedTower().getRange()  
                                 + " | Damage : " + MapEditorModel.getSelectedTower().getProjectile().getDamage()
-                                + " | Fire Delay : " + MapEditorModel.getSelectedTower().getAttackSpeed();
+                                + " | Firerate : " + MapEditorModel.getSelectedTower().getFireRate() / 1000 * 60 + "rpm";
             g.drawString(statistics, BottomSectionModel.SECTION_WIDTH*AppView.UNIT_SIZE - 320, BottomSectionModel.SECTION_HEIGHT*AppView.UNIT_SIZE - 80 + AppView.UNIT_SIZE/2);
         }
     }
