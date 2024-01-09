@@ -43,15 +43,15 @@ public class GameController implements KeyListener {
     public void switchToEditAndEndGame() {
         endGame();
         switchToEdit();
+        System.out.println("Edit mode");
     }
 
     public void switchToEdit(){
-        System.out.println("Edit mode");
         
         if(GameModel.hasGameStarted()){
             view.getBottomSectionView().getMapEditorView().addResumeButton();
             view.getBottomSectionView().getMapEditorView().getSwitchToPlayManagerButton().setText("Restart");
-        }    
+        }
         else{
          view.getBottomSectionView().getMapEditorView().removeResumeButton();
             view.getBottomSectionView().getMapEditorView().getSwitchToPlayManagerButton().setText("Play");
@@ -121,9 +121,11 @@ public class GameController implements KeyListener {
         if(GameModel.checkGameOverCondition()){
             // TODO: Show game over message 
             switchToEditAndEndGame();
+            System.out.println("You lost :(");
         }
         else if(WaveModel.getWaveModelState().checkNextWaveCondition()){
             // TODO: Show next wave message and congratulate player
+            System.out.println("Wave cleared !");
             WaveModel.getWaveModelState().handleNextWaveCondition();
             if(WaveModel.getWaveModelState() instanceof NormalWaveState) {
                 switchToEdit();

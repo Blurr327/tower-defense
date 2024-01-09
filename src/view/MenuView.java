@@ -8,7 +8,6 @@ import view.helperclasses.CustomButtonView;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 
 /*
@@ -84,7 +83,7 @@ public class MenuView extends JPanel {
         };
     
         // Add the key binding to the JPanel, we have to do it for every bind... but no choice I guess è_é
-        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('q'), "goQuit");
+        this.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke('q'), "goQuit");
         this.getActionMap().put("goQuit", goQuit);
     }
     

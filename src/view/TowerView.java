@@ -66,4 +66,7 @@ public class TowerView {
     public static ImageIcon getIcon(TowerModel tower){
         return new ImageIcon(getSprite(tower));
     }
+
+    
+    
 }

@@ -62,6 +62,7 @@ public class MapEditorController {
     public void spawnPointEditorButtonClicked(){
         MapEditorModel.setMapEditorState(new SpawnState());
         EditStateView.setEditStateView(new SpawnEditView());
+        MapEditorModel.setSelectedTower(null);
         System.out.println("Choose a spawn area :");
     }
 
@@ -70,6 +71,7 @@ public class MapEditorController {
     public void targetPointEditorButtonClicked(){
         MapEditorModel.setMapEditorState(new TargetStateModel());
         EditStateView.setEditStateView(new TargetEditView());
+        MapEditorModel.setSelectedTower(null);
         System.out.println("Choose a target area :");
     }
 }

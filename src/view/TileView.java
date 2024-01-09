@@ -15,7 +15,7 @@ import model.map.tiletypes.PathTileType;
 import model.map.tiletypes.TileType;
 
 /*
- * this class is responsible for retriving the sprite of the tile depending on its id
+ * this class is responsible for retrieving the sprite of the tile depending on its id
  */
 public class TileView {
     private static final HashMap<TileType, BufferedImage> tileSprites = new HashMap<>();

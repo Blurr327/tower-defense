@@ -10,12 +10,23 @@ import model.gamelogic.GameModel;
 import model.gamelogic.ShmucklesModel;
 import model.map.MapEditorModel;
 import model.map.MapModel;
+import model.map.TileModel;
+import model.map.mapeditorstates.TileStateModel;
+import model.map.mapeditorstates.TowerState;
+import model.map.tiletypes.FlowerTileType;
+import model.map.tiletypes.GrassTileType;
+import model.map.tiletypes.PathTileType;
 import model.map.tiletypes.TileType;
+import model.towers.ElGatoModel;
+import model.towers.GoesBrrrrrrrModel;
+import model.towers.SteveModel;
 import model.towers.TowerFactory;
 import model.towers.TowerModel;
 import model.map.tiletypes.TileTypeManagerModel;
 import view.helperclasses.CustomButtonView;
-
+import view.mapviewstates.EditStateView;
+import view.mapviewstates.editingstateviews.TileEditStateView;
+import view.mapviewstates.editingstateviews.TowerEditView;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -30,6 +41,7 @@ import javax.swing.KeyStroke;
 import javax.swing.Action;
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
+import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
@@ -50,6 +62,10 @@ public class MapEditorView extends JPanel{
     // buttons used for switching to the spawn point editor and target point editor
     private CustomButtonView spawnPointEditorButton = new CustomButtonView("Spawn");
     private CustomButtonView targetPointEditorButton = new CustomButtonView("Target");
+
+    private CustomButtonView upgradeSelectedTowerButton = new CustomButtonView("UP ↑");
+
+    private TowerModel tower;
 
 
     public MapEditorView(){
@@ -77,7 +93,7 @@ public class MapEditorView extends JPanel{
         //initializing and positioning target point editor button
         add(targetPointEditorButton);
         targetPointEditorButton.setBounds(15, 85, 90, 30);
-        
+
         // add actions listenrs to the buttons
         addActionListeners();
 
@@ -133,8 +149,151 @@ public class MapEditorView extends JPanel{
         this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('s'), "SelectSpawn");
         this.getActionMap().put("SelectSpawn", SelectSpawn);
 
+        Action Upgrade = new AbstractAction() {
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                // Simulate a click on the settings button
+                if (MapEditorModel.getSelectedTower() != null){
+                    upgradeSelectedTowerButton.doClick();
+                    System.out.println("(With a pressed key)");
+                    System.out.println(MapEditorModel.getSelectedTower());
+                }
+                else {
+                    System.out.println("Select the tower you want to upgrade !");
+                }
+            }
+        };
+    
+        // Add the key binding to the JPanel, we have to do it for every bind... but no choice I guess è_é
+        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('u'), "Upgrade");
+        this.getActionMap().put("Upgrade", Upgrade);
+
+        TowerModel elgatoTower = new ElGatoModel();
+        TowerModel bunkerTower = new GoesBrrrrrrrModel();
+        TowerModel steveTower = new SteveModel();
+        Action selectElgatoTower = new AbstractAction() {
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                MapEditorModel.setMapEditorState(new TowerState());
+                EditStateView.setEditStateView(new TowerEditView());
+                MapEditorModel.setSelectedTower(elgatoTower);
+            }
+        };
+    
+        // Add the key binding to the JPanel, we have to do it for every bind... but no choice I guess è_é
+        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('w'), "selectElgatoTower");
+        this.getActionMap().put("selectElgatoTower", selectElgatoTower);
+
+        Action selectBunkerTower = new AbstractAction() {
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                MapEditorModel.setMapEditorState(new TowerState());
+                EditStateView.setEditStateView(new TowerEditView());
+                MapEditorModel.setSelectedTower(bunkerTower);
+            }
+        };
+    
+        // Add the key binding to the JPanel, we have to do it for every bind... but no choice I guess è_é
+        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('x'), "selectBunkerTower");
+        this.getActionMap().put("selectBunkerTower", selectBunkerTower);
+
+        Action selectSteveTower = new AbstractAction() {
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                MapEditorModel.setMapEditorState(new TowerState());
+                EditStateView.setEditStateView(new TowerEditView());
+                MapEditorModel.setSelectedTower(steveTower);
+            }
+        };
+    
+        // Add the key binding to the JPanel, we have to do it for every bind... but no choice I guess è_é
+        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('c'), "selectSteveTower");
+        this.getActionMap().put("selectSteveTower", selectSteveTower);
+
+
+        GrassTileType grassTile = new GrassTileType();
+        PathTileType pathTile = new PathTileType();
+        FlowerTileType flowerTile = new FlowerTileType();
         
+        Action selectGrassTile = new AbstractAction() {
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                if(GameModel.hasGameStarted()) {
+                    System.out.println("Can't modify map mid game");
+                    EditStateView.allowForbiddenMapModificationInfoToBeDrawn();
+                    return;
+                }
+                MapEditorModel.setMapEditorState(new TileStateModel());
+                EditStateView.setEditStateView(new TileEditStateView());
+                MapEditorModel.setSelectedTileType(grassTile);
+                MapEditorModel.setSelectedTower(null);
+            }
+        };
+    
+        // Add the key binding to the JPanel, we have to do it for every bind... but no choice I guess è_é
+        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('v'), "selectGrassTile");
+        this.getActionMap().put("selectGrassTile", selectGrassTile);
+        
+        Action selectPathTile = new AbstractAction() {
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                if(GameModel.hasGameStarted()) {
+                    System.out.println("Can't modify map mid game");
+                    EditStateView.allowForbiddenMapModificationInfoToBeDrawn();
+                    return;
+                }
+                MapEditorModel.setMapEditorState(new TileStateModel());
+                EditStateView.setEditStateView(new TileEditStateView());
+                MapEditorModel.setSelectedTileType(pathTile);
+                MapEditorModel.setSelectedTower(null);
+            }
+        };
+    
+        // Add the key binding to the JPanel, we have to do it for every bind... but no choice I guess è_é
+        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('b'), "selectPathTile");
+        this.getActionMap().put("selectPathTile", selectPathTile);
+
+        Action selectFlowerTile = new AbstractAction() {
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                if(GameModel.hasGameStarted()) {
+                    System.out.println("Can't modify map mid game");
+                    EditStateView.allowForbiddenMapModificationInfoToBeDrawn();
+                    return;
+                }
+                MapEditorModel.setMapEditorState(new TileStateModel());
+                EditStateView.setEditStateView(new TileEditStateView());
+                MapEditorModel.setSelectedTileType(flowerTile);
+                MapEditorModel.setSelectedTower(null);
+            }
+        };
+    
+        // Add the key binding to the JPanel, we have to do it for every bind... but no choice I guess è_é
+        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('n'), "selectFlowerTile");
+        this.getActionMap().put("selectFlowerTile", selectFlowerTile);
+
     }
+
+    public void actionPerformed(ActionEvent e, Class<? extends TileType> tileTypeClass) {
+        if (GameModel.hasGameStarted()) {
+            System.out.println("Can't modify map mid game");
+            EditStateView.allowForbiddenMapModificationInfoToBeDrawn();
+            return;
+        }
+        
+        MapEditorModel.setMapEditorState(new TileStateModel());
+        EditStateView.setEditStateView(new TileEditStateView());
+        
+        try {
+            TileType selectedTileType = tileTypeClass.getDeclaredConstructor().newInstance();
+            MapEditorModel.setSelectedTileType(selectedTileType);
+        } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException ex) {
+            ex.printStackTrace(); // Gérer les exceptions selon les besoins
+        }
+        
+        MapEditorModel.setSelectedTower(null);
+    }
+
 
     public void paintComponent(Graphics g){
         super.paintComponent(g);
@@ -179,6 +338,10 @@ public class MapEditorView extends JPanel{
         if(!(MapEditorModel.getSelectedTower() == null)){
             renderTowerStatsName(g);
             renderTowerStatsFirePower(g);
+            addUpgradeButton();
+        }
+        if (MapEditorModel.getSelectedTower() == null){
+            removeUpgradeButton();
         }
         renderShmuckles(g);
     }
@@ -217,6 +380,20 @@ public class MapEditorView extends JPanel{
 
     public CustomButtonView getResumeButton() {
         return resumeButton;
+    }
+
+    // the same but for the upgrade button
+    public void addUpgradeButton() {
+        add(upgradeSelectedTowerButton);
+        upgradeSelectedTowerButton.setBounds(222, 93, 60, 20);
+    }
+
+    public void removeUpgradeButton() {
+        remove(upgradeSelectedTowerButton);
+    }
+
+    public CustomButtonView getUpgradeButton() {
+        return upgradeSelectedTowerButton;
     }
 
     public void initTileButtons() {

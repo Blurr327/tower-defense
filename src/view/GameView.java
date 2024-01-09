@@ -64,6 +64,7 @@ public class GameView extends JPanel{
         bottomSectionView.getMapEditorView().getSwitchToPlayManagerButton().addActionListener(e -> gameController.switchToPlayAndStartGame());
         bottomSectionView.getPlayManagerView().getSwitchToEditButton().addActionListener(e -> gameController.switchToEdit());
         bottomSectionView.getMapEditorView().getResumeButton().addActionListener(e -> gameController.switchToPlay());
+        //bottomSectionView.getMapEditorView().getUpgradeButton().addActionListener(e -> );
         addKeyListener(gameController);
     }
 
