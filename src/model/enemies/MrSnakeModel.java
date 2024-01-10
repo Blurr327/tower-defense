@@ -5,12 +5,12 @@ import model.gamelogic.BaseModel;
 public class MrSnakeModel extends EnemyModel{
     private static int health = 100;
     private static int damage = 20;
-    private static float speed = 0.1f;
+    private static float speed = 0.2f;
     private static int attackSpeed = 1000;
     private static int id;
 
     public MrSnakeModel() {
-        super(health, speed * EnemyModel.getDifficultyMultiplierSpeed(), damage, attackSpeed);
+        super((int)(health * EnemyModel.getDifficultyMultiplierSpeed()), speed, (int)(damage * EnemyModel.getDifficultyMultiplierSpeed()), attackSpeed);
     }
 
     @Override

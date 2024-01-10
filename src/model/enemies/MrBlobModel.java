@@ -10,7 +10,7 @@ public class MrBlobModel extends EnemyModel{
     private static int id;
 
     public MrBlobModel() {
-        super(health, speed * EnemyModel.getDifficultyMultiplierSpeed(), damage, attackSpeed);
+        super(health, speed * EnemyModel.getDifficultyMultiplierSpeed(), (int) (damage * EnemyModel.getDifficultyMultiplierSpeed()), attackSpeed);
     }
     
     @Override

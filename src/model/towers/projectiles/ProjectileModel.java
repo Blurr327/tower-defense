@@ -4,6 +4,7 @@ import model.enemies.EnemyModel;
 import model.gamelogic.CoordinatesHelper;
 import model.gamelogic.MapComponentModel;
 import model.gamelogic.Upgradable;
+import model.towers.TowerModel;
 import view.AppView;
 
 public abstract class ProjectileModel extends MapComponentModel implements Upgradable{
@@ -46,6 +47,11 @@ public abstract class ProjectileModel extends MapComponentModel implements Upgra
     public void applyDamage(EnemyModel enemy) {
         enemy.setHealth(enemy.getHealth() - damage);
         applySpecialEffect(enemy);
+    }
+
+    public void applyDamage (EnemyModel enemy, TowerModel tower) {
+        int damage = tower.getDamage();
+        enemy.takeDamage(damage);
     }
 
     public boolean isInRange(EnemyModel enemy) {
@@ -114,6 +120,14 @@ public abstract class ProjectileModel extends MapComponentModel implements Upgra
         cost += upgradeCost;
         upgradeSpecialEffect();
         level++;
+        //System.out.println("Ammunition got upgraded");
+    }
+
+    public void downgrade() {
+        damage -= 1;
+        cost -= upgradeCost;
+        level--;
+        //System.out.println("Ammunition got downgraded");
     }
 
 

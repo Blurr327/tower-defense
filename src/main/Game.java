@@ -39,7 +39,7 @@ public class Game implements Runnable{
             () ->  {
                 try{
                     new Game();
-                    System.out.println("Vous êtes dans le menu ! Tapez S pour accéder aux paramètres, tapez P pour démarrer le jeu, tapez Q pour quitter");
+                    System.out.println("Welcome ! :) \n You can go to the Settings by pressing s, if you want to play press p, q if you want to leave :(");
                 }
                 catch(Exception e){
                     e.printStackTrace();

@@ -5,12 +5,12 @@ import model.gamelogic.BaseModel;
 public class MrSlimeModel extends EnemyModel{
     private static int health = 50;
     private static int damage = 10;
-    private static float speed = 0.05f;
+    private static float speed = 0.04f;
     private static int attackSpeed = 1000;
     private static int id;
 
     public MrSlimeModel() {
-        super(health, speed * EnemyModel.getDifficultyMultiplierSpeed(), damage, attackSpeed);
+        super((int)(health * EnemyModel.getDifficultyMultiplierSpeed()), speed, damage, attackSpeed);
     }
 
     @Override

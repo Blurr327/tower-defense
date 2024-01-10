@@ -119,12 +119,10 @@ public class GameController implements KeyListener {
 
     public void updateGame(){
         if(GameModel.checkGameOverCondition()){
-            // TODO: Show game over message 
             switchToEditAndEndGame();
             System.out.println("You lost :(");
         }
         else if(WaveModel.getWaveModelState().checkNextWaveCondition()){
-            // TODO: Show next wave message and congratulate player
             System.out.println("Wave cleared !");
             WaveModel.getWaveModelState().handleNextWaveCondition();
             if(WaveModel.getWaveModelState() instanceof NormalWaveState) {

@@ -47,7 +47,7 @@ public class WaveModel extends ArrayList<EnemyModel>{
         calculatePercentageOfATierEnemies();
         enemies.add(EnemyFactory.createRandomCTierEnemy());
         numberOfCTierEnemies--;
-        System.out.println(numberOfBTierEnemies);
+        //System.out.println(numberOfBTierEnemies);
         spawnEnemies();
 
     }
@@ -146,7 +146,7 @@ public class WaveModel extends ArrayList<EnemyModel>{
     }
 
     private static void addCtierThenTheRest(){
-        System.out.println(numberOfCTierEnemies);
+        //System.out.println(numberOfCTierEnemies);
         if(numberOfCTierEnemies<=0 || stopSpawning){
             if(!stopSpawning) addBTierThenTheRest();
             return;

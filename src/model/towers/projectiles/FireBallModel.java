@@ -10,7 +10,7 @@ public class FireBallModel extends ProjectileModel{
     private Timer pacificationTimer;
     private int pacificationDuration = 1000;
     private static double range = 0.4;
-    private static float speed = 0.3f;
+    private static float speed = 6;
 
 
     public FireBallModel() {

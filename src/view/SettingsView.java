@@ -160,15 +160,15 @@ public class SettingsView extends JPanel {
                 switch (newDifficulty){
                     case 1:
                         getChangeDifficultyToEasyButton().doClick();
-                        System.out.println("Enemies are now 25% slower :D");
+                        System.out.println("Chill :D");
                         break;
                     case 2:
                         getChangeDifficultyToNormalButton().doClick();
-                        System.out.println("Enemies pace unchanged :)");
+                        System.out.println("Enemies' stats unchanged :)");
                         break;
                     case 3:
                         getChangeDifficultyToHardButton().doClick();
-                        System.out.println("Enemies are now 25% faster (°)_(°)'");
+                        System.out.println("Enemies are now stronger (°)_(°)'");
                         break;
                 }
             }

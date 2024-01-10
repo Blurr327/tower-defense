@@ -22,6 +22,7 @@ public abstract class TowerModel extends AggressiveModel implements Upgradable {
     protected List<EnemyModel> enemiesInRange = new ArrayList<>();
     protected EnemyModel currentTargetEnemy;
     protected ArrayList<ProjectileModel> projectilesShot = new ArrayList<>();
+    public static int count = 0;
 
     public TowerModel(int range, int attackSpeed, ProjectileModel projectile, int attackSpeedUpgradeCost, int rangeUpgradeCost) {
         super(attackSpeed);
@@ -46,13 +47,6 @@ public abstract class TowerModel extends AggressiveModel implements Upgradable {
     public abstract void attack();
 
     public abstract TowerModel newInstance();
-
-    public void upgrade(){
-        projectile.upgrade();
-        range += 1;
-        cost += upgradeCost;
-        level++;
-    }
 
     public void setUpgradeCost(int upgradeCost) {
         this.upgradeCost = upgradeCost;
@@ -96,8 +90,8 @@ public abstract class TowerModel extends AggressiveModel implements Upgradable {
         for (ProjectileModel projectile : projectilesShot) {
             projectile.move();
             if (projectile.isInRange(currentTargetEnemy)) {
-                System.out.println("Projectile hit enemy");
-                projectile.applyDamage(currentTargetEnemy);
+                //System.out.println("Projectile hit enemy");
+                projectile.applyDamage(currentTargetEnemy, this);
                 projectilesToRemove.add(projectile);
             }
         }
@@ -149,8 +143,22 @@ public abstract class TowerModel extends AggressiveModel implements Upgradable {
         return projectile;
     }
 
+    public static void resetCount() {
+        count = 0;
+    }
+
     public abstract String getName();
 
     public abstract float getFireRate();
+
+    public abstract int getDamage();
+    
+    public abstract void upgrade();
+    
+    public abstract void downgrade();
+
+    public abstract void increaseCount();
+
+    public abstract void decreaseCount();
 
 }

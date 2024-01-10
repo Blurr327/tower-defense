@@ -19,6 +19,7 @@ public class TowerState implements MapEditorState{
                 }
                 else if(MapEditorModel.selectedTowerTileIsValid()) {
                         ShmucklesModel.buyTower(MapEditorModel.getSelectedTower());
+                        MapEditorModel.getSelectedTower().increaseCount();
                         MapEditorModel.placeSelectedTower();
                     }
                 else {

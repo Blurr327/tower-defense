@@ -17,7 +17,7 @@ import javax.swing.ImageIcon;
 
 public class TowerView {
     private static HashMap<TowerModel, BufferedImage> towerSprites = new HashMap<TowerModel, BufferedImage>();
-    private static final MessagesView towerRemovalInfo = new MessagesView("Right click on a tower to remove it");
+    private static final MessagesView towerRemovalInfo = new MessagesView("Press u/i to upgrade/downgrade, right click to remove the tower.");
 
     public static void renderTower(Graphics g, TowerModel tower){
         g.drawImage(getSprite(tower), (int) tower.getX()*AppView.UNIT_SIZE, (int) tower.getY()*AppView.UNIT_SIZE, null);

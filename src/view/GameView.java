@@ -5,10 +5,12 @@ import javax.swing.*;
 
 import controller.GameController;
 import controller.MapController;
+import controller.MapEditorController;
 import model.gamelogic.BottomSectionModel;
 import model.gamelogic.WaveModel;
 import model.gamelogic.wavestates.NormalWaveState;
 import model.map.MapModel;
+import model.towers.*;
 import view.helperclasses.CustomButtonView;
 
 import java.awt.event.ActionEvent;
@@ -61,10 +63,27 @@ public class GameView extends JPanel{
     }
     
     public void addActionListeners(){
-        bottomSectionView.getMapEditorView().getSwitchToPlayManagerButton().addActionListener(e -> gameController.switchToPlayAndStartGame());
+        bottomSectionView.getMapEditorView().getSwitchToPlayManagerButton().addActionListener(e -> {
+            ElGatoModel.resetCount();
+            GoesBrrrrrrrModel.resetCount();
+            SteveModel.resetCount();
+            gameController.switchToPlayAndStartGame();
+        });
         bottomSectionView.getPlayManagerView().getSwitchToEditButton().addActionListener(e -> gameController.switchToEdit());
         bottomSectionView.getMapEditorView().getResumeButton().addActionListener(e -> gameController.switchToPlay());
-        //bottomSectionView.getMapEditorView().getUpgradeButton().addActionListener(e -> );
+        // TODO: implement update enemies
+        bottomSectionView.getMapEditorView().getUpgradeButton().addActionListener(e -> {
+            TowerModel selectedTower = MapEditorController.getSelectedTower();
+            if (selectedTower != null) {
+                selectedTower.upgrade();
+            }
+        });
+        bottomSectionView.getMapEditorView().getDowngradeButton().addActionListener(e -> {
+            TowerModel selectedTower = MapEditorController.getSelectedTower();
+            if (selectedTower != null) {
+                selectedTower.downgrade();
+            }
+        });
         addKeyListener(gameController);
     }
 

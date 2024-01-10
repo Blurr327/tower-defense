@@ -39,6 +39,7 @@ public class MapEditorController {
         MapEditorModel.setMapEditorState(new TowerState());
         EditStateView.setEditStateView(new TowerEditView());
         MapEditorModel.setSelectedTower(tower);
+        System.out.println("Tower selected : " + tower.getName());
     }
 
     // this method is called when the user clicks on a tile button (present in the bottom section)
@@ -73,5 +74,9 @@ public class MapEditorController {
         EditStateView.setEditStateView(new TargetEditView());
         MapEditorModel.setSelectedTower(null);
         System.out.println("Choose a target area :");
+    }
+
+    public static TowerModel getSelectedTower() {
+        return MapEditorModel.getSelectedTower();
     }
 }

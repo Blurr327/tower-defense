@@ -15,7 +15,7 @@ import java.awt.event.ActionEvent;
  *
  */
 public class MenuView extends JPanel {
-    CustomButtonView switchToGameButton = new CustomButtonView("Start");
+    CustomButtonView switchToGameButton = new CustomButtonView("Play");
     CustomButtonView switchToSettingsButton = new CustomButtonView("Settings");
     CustomButtonView quitButton = new CustomButtonView("Quit");
 
@@ -65,7 +65,8 @@ public class MenuView extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 // Simulate a click on the settings button
                 getSwitchToGameButton().doClick();
-                System.out.println("You are in the game, you can press m to go back to the menu !");
+                System.out.println("You are in the game, here's the keybinding : ");
+                System.out.println("v, b, n for the tile, w, x, c for the tower, you can upgrade/downgrade with u/i");
             }
         };
     

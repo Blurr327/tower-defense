@@ -10,7 +10,7 @@ public class YarnBallModel extends ProjectileModel{
     private static Timer pacificationTimer;
     private static int pacificationDuration = 3000;
     private static double range = 0.4;
-    private static float speed =1; // this is the speed of the projectile in pixels per frame
+    private static float speed = 3; // this is the speed of the projectile in pixels per frame
 
     public YarnBallModel() {
         super(damage, upgradeCost, range, speed);

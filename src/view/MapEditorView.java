@@ -63,7 +63,8 @@ public class MapEditorView extends JPanel{
     private CustomButtonView spawnPointEditorButton = new CustomButtonView("Spawn");
     private CustomButtonView targetPointEditorButton = new CustomButtonView("Target");
 
-    private CustomButtonView upgradeSelectedTowerButton = new CustomButtonView("UP ↑");
+    private CustomButtonView upgradeSelectedTowerButton = new CustomButtonView("↑");
+    private CustomButtonView downgradeSelectedTowerButton = new CustomButtonView("↓");
 
     private TowerModel tower;
 
@@ -156,7 +157,7 @@ public class MapEditorView extends JPanel{
                 if (MapEditorModel.getSelectedTower() != null){
                     upgradeSelectedTowerButton.doClick();
                     System.out.println("(With a pressed key)");
-                    System.out.println(MapEditorModel.getSelectedTower());
+                    //System.out.println(MapEditorModel.getSelectedTower());
                 }
                 else {
                     System.out.println("Select the tower you want to upgrade !");
@@ -168,6 +169,25 @@ public class MapEditorView extends JPanel{
         this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('u'), "Upgrade");
         this.getActionMap().put("Upgrade", Upgrade);
 
+        Action Downgrade = new AbstractAction() {
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                // Simulate a click on the settings button
+                if (MapEditorModel.getSelectedTower() != null){
+                    downgradeSelectedTowerButton.doClick();
+                    System.out.println("(With a pressed key)");
+                    //System.out.println(MapEditorModel.getSelectedTower());
+                }
+                else {
+                    System.out.println("Select the tower you want to dowgrade !");
+                }
+            }
+        };
+    
+        // Add the key binding to the JPanel, we have to do it for every bind... but no choice I guess è_é
+        this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('i'), "Downgrade");
+        this.getActionMap().put("Downgrade", Downgrade);
+
         TowerModel elgatoTower = new ElGatoModel();
         TowerModel bunkerTower = new GoesBrrrrrrrModel();
         TowerModel steveTower = new SteveModel();
@@ -177,6 +197,7 @@ public class MapEditorView extends JPanel{
                 MapEditorModel.setMapEditorState(new TowerState());
                 EditStateView.setEditStateView(new TowerEditView());
                 MapEditorModel.setSelectedTower(elgatoTower);
+                System.out.println("Cat has been selected");
             }
         };
     
@@ -190,6 +211,7 @@ public class MapEditorView extends JPanel{
                 MapEditorModel.setMapEditorState(new TowerState());
                 EditStateView.setEditStateView(new TowerEditView());
                 MapEditorModel.setSelectedTower(bunkerTower);
+                System.out.println("Bunker has been selected");
             }
         };
     
@@ -203,6 +225,7 @@ public class MapEditorView extends JPanel{
                 MapEditorModel.setMapEditorState(new TowerState());
                 EditStateView.setEditStateView(new TowerEditView());
                 MapEditorModel.setSelectedTower(steveTower);
+                System.out.println("Steve has been selected");
             }
         };
     
@@ -227,6 +250,7 @@ public class MapEditorView extends JPanel{
                 EditStateView.setEditStateView(new TileEditStateView());
                 MapEditorModel.setSelectedTileType(grassTile);
                 MapEditorModel.setSelectedTower(null);
+                System.out.println("You can now place grass");
             }
         };
     
@@ -246,6 +270,7 @@ public class MapEditorView extends JPanel{
                 EditStateView.setEditStateView(new TileEditStateView());
                 MapEditorModel.setSelectedTileType(pathTile);
                 MapEditorModel.setSelectedTower(null);
+                System.out.println("You can now place selecPathTile");
             }
         };
     
@@ -265,6 +290,7 @@ public class MapEditorView extends JPanel{
                 EditStateView.setEditStateView(new TileEditStateView());
                 MapEditorModel.setSelectedTileType(flowerTile);
                 MapEditorModel.setSelectedTower(null);
+                System.out.println("You can now place some flowers");
             }
         };
     
@@ -339,9 +365,11 @@ public class MapEditorView extends JPanel{
             renderTowerStatsName(g);
             renderTowerStatsFirePower(g);
             addUpgradeButton();
+            addDowngradeButton();
         }
         if (MapEditorModel.getSelectedTower() == null){
             removeUpgradeButton();
+            removeDowngradeButton();
         }
         renderShmuckles(g);
     }
@@ -394,6 +422,20 @@ public class MapEditorView extends JPanel{
 
     public CustomButtonView getUpgradeButton() {
         return upgradeSelectedTowerButton;
+    }
+
+    // downgrade
+    public void addDowngradeButton() {
+        add(downgradeSelectedTowerButton);
+        downgradeSelectedTowerButton.setBounds(151, 93, 60, 20);
+    }
+
+    public void removeDowngradeButton() {
+        remove(downgradeSelectedTowerButton);
+    }
+
+    public CustomButtonView getDowngradeButton() {
+        return downgradeSelectedTowerButton;
     }
 
     public void initTileButtons() {

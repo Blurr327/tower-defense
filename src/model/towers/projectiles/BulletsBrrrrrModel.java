@@ -10,7 +10,7 @@ public class BulletsBrrrrrModel extends ProjectileModel{
     private Timer pacificationTimer;
     private int pacificationDuration = 1000;
     private static double range = 0.2;
-    private static float speed = 0.5f;
+    private static float speed = 10;
 
 
     public BulletsBrrrrrModel() {
