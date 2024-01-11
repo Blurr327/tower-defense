@@ -1,3 +1,12 @@
 # Tower Defense Project
 Pour lancer le jeu depuis vscode : 
-Il suffit d'ouvrir n'importe quel fichier et appuyer sur F5
+Ouvrir le dossier du projet
+Aller dans le dossier src
+Aller dans le dossier main
+Puis lancer Game.java
+(En réalité, ouvrir n'importe quelle fichier .java et appuyer sur F5 lance le jeu)
+
+Pour lancer le jeu depuis le terminal linux : 
+naviguez vers tower-defense
+puis écrire :
+java -cp bin main.Game
