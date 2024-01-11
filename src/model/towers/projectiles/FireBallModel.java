@@ -35,7 +35,12 @@ public class FireBallModel extends ProjectileModel{
 
     @Override
     public ProjectileModel newInstance() {
-        return new FireBallModel();
+        FireBallModel copy = new FireBallModel();
+        copy.setDamage(super.damage);
+        copy.setRange(super.range);
+        copy.setCost(super.cost);
+        copy.setSpeed(super.speed);
+        return copy;
     }
     
 }
