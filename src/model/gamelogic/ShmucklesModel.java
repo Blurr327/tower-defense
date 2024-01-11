@@ -3,7 +3,7 @@ package model.gamelogic;
 import model.towers.TowerModel;
 
 public class ShmucklesModel {
-    private static int shmuckles = 100;
+    private static int shmuckles = 120;
 
     public static int getShmuckles() {
         return shmuckles;

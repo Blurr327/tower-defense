@@ -7,7 +7,7 @@ import model.towers.projectiles.ProjectileModel;
 public class GoesBrrrrrrrModel extends TowerModel {
 
     private static int range = 4;
-    private static int attackSpeed = 300;
+    private static int attackSpeed = 500;
     private static int attackSpeedUpgradeCost = 100;
     private static int rangeUpgradeCost = 100;
     private static String name = "Bunker";

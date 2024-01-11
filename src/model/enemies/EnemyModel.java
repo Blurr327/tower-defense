@@ -80,11 +80,11 @@ public abstract class EnemyModel extends AggressiveModel {
     private int calculateReward(){
         switch (this.tier){
             case A:
-                return 100;
+                return 60;
             case B:
-                return 50;
+                return 30;
             case C:
-                return 25;
+                return 15;
             default:
                 return 0;
         }
