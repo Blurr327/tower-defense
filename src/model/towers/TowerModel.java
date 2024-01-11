@@ -2,7 +2,6 @@ package model.towers;
 
 import model.enemies.EnemyModel;
 import model.gamelogic.AggressiveModel;
-import model.gamelogic.ShmucklesModel;
 import model.gamelogic.Upgradable;
 import model.map.MapModel;
 import model.map.TileModel;
@@ -92,7 +91,7 @@ public abstract class TowerModel extends AggressiveModel implements Upgradable {
             projectile.move();
             if (projectile.isInRange(currentTargetEnemy)) {
                 //System.out.println("Projectile hit enemy");
-                projectile.applyDamage(currentTargetEnemy);
+                projectile.applyDamage(currentTargetEnemy, this);
                 projectilesToRemove.add(projectile);
             }
         }
@@ -136,7 +135,6 @@ public abstract class TowerModel extends AggressiveModel implements Upgradable {
                 }
             }
         }
-        System.out.println(tilesWithinRange);
         return tilesWithinRange;
     }
 
@@ -149,44 +147,15 @@ public abstract class TowerModel extends AggressiveModel implements Upgradable {
         count = 0;
     }
 
-    public void upgrade(){
-        if (level < 10) {
-            if (ShmucklesModel.getShmuckles() - upgradeCost >= 0){
-                projectile.upgrade();
-                range += 2;
-                cost += upgradeCost;
-                level++;
-                ShmucklesModel.setShmuckles(ShmucklesModel.getShmuckles() - upgradeCost);
-                System.out.println("Upgrade successful");
-            }
-            else {
-                System.out.println("Not enough shmuckles");
-            }
-            
-        }
-        else {
-            System.out.println("Tower is already at max level");
-        }
-    }
-
-    public void downgrade() {
-        if (level > 1) {
-            projectile.downgrade();
-            range -= 2;
-            cost -= upgradeCost;
-            level--;
-            ShmucklesModel.setShmuckles(ShmucklesModel.getShmuckles() + upgradeCost);
-            System.out.println("Downgrade successful");
-        }
-        else {
-            System.out.println("Tower is already at min level");
-        }
-    }
-
-
     public abstract String getName();
 
     public abstract float getFireRate();
+
+    public abstract int getDamage();
+    
+    public abstract void upgrade();
+    
+    public abstract void downgrade();
 
     public abstract void increaseCount();
 

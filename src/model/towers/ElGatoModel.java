@@ -31,12 +31,7 @@ public class ElGatoModel extends TowerModel{
     
     @Override
     public TowerModel newInstance() {
-        ElGatoModel copy = new ElGatoModel();
-        copy.setAttackSpeed(super.attackSpeed);
-        copy.setRange(super.range);
-        copy.setCost(super.cost);
-
-        return copy;
+        return new ElGatoModel();
     }
 
     @Override
@@ -49,6 +44,47 @@ public class ElGatoModel extends TowerModel{
         double mtos = (double) attackSpeed / 1000;
         double rpm = 60/mtos;
         return (float)rpm;
+    }
+
+    @Override 
+    public int getDamage() {
+        return projectile.getDamage();
+    }
+
+    @Override
+    public void upgrade(){
+        if (level < 10) {
+            if (ShmucklesModel.getShmuckles() - upgradeCost*count >= 0){
+                projectile.upgrade();
+                range += 1;
+                cost += upgradeCost;
+                level++;
+                ShmucklesModel.setShmuckles(ShmucklesModel.getShmuckles() - upgradeCost*count);
+                System.out.println("Upgrade successful");
+            }
+            else {
+                System.out.println("Not enough shmuckles");
+            }
+            
+        }
+        else {
+            System.out.println("Tower is already at max level");
+        }
+    }
+
+    @Override
+    public void downgrade() {
+        if (level > 1) {
+            projectile.downgrade();
+            range -= 1;
+            cost -= upgradeCost;
+            level--;
+            ShmucklesModel.setShmuckles(ShmucklesModel.getShmuckles() + upgradeCost*count);
+            System.out.println("Downgrade successful");
+        }
+        else {
+            System.out.println("Tower is already at min level");
+        }
     }
 
     @Override
