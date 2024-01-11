@@ -136,7 +136,6 @@ public abstract class TowerModel extends AggressiveModel implements Upgradable {
                 }
             }
         }
-        System.out.println(tilesWithinRange);
         return tilesWithinRange;
     }
 
@@ -192,4 +191,5 @@ public abstract class TowerModel extends AggressiveModel implements Upgradable {
 
     public abstract void decreaseCount();
 
+    public abstract void resetStats();
 }

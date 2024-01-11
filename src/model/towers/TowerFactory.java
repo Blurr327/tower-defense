@@ -19,4 +19,9 @@ public class TowerFactory {
     public static Iterator<TowerModel> getTowerIterator(){
         return allTowers.iterator();
     }
+
+    public static void resetStats(){
+        allTowers.forEach(tower -> tower.resetStats());
+    }
+    
 }

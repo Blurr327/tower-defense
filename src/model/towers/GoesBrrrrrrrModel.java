@@ -8,7 +8,6 @@ public class GoesBrrrrrrrModel extends TowerModel {
 
     private static int range = 4;
     private static int attackSpeed = 300;
-    private static ProjectileModel projectile = new BulletsBrrrrrModel();
     private static int attackSpeedUpgradeCost = 100;
     private static int rangeUpgradeCost = 100;
     private static String name = "Bunker";
@@ -16,7 +15,7 @@ public class GoesBrrrrrrrModel extends TowerModel {
    
 
     public GoesBrrrrrrrModel() {
-        super(range, attackSpeed, projectile, attackSpeedUpgradeCost, rangeUpgradeCost);
+        super(range, attackSpeed, new BulletsBrrrrrModel(), attackSpeedUpgradeCost, rangeUpgradeCost);
     }
 
     @Override
@@ -34,7 +33,7 @@ public class GoesBrrrrrrrModel extends TowerModel {
         copy.setAttackSpeed(super.attackSpeed);
         copy.setRange(super.range);
         copy.setCost(super.cost);
-
+        copy.projectile = super.projectile.newInstance();
         return copy;
     }
 
@@ -64,5 +63,14 @@ public class GoesBrrrrrrrModel extends TowerModel {
 
     public static void resetCount() {
         count = 0;
+    }
+
+    @Override
+    public void resetStats() {
+        projectile.resetStats();
+        super.range = range;
+        super.attackSpeed = attackSpeed;
+        super.cost = calculateInitialCost();
+        level = 1;
     }
 }

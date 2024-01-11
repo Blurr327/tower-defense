@@ -39,6 +39,14 @@ public class YarnBallModel extends ProjectileModel{
         copy.setRange(super.range);
         copy.setCost(super.cost);
         copy.setSpeed(super.speed);
-        return new YarnBallModel();
+        return copy;
+    }
+
+    public void resetStats() {
+        super.damage = damage;
+        super.range = range;
+        super.speed = speed;
+        super.cost = calculateInitialCost();
+        level = 1;
     }
 }

@@ -162,4 +162,5 @@ public abstract class ProjectileModel extends MapComponentModel implements Upgra
         this.range = range;
     }
 
+    public abstract void resetStats();
 }

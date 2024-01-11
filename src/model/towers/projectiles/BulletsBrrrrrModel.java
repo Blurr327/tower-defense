@@ -43,4 +43,11 @@ public class BulletsBrrrrrModel extends ProjectileModel{
         return copy;
     }
     
+    public void resetStats() {
+        super.damage = damage;
+        super.range = range;
+        super.speed = speed;
+        super.cost = calculateInitialCost();
+        level = 1;
+    }
 }

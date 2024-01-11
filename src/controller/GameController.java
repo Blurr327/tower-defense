@@ -18,6 +18,7 @@ import model.gamelogic.wavestates.MarathonWaveState;
 import model.gamelogic.wavestates.NormalWaveState;
 import model.map.MapModel;
 import model.map.TileModel;
+import model.towers.TowerFactory;
 import model.towers.TowerManagerModel;
 import view.AppView;
 import view.GameView;
@@ -90,6 +91,8 @@ public class GameController implements KeyListener {
         WaveController.initWave();
         // initializing the shmuckles
         ShmucklesModel.initShmuckles();
+
+        TowerFactory.resetStats();
         
         GameModel.setGameStarted(true);
         // running the loop to update gamelogic
@@ -102,6 +105,7 @@ public class GameController implements KeyListener {
         TowerManagerModel.clearTowers();
         ShmucklesModel.initShmuckles();
         MapModel.iniTiles();
+        TowerFactory.resetStats();
         endWave();
         // stopping the update loop
         stopUpdateLoop();

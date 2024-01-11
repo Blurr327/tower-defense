@@ -9,7 +9,6 @@ import model.towers.projectiles.YarnBallModel;
 public class ElGatoModel extends TowerModel{
     private static int range = 1;
     private static int attackSpeed = 1000;
-    private static ProjectileModel projectile = new YarnBallModel();
     private static int attackSpeedUpgradeCost = 30;
     private static int rangeUpgradeCost = 30;
     private static String name = "Tower Cat";
@@ -17,7 +16,7 @@ public class ElGatoModel extends TowerModel{
    
 
     public ElGatoModel() {
-        super(range, attackSpeed, projectile, attackSpeedUpgradeCost, rangeUpgradeCost);
+        super(range, attackSpeed, new YarnBallModel(), attackSpeedUpgradeCost, rangeUpgradeCost);
     }
 
     @Override
@@ -35,7 +34,7 @@ public class ElGatoModel extends TowerModel{
         copy.setAttackSpeed(super.attackSpeed);
         copy.setRange(super.range);
         copy.setCost(super.cost);
-
+        copy.projectile = super.projectile.newInstance();
         return copy;
     }
 
@@ -65,5 +64,14 @@ public class ElGatoModel extends TowerModel{
 
     public static void resetCount() {
         count = 0;
+    }
+
+    @Override
+    public void resetStats() {
+        projectile.resetStats();
+        super.range = range;
+        super.attackSpeed = attackSpeed;
+        super.cost = calculateInitialCost();
+        level = 1;
     }
 }
