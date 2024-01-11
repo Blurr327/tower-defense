@@ -75,11 +75,12 @@ public class AppView extends JFrame {
     }
 
     public String getActiveCard() {
-        return switch (AppModel.getAppMode()){
-            case MENU -> "menu";
-            case SETTINGS -> "settings";
-            case GAME -> "game";
-        };
+        switch (AppModel.getAppMode()){
+            case MENU: return "menu";
+            case SETTINGS: return "settings";
+            case GAME: return "game";
+            default: return "menu";
+        }
     }
 
     private void initCardLayout() {

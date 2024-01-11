@@ -67,7 +67,8 @@ public class MapController implements MouseMotionListener, MouseListener {
 
         if(GameModel.getGameMode().equals(GameModel.GameMode.PLAY)) return;
         else if(e.getButton() == MouseEvent.BUTTON3) {
-            if(MapModel.getTileAt(x, y).getMapComponent() instanceof TowerModel t) {
+            if(MapModel.getTileAt(x, y).getMapComponent() instanceof TowerModel) {
+                TowerModel t = (TowerModel) MapModel.getTileAt(x, y).getMapComponent();
                 ShmucklesModel.sellTower(t);
                 t.decreaseCount();
             }
