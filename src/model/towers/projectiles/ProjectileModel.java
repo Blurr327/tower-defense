@@ -8,15 +8,14 @@ import model.towers.TowerModel;
 import view.AppView;
 
 public abstract class ProjectileModel extends MapComponentModel implements Upgradable{
-    protected float xVelocity; // this is the x component of the velocity vector of the projectile
-    protected float yVelocity; // this is the y component of the velocity vector of the projectile
-    protected int damage;
-    protected int level;
-    protected int upgradeCost;
-    protected int cost;
-    protected double range; // using double for more precision
-
-    protected float speed; // this is the speed of the projectile in pixels per frame
+    private float xVelocity; // this is the x component of the velocity vector of the projectile
+    private float yVelocity; // this is the y component of the velocity vector of the projectile
+    private int damage;
+    private int level;
+    private int upgradeCost;
+    private int cost;
+    private double range; // using double for more precision
+    private float speed; // this is the speed of the projectile in pixels per frame
 
 
     public ProjectileModel(int damage ,int upgradeCost, double range, float speed) {
@@ -48,6 +47,11 @@ public abstract class ProjectileModel extends MapComponentModel implements Upgra
     public void applyDamage(EnemyModel enemy) {
         enemy.setHealth(enemy.getHealth() - damage);
         applySpecialEffect(enemy);
+    }
+
+    public void applyDamage (EnemyModel enemy, TowerModel tower) {
+        int damage = tower.getDamage();
+        enemy.takeDamage(damage);
     }
 
     public boolean isInRange(EnemyModel enemy) {
@@ -153,13 +157,4 @@ public abstract class ProjectileModel extends MapComponentModel implements Upgra
     public void setSpeed(float speed) {
         this.speed = speed;
     }
-
-        public double getRange() {
-        return range;
-    }
-
-    public void setRange(double range) {
-        this.range = range;
-    }
-
 }

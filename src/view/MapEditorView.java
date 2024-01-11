@@ -337,7 +337,7 @@ public class MapEditorView extends JPanel{
     // to display the stats of the tower (costs, range, ...)
     public void renderTowerStatsName (Graphics g){
         g.setColor(Color.black);
-        g.setFont(new Font("Dialog", Font.PLAIN, (AppView.UNIT_SIZE/2)-(AppView.UNIT_SIZE/6) )); 
+        g.setFont(new Font("Dialog", Font.PLAIN, AppView.UNIT_SIZE/2)); 
         if (MapEditorModel.getSelectedTower() != null) {
             String ident = MapEditorModel.getSelectedTower().getName() 
                                 + " lvl " + MapEditorModel.getSelectedTower().getLevel()
@@ -348,7 +348,7 @@ public class MapEditorView extends JPanel{
 
     public void renderTowerStatsFirePower (Graphics g){
         g.setColor(Color.black);
-        g.setFont(new Font("Dialog", Font.PLAIN, (AppView.UNIT_SIZE/2)-(AppView.UNIT_SIZE/6))); 
+        g.setFont(new Font("Dialog", Font.PLAIN, AppView.UNIT_SIZE/2)); 
         if (MapEditorModel.getSelectedTower() != null) {
             String statistics = "Range : " + MapEditorModel.getSelectedTower().getRange()  
                                 + " | Damage : " + MapEditorModel.getSelectedTower().getProjectile().getDamage()
